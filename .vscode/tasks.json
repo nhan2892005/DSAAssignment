@@ -32,6 +32,19 @@
                 "${fileDirname}/${fileBasenameNoExtension}"
             ],
             "problemMatcher": []
+        },
+        {
+            "label": "Check memory leaks",
+            "type": "shell",
+            "command": "valgrind",
+            "args": [
+                "--leak-check=full",
+                "--show-leak-kinds=all",
+                "--track-origins=yes",
+                "--verbose",
+                "--log-file=${fileDirname}/valgrind-out.txt",
+                "${fileDirname}/${fileBasenameNoExtension}","1"
+            ],
         }
     ],
     "version": "2.0.0"
