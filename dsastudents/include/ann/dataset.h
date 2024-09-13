@@ -34,6 +34,11 @@ private:
     xt::xarray<DType> data;
     xt::xarray<LType> label;
 public:
+    Batch() {
+        // Initialize with empty xarrays
+        data = xt::xarray<DType>();
+        label = xt::xarray<LType>();
+    }
     Batch(xt::xarray<DType> data,  xt::xarray<LType> label):
     data(data), label(label){
     }
@@ -71,17 +76,46 @@ public:
      * 1. data, label;
      * 2. data_shape, label_shape
     */
-    TensorDataset(xt::xarray<DType> data, xt::xarray<LType> label){
-        /* TODO: your code is here for the initialization
-         */
+    TensorDataset(const xt::xarray<DType>& data, const xt::xarray<LType>& label)
+        : data(data), label(label) {
+        this->data_shape = this->data.shape();
+        this->label_shape = this->label.shape();
     }
+
+    // Copy constructor
+    TensorDataset(const TensorDataset& other)
+        : data(other.data), label(other.label),
+        data_shape(other.data_shape), label_shape(other.label_shape) {}
+
+    // Copy assignment operator
+    TensorDataset& operator=(const TensorDataset& other) {
+        if (this != &other) {
+            data = other.data;
+            label = other.label;
+            data_shape = other.data_shape;
+            label_shape = other.label_shape;
+        }
+        return *this;
+    }
+
+    // Move assignment operator
+    TensorDataset& operator=(TensorDataset&& other) noexcept {
+        if (this != &other) {
+            data = std::move(other.data);
+            label = std::move(other.label);
+            data_shape = std::move(other.data_shape);
+            label_shape = std::move(other.label_shape);
+        }
+        return *this;
+    }
+
     /* len():
      *  return the size of dimension 0
     */
     int len(){
         /* TODO: your code is here to return the dataset's length
          */
-        return 0; //remove it when complete
+        return this->data_shape[0];
     }
     
     /* getitem:
@@ -90,17 +124,21 @@ public:
     DataLabel<DType, LType> getitem(int index){
         /* TODO: your code is here
          */
+        return DataLabel<DType, LType>(this->data[index], this->label[index]);
     }
     
     xt::svector<unsigned long> get_data_shape(){
         /* TODO: your code is here to return data_shape
          */
+        return this->data_shape;
     }
     xt::svector<unsigned long> get_label_shape(){
         /* TODO: your code is here to return label_shape
          */
+        return this->label_shape;
     }
 };
+
 
 
 

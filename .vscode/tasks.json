@@ -11,6 +11,7 @@
                 "-Isrc",
                 "-g",
                 "${fileDirname}/${fileBasename}",
+                "${fileDirname}/src/ann/xtensor_lib.cpp",
             ],
             "options": {
                 "cwd": "${fileDirname}"
@@ -43,7 +44,8 @@
                 "--track-origins=yes",
                 "--verbose",
                 "--log-file=${fileDirname}/valgrind-out.txt",
-                "${fileDirname}/${fileBasenameNoExtension}","1"
+                "--quiet",
+                "${fileDirname}/${fileBasenameNoExtension}","8","20"
             ],
         }
     ],

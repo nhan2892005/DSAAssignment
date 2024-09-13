@@ -23,7 +23,7 @@
               }
           ],
           "preLaunchTask": "C/C++: g++ build active file",
-          //"postDebugTask": "Check memory leaks",
+          "postDebugTask": "Check memory leaks",
           "miDebuggerPath": "/usr/bin/gdb"
       }
   ]

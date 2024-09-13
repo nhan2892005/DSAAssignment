@@ -29,6 +29,5 @@ public:
 protected:
     DLinkedList<Layer*> layers;
 };
-
 #endif /* MODEL_H */
 

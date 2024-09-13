@@ -20,15 +20,16 @@
 using namespace std;
 
 void xlistDemo1(){
-    XArrayList<int> iList;
+    XArrayList<int*> iList(&XArrayList<int*>::free);
     for(int i = 0; i< 10 ; i++)
-        iList.add(i, i*i);
+        iList.add(i, new int(i*i));
     //iList.dump();
-    for(XArrayList<int>::Iterator it=iList.begin(); it != iList.end(); it++ )
-        cout << *it << ", found at: " << iList.indexOf(*it) << endl;
+    for(XArrayList<int*>::Iterator it=iList.begin(); it != iList.end(); it++ )
+        cout << **it << ", found at: " << iList.indexOf(*it) << endl;
     cout << endl;
-    int item = 120;
+    int* item = new int(120);
     int foundIdx = iList.indexOf(item);
+    delete item;
     cout    << "lookup for " << item  << " found at: " << foundIdx << endl;
 }
 

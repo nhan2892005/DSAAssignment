@@ -7,6 +7,7 @@
 #include <regex>
 #include "include/list/XArrayList.h"
 #include "include/util/Point.h"
+#include "include/list/XArrayListDemo.h"
 
 using namespace std;
 namespace fs = std::filesystem;
@@ -224,57 +225,9 @@ string getNuminStr(string str) {
 }
 
 int main(int argc, char* argv[]) {
-    int start = 1, end = 700;
-
-    if (argc > 3) {
-        printUsage();
-        return 1;
-    }
-
-    if (argc == 2) {
-        start = end = stoi(argv[1]);
-    } else if (argc == 3) {
-        start = stoi(argv[1]);
-        end = stoi(argv[2]);
-    }
-
-    for (int i = start; i <= end; i++) {
-        string filename = path + "input" + to_string(i) + ".txt";
-        cout << "Đang xử lý file: " << filename << endl;
-        
-        string expectFilename = path_expected + "expect" + to_string(i) + ".txt";
-        string outputFilename = path_output + "output" + to_string(i) + ".txt";
-        string logFilename = path_logFile + "log" + to_string(i) + ".txt";
-        ofstream output(expectFilename);
-        if (!output.is_open()) {
-            cerr << "Không thể tạo file: " << expectFilename << endl;
-            return 1;
-        }
-        streambuf *coutbuf = cout.rdbuf();
-        cout.rdbuf(output.rdbuf());
-    
-        processInputFile(filename);
-
-        ofstream logFile(logFilename);
-        if (!logFile.is_open()) {
-            cerr << "Không thể tạo file: " << logFilename << endl;
-            return 1;
-        }
-        cout.rdbuf(logFile.rdbuf());
-        output.close();
-        compareFile(expectFilename, outputFilename);
-        cout.rdbuf(coutbuf);
-        logFile.close();
-    }
-
-    if (diffCount > 0) {
-        cout << "Có " << diffCount << " file không khớp: " << endl;
-        for (const auto& file : diffFiles) {
-            cout << getNuminStr(file) << " ";
-        }
-    } else {
-        cout << "Tất cả các file đều khớp" << endl;
-    }
-
+    xlistDemo1();
+    xlistDemo2();
+    xlistDemo3();
+    xlistDemo4();
     return 0;
 }
