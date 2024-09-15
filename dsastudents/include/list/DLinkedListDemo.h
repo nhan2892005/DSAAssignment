@@ -120,59 +120,5 @@ void dlistDemo6(){
     list.println();
 }
 
-
-template <class T>
-void addAtIndex(DLinkedList<T>& list, int index, T item){
-    list.add(index, item);
-}
-template <class T>
-void addData(DLinkedList<T>& list, T item){
-    list.add(item);
-}
-template <class T>
-T getData(DLinkedList<T>& list, int index){
-    return list.get(index);
-}
-template <class T>
-int indexOfData(DLinkedList<T>& list, T item){
-    return list.indexOf(item);
-}
-template <class T>
-bool containsData(DLinkedList<T>& list, T item){
-    return list.contains(item);
-}
-template <class T>
-string toString(DLinkedList<T>& list, string (*item2str)(T &)){
-    return list.toString(item2str);
-}
-template <class T>
-int size(DLinkedList<T>& list){
-    return list.size();
-}
-template <class T>
-bool isEmpty(DLinkedList<T>& list){
-    return list.empty();
-}
-template <class T>
-void clear(DLinkedList<T>& list){
-    list.clear();
-}
-template <class T>
-T removeData(DLinkedList<T>& list, T item){
-    return list.remove(item);
-}
-template <class T>
-T removeAtIndex(DLinkedList<T>& list, int index){
-    return list.removeAt(index);
-}
-template <class T>
-bool removeItem(DLinkedList<T>& list, T item, void (*removeItemData)(T)){
-    return list.removeItem(item, removeItemData);
-}
-template <class T>
-bool removeItem(DLinkedList<T>& list, T item){
-    return list.removeItem(item);
-}
-
 #endif /* DLINKEDLISTDEMO_H */
 

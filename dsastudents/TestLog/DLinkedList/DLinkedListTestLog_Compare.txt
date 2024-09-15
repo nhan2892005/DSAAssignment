@@ -1,0 +1,353 @@
+Task 9 - Line 5:
+Expected: [0x5555555c82e0, 0x5555555c82a0, 0x5555555d74c0, 0x5555555c8300, 0x5555555c8260, 0x5555555d7520, 0x5555555c82c0, 0x5555555c84a0, 0x5555555c8340, 0x5555555c81e0]
+Output: [0x4dea0c0, 0x4dea110, 0x4dea160, 0x4dea1b0, 0x4dea200, 0x4dea250, 0x4dea2a0, 0x4dea2f0, 0x4dea340, 0x4dea390]
+2, 3, 4, 5, 6, 7, 8, 9]
+Task 1 - Line 6:
+Expected: Output: 
+Task 1 - Line 7:
+Expected: Output: Added 100 at index 5
+Task 1 - Line 8:
+Expected: Output: [0, 1, 2, 3, 4, 100, 5, 6, 7, 8, 9]
+Task 1 - Line 9:
+Expected: Output: 
+Task 1 - Line 10:
+Expected: Output: Added 200 at index 0
+Task 1 - Line 11:
+Expected: Output: [200, 0, 1, 2, 3, 4, 100, 5, 6, 7, 8, 9]
+Task 1 - Line 12:
+Expected: Output: 
+Task 1 - Line 13:
+Expected: Output: Added 300 at index 12
+Task 1 - Line 14:
+Expected: Output: [200, 0, 1, 2, 3, 4, 100, 5, 6, 7, 8, 300, 9]
+Task 1 - Line 15:
+Expected: Output: 
+Task 2 - Line 0:
+Expected: Output: Task 3---------------------------------------------------
+Task 2 - Line 1:
+Expected: Output: Created list
+Task 2 - Line 2:
+Expected: Output: []
+Task 2 - Line 3:
+Expected: Output: 
+Task 2 - Line 4:
+Expected: Output: Added 10 items
+Task 2 - Line 5:
+Expected: Output: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+Task 2 - Line 6:
+Expected: Output: 
+Task 2 - Line 7:
+Expected: Output: Removed item at index 5: 5
+Task 2 - Line 8:
+Expected: Output: [0, 1, 2, 3, 4, 6, 7, 8, 9]
+Task 2 - Line 9:
+Expected: Output: 
+Task 2 - Line 10:
+Expected: Output: Removed item at index 00
+Task 2 - Line 11:
+Expected: Output: [1, 2, 3, 4, 6, 7, 8, 9]
+Task 2 - Line 12:
+Expected: Output: 
+Task 2 - Line 13:
+Expected: Output: Removed item at index 8Removed item: 9
+Task 2 - Line 14:
+Expected: Output: [1, 2, 3, 4, 6, 7, 8]
+Task 2 - Line 15:
+Expected: Output: 
+Task 3 - Line 0:
+Expected: Output: Task 4---------------------------------------------------
+Task 3 - Line 1:
+Expected: Output: Created list
+Task 3 - Line 2:
+Expected: Output: []
+Task 3 - Line 3:
+Expected: Output: 
+Task 3 - Line 4:
+Expected: Output: Added 10 items
+Task 3 - Line 5:
+Expected: Output: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+Task 3 - Line 6:
+Expected: Output: 
+Task 3 - Line 7:
+Expected: Output: Removed item 5
+Task 3 - Line 8:
+Expected: Output: [0, 1, 2, 3, 4, 6, 7, 8, 9]
+Task 3 - Line 9:
+Expected: Output: 
+Task 3 - Line 10:
+Expected: Output: Removed item 0
+Task 3 - Line 11:
+Expected: Output: [1, 2, 3, 4, 6, 7, 8, 9]
+Task 3 - Line 12:
+Expected: Output: 
+Task 3 - Line 13:
+Expected: Output: Cannot remove item 15
+Task 3 - Line 14:
+Expected: Output: [1, 2, 3, 4, 6, 7, 8, 9]
+Task 3 - Line 15:
+Expected: Output: 
+Task 4 - Line 0:
+Expected: Task 5---------------------------------------------------
+Task 5---------------------------------------------------
+Output: Task 5---------------------------------------------------
+Task 4 - Line 1:
+Expected: Created list
+Created list
+Output: Created list
+Task 4 - Line 2:
+Expected: []
+[]
+Output: []
+Task 4 - Line 3:
+Expected: 
+
+Output: 
+Task 4 - Line 4:
+Expected: Added 10 items
+Added 10 items
+Output: Added 10 items
+Task 4 - Line 5:
+Expected: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+Output: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+Task 4 - Line 6:
+Expected: 
+
+Output: 
+Task 4 - Line 7:
+Expected: Item at index 5: 5
+Item at index 5: 5
+Output: Item at index 5: 5
+Task 4 - Line 8:
+Expected: Item at index 0: 0
+Item at index 0: 0
+Output: Item at index 0: 0
+Task 4 - Line 9:
+Expected: Item at index 9: 9
+Item at index 9: 9
+Output: Item at index 9: 9
+Task 5 - Line 0:
+Expected: Task 6---------------------------------------------------
+Task 6---------------------------------------------------
+Output: Task 6---------------------------------------------------
+Task 5 - Line 1:
+Expected: Created list
+Created list
+Output: Created list
+Task 5 - Line 2:
+Expected: []
+[]
+Output: []
+Task 5 - Line 3:
+Expected: 
+
+Output: 
+Task 5 - Line 4:
+Expected: Added 10 items
+Added 10 items
+Output: Added 10 items
+Task 5 - Line 5:
+Expected: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+Output: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+Task 5 - Line 6:
+Expected: 
+
+Output: 
+Task 5 - Line 7:
+Expected: Size: 10
+Size: 10
+Output: Size: 10
+Task 5 - Line 8:
+Expected: Cleared list
+Cleared list
+Output: Cleared list
+Task 5 - Line 9:
+Expected: []
+[]
+Output: []
+Task 5 - Line 10:
+Expected: Size: 0
+Size: 0
+Output: Size: 0
+Task 6 - Line 0:
+Expected: Task 7---------------------------------------------------
+Task 7---------------------------------------------------
+Output: Task 7---------------------------------------------------
+Task 6 - Line 1:
+Expected: Created list
+Created list
+Output: Created list
+Task 6 - Line 2:
+Expected: []
+[]
+Output: []
+Task 6 - Line 3:
+Expected: 
+
+Output: 
+Task 6 - Line 4:
+Expected: Added 10 items
+Added 10 items
+Output: Added 10 items
+Task 6 - Line 5:
+Expected: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+Output: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+Task 6 - Line 6:
+Expected: 
+
+Output: 
+Task 6 - Line 7:
+Expected: List contain 5
+List contain 5
+Output: List contain 5
+Task 6 - Line 8:
+Expected: at index: 5
+at index: 5
+Output: at index: 5
+Task 6 - Line 9:
+Expected: List doesn't contain 15
+List doesn't contain 15
+Output: List doesn't contain 15
+Task 6 - Line 10:
+Expected: at index: -1
+at index: -1
+Output: at index: -1
+Task 7 - Line 0:
+Expected: Task 8---------------------------------------------------
+Task 8---------------------------------------------------
+Output: Task 8---------------------------------------------------
+Task 7 - Line 1:
+Expected: Created list
+Created list
+Output: Created list
+Task 7 - Line 2:
+Expected: []
+[]
+Output: []
+Task 7 - Line 3:
+Expected: 
+
+Output: 
+Task 7 - Line 4:
+Expected: Added 10 items
+Added 10 items
+Output: Added 10 items
+Task 7 - Line 5:
+Expected: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+Output: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+Task 7 - Line 6:
+Expected: 
+
+Output: 
+Task 7 - Line 7:
+Expected: List is not empty
+List is not empty
+Output: List is not empty
+Task 7 - Line 8:
+Expected: Cleared list
+Cleared list
+Output: Cleared list
+Task 7 - Line 9:
+Expected: List is empty
+List is empty
+Output: List is empty
+Task 8 - Line 0:
+Expected: Task 9---------------------------------------------------
+Task 9---------------------------------------------------
+Output: Task 9---------------------------------------------------
+Task 8 - Line 1:
+Expected: Created list
+Created list
+Output: Created list
+Task 8 - Line 2:
+Expected: []
+[]
+Output: []
+Task 8 - Line 3:
+Expected: 
+
+Output: 
+Task 8 - Line 4:
+Expected: Added 10 items
+Added 10 items
+Output: Added 10 items
+Task 8 - Line 5:
+Expected: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+Output: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+Task 8 - Line 6:
+Expected: 
+
+Output: 
+Task 8 - Line 7:
+Expected: List: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+List: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+Output: List: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+Task 9 - Line 0:
+Expected: Task 10---------------------------------------------------
+Task 10---------------------------------------------------
+Output: Task 10---------------------------------------------------
+Task 9 - Line 1:
+Expected: Created list with int*
+Created list with int*
+Output: Created list with int*
+Task 9 - Line 2:
+Expected: []
+[]
+Output: []
+Task 9 - Line 3:
+Expected: 
+
+Output: 
+Task 9 - Line 4:
+Expected: Added 10 items
+Added 10 items
+Output: Added 10 items
+Task 9 - Line 5:
+Expected: [0x5555555c8260, 0x5555555c8220, 0x5555555c81e0, 0x5555555c8280, 0x5555555c82a0, 0x5555555c8320, 0x5555555c8360, 0x5555555c83a0, 0x5555555c83e0, 0x5555555c8420]
+[0x4dea060, 0x4dea0b0, 0x4dea100, 0x4dea150, 0x4dea1a0, 0x4dea1f0, 0x4dea240, 0x4dea290, 0x4dea2e0, 0x4dea330]
+Output: [0x4dea0c0, 0x4dea110, 0x4dea160, 0x4dea1b0, 0x4dea200, 0x4dea250, 0x4dea2a0, 0x4dea2f0, 0x4dea340, 0x4dea390]
+Task 9 - Line 6:
+Expected: 
+
+Output: 
+Task 9 - Line 7:
+Expected: Item at index 5: 5
+Item at index 5: 5
+Output: Item at index 5: 5
+Task 9 - Line 8:
+Expected: Item at index 0: 0
+Item at index 0: 0
+Output: Item at index 0: 0
+Task 9 - Line 9:
+Expected: Item at index 9: 9
+Item at index 9: 9
+Output: Item at index 9: 9
+Task 9 - Line 10:
+Expected: 10 items
+Output: Task 9 - Line 11:
+Expected: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+Output: Task 9 - Line 12:
+Expected: 
+Output: Task 9 - Line 13:
+Expected: Removed item 5
+Output: Task 9 - Line 14:
+Expected: [0, 1, 2, 3, 4, 6, 7, 8, 9]
+Output: Task 9 - Line 15:
+Expected: 
+Output: Task 9 - Line 16:
+Expected: Removed item 0
+Output: Task 9 - Line 17:
+Expected: [1, 2, 3, 4, 6, 7, 8, 9]
+Output: Task 9 - Line 18:
+Expected: 
+Output: Task 9 - Line 19:
+Expected: Cannot remove item 15
+Output: Task 9 - Line 20:
+Expected: [1, 2, 3, 4, 6, 7, 8, 9]
+Output: Task 9 - Line 21:
+Expected: 
+Output: 

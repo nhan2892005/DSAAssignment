@@ -249,7 +249,17 @@ void XArrayList<T>::removeInternalData()
 template <class T>
 XArrayList<T>::XArrayList(const XArrayList<T> &list)
 {
-    copyFrom(list);
+    // Copies the contents into this list
+    this->capacity = list.capacity;
+    this->count = list.count;
+    this->itemEqual = list.itemEqual;
+    this->deleteUserData = list.deleteUserData;
+
+    // This for copy data array.
+    this->data = new T[this->capacity];
+    for (int i = 0; i < this->count; i++) {
+        this->data[i] = list.data[i];
+    }
 }
 
 template <class T>
@@ -487,7 +497,7 @@ void XArrayList<T>::ensureCapacity(int index)
         checkIndex(index);
     }
 
-    if (index == capacity) {
+    if (count == capacity) {
         int newCapacity = capacity + 1;
         try {
             T* newData = new T[newCapacity];

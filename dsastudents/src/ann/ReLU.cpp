@@ -24,5 +24,7 @@ ReLU::~ReLU() {
 }
 
 xt::xarray<double> ReLU::forward(xt::xarray<double> X) {
-    /*TODO: Your code is here*/
+    mask = (X > 0);
+    return xt::maximum(X, 0);
+    
 }
