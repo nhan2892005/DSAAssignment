@@ -8,7 +8,6 @@
 #include "include/list/DLinkedList.h"
 #include "include/util/Point.h"
 #include "include/list/DLinkedListDemo.h"
-#include <regex>
 #include <exception>
 
 using namespace std;
@@ -806,24 +805,7 @@ void (*testFuncs[])() = {
     test16
 };
 
-// ! NOTES: in function removeItem from original source
-// * Param removeItemData in removeItem (line 40) 
-// *             doesn't use pass by reference
-// *             => can't free pointer 
 int main(int argc, char* argv[]) {
-    string folder = "TestLog/DLinkedList";
-    string path = "DLinkedListTestLog_NhanOutput.txt";
-    string output = "DLinkedListTestLog_YourOutput.txt";
-    fstream file(folder + "/" + output);
-    if (!file.is_open()) {
-        fs::create_directory(folder);
-        std::cout << "Create folder " << fs::absolute(folder) << std::endl;
-        file.open(folder + "/" + output);
-    }
-    //change cout to file
-    streambuf* stream_buffer_cout = cout.rdbuf();
-    cout.rdbuf(file.rdbuf());
-
     if (argc >= 2) {
         if (string(argv[1]) == "?help") {
             printUsage();
@@ -835,39 +817,54 @@ int main(int argc, char* argv[]) {
             return 0;
         }
         else 
-        if (string(argv[1]) == "!test") {
-            if (argc == 2) {
-                for (int i = 0; i < num_task; i++) {
-                    std::cout << "Task " << i + 1 << "---------------------------------------------------" <<std::endl;
-                    testFuncs[i]();
-                }
-            } else
-            if (argc == 3) {
-                int task = stoi(argv[2]);
-                if (task >= 1 && task <= num_task) {
-                    std::cout << "Task " << task << "---------------------------------------------------" <<std::endl;
-                    testFuncs[task - 1]();
-                } else {
-                    std::cout << "Task not found" << std::endl;
-                }
-            } else
-            if (argc == 4) {
-                int start = stoi(argv[2]);
-                int end = stoi(argv[3]);
-                if (start >= 1 && start <= num_task && end >= 1 && end <= num_task && start <= end) {
-                    for (int i = start - 1; i < end; i++) {
+        {
+            string folder = "TestLog/DLinkedList";
+            string path = "DLinkedListTestLog_NhanOutput.txt";
+            string output = "DLinkedListTestLog_YourOutput.txt";
+            fstream file(folder + "/" + output);
+            if (!file.is_open()) {
+                fs::create_directory(folder);
+                std::cout << "Create folder " << fs::absolute(folder) << std::endl;
+                file.open(folder + "/" + output);
+            }
+            //change cout to file
+            streambuf* stream_buffer_cout = cout.rdbuf();
+            cout.rdbuf(file.rdbuf());
+
+            if (string(argv[1]) == "!test") {
+                if (argc == 2) {
+                    for (int i = 0; i < num_task; i++) {
                         std::cout << "Task " << i + 1 << "---------------------------------------------------" <<std::endl;
                         testFuncs[i]();
                     }
-                } else {
-                    std::cout << "Task not found or you enter error" << std::endl;
+                } else
+                if (argc == 3) {
+                    int task = stoi(argv[2]);
+                    if (task >= 1 && task <= num_task) {
+                        std::cout << "Task " << task << "---------------------------------------------------" <<std::endl;
+                        testFuncs[task - 1]();
+                    } else {
+                        std::cout << "Task not found" << std::endl;
+                    }
+                } else
+                if (argc == 4) {
+                    int start = stoi(argv[2]);
+                    int end = stoi(argv[3]);
+                    if (start >= 1 && start <= num_task && end >= 1 && end <= num_task && start <= end) {
+                        for (int i = start - 1; i < end; i++) {
+                            std::cout << "Task " << i + 1 << "---------------------------------------------------" <<std::endl;
+                            testFuncs[i]();
+                        }
+                    } else {
+                        std::cout << "Task not found or you enter error" << std::endl;
+                    }
                 }
             }
+            // Restore cout
+            cout.rdbuf(stream_buffer_cout);
+
+            compareFile(folder + "/" + path, folder + "/" + output);
         }
     }
-    // Restore cout
-    cout.rdbuf(stream_buffer_cout);
-
-    compareFile(folder + "/" + path, folder + "/" + output);
     return 0;
 }

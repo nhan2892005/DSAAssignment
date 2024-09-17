@@ -122,6 +122,8 @@ public:
         return *this;
     }
 
+    ~TensorDataset() {}
+
     // * Move assignment operator
     TensorDataset& operator=(TensorDataset&& other) noexcept {
         if (this != &other) {
@@ -143,8 +145,11 @@ public:
     // *        => use positive_index function in xtensor_lib.h
     DataLabel<DType, LType> getitem(int index){
         index = positive_index(index, this->data_shape[0]);
-        return DataLabel<DType, LType>(this->data[index], this->label[index]);
+        auto data_slice = xt::view(this->data, index, xt::all());
+        auto label_slice = xt::view(this->label, index, xt::all());
+        return DataLabel<DType, LType>(data_slice, label_slice);
     }
+
     
     // * get_data_shape(): return the shape of the data
     xt::svector<unsigned long> get_data_shape(){

@@ -1,15 +1,9 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/* 
- * File:   XArrayListDemo.h
- * Author: LTSACH
- *
- * Created on 19 August 2020, 21:05
- */
+    ! NGUYEN PHUC NHAN
+    * Last update: 2024-09-15
+    * Version 1.0
+    * This file demonstrates the usage of XArrayList
+*/
 
 #ifndef XARRAYLISTDEMO_H
 #define XARRAYLISTDEMO_H

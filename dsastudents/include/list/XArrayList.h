@@ -1,6 +1,10 @@
 /*
- * File:   XArrayList.h
- */
+    ! NGUYEN PHUC NHAN
+    * Last update: 2024-09-17
+    * Version 1.0
+    * This file defines the XArrayList class, 
+    *       which is a generic list implementation using a dynamic array.
+*/
 
 #ifndef XARRAYLIST_H
 #define XARRAYLIST_H

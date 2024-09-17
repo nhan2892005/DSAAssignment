@@ -1,14 +1,9 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/cppFiles/file.h to edit this template
- */
-
-/* 
- * File:   funtions.h
- * Author: ltsach
- *
- * Created on August 25, 2024, 3:28 PM
- */
+    ! NGUYEN PHUC NHAN
+    * Last update: 2024-09-15
+    * Version 1.0
+    * This file defines the funtions (softmax) for the neural network
+*/
 
 #ifndef FUNTIONS_H
 #define FUNTIONS_H

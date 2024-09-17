@@ -44,7 +44,7 @@ private:
     bool shuffle;
     bool drop_last;
     // * Add more member variables to support the iteration
-    xt::svector<Batch<DType, LType>, 4> batches;
+    std::vector<Batch<DType, LType>> batches;
     xt::xarray<int> indices;
     ulong n_samples;
     ulong n_batches;
@@ -71,6 +71,8 @@ public:
             this->n_batches += 1;
         }
 
+        this->batches = std::vector<Batch<DType, LType>>(n_batches);
+
         // * Shuffle the dataset if needed
         if(this->shuffle == true){
             this->ShuffleDataset();
@@ -80,6 +82,7 @@ public:
         this->SplitDataset();
     }
     virtual ~DataLoader(){delete ptr_dataset;}
+private:
     void ShuffleDataset() {
 
         // * Create a random permutation of indices
@@ -88,8 +91,16 @@ public:
 
        // * Create a new dataset with the shuffled data
         // * The shape of new data and label is the same as the original dataset
-        std::vector<size_t> data_shape = {n_samples, this->ptr_dataset->get_data_shape()[1]};
-        std::vector<size_t> label_shape = {n_samples, this->ptr_dataset->get_label_shape()[1]};
+        std::vector<size_t> data_shape;
+        data_shape.push_back(n_samples);
+        for (size_t i = 1; i < this->ptr_dataset->get_data_shape().size(); i++) {
+            data_shape.push_back(this->ptr_dataset->get_data_shape()[i]);
+        }
+        std::vector<size_t> label_shape;
+        label_shape.push_back(n_samples);
+        for (size_t i = 1; i < this->ptr_dataset->get_label_shape().size(); i++) {
+            label_shape.push_back(this->ptr_dataset->get_label_shape()[i]);
+        }
 
         // * Create new xarrays for data and label
         xt::xarray<DType> data = xt::zeros<DType>(data_shape);
@@ -98,10 +109,7 @@ public:
             xt::view(data, i) = this->ptr_dataset->getitem(indices[i]).getData();
             xt::view(label, i) = this->ptr_dataset->getitem(indices[i]).getLabel();
         }
-
-        // * Free the memory of the old dataset
-        delete this->ptr_dataset;
-
+        
         // * Create a new dataset with the shuffled data
         this->ptr_dataset = new TensorDataset<DType, LType>(std::move(data), std::move(label));
     }
@@ -116,8 +124,16 @@ public:
             }
 
             // * Create a new batch
-            std::vector<size_t> data_shape = {static_cast<size_t>(end - start), this->ptr_dataset->get_data_shape()[1]};
-            std::vector<size_t> label_shape = {static_cast<size_t>(end - start), this->ptr_dataset->get_label_shape()[1]};
+            std::vector<size_t> data_shape;
+            data_shape.push_back(end - start);
+            for (size_t j = 1; j < this->ptr_dataset->get_data_shape().size(); j++) {
+                data_shape.push_back(this->ptr_dataset->get_data_shape()[j]);
+            }
+            std::vector<size_t> label_shape;
+            label_shape.push_back(end - start);
+            for (size_t j = 1; j < this->ptr_dataset->get_label_shape().size(); j++) {
+                label_shape.push_back(this->ptr_dataset->get_label_shape()[j]);
+            }
 
             xt::xarray<DType> data = xt::zeros<DType>(data_shape);
             xt::xarray<LType> label = xt::zeros<LType>(label_shape);
@@ -128,9 +144,10 @@ public:
             }
 
             // * Add the new batch to the list of batches
-            this->batches.push_back(Batch<DType, LType>(data, label));
+            this->batches[i] = Batch<DType, LType>(std::move(data), std::move(label));
         }
     }
+public:
     /////////////////////////////////////////////////////////////////////////
     // The section for supporting the iteration and for-each to DataLoader //
     /// START: Section                                                     //
@@ -147,6 +164,17 @@ public:
         int index;
     public:
         Iterator(DataLoader* ptr_loader, int index): ptr_loader(ptr_loader), index(index){}
+
+        // Copy constructor
+        Iterator(const Iterator& other): ptr_loader(other.ptr_loader), index(other.index){}
+        // Copy assignment operator
+        Iterator& operator=(const Iterator& other){
+            if(this != &other){
+                ptr_loader = other.ptr_loader;
+                index = other.index;
+            }
+            return *this;
+        }
 
         // * Overload the operators*
         Batch<DType, LType>& operator*(){

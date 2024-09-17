@@ -1,14 +1,12 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/cppFiles/class.cc to edit this template
- */
-
-/* 
- * File:   ReLU.cpp
- * Author: ltsach
- * 
- * Created on August 25, 2024, 2:44 PM
- */
+    ! NGUYEN PHUC NHAN
+    * Last update: 2024-09-15
+    * Version 1.0
+    * This file implement ReLU layer
+    * ReLU layer is a layer that applies the rectified linear unit activation function 
+    *       element-wise to the input.
+    * The ReLU function is defined as f(x) = max(0, x).
+*/
 
 #include "ann/ReLU.h"
 
@@ -18,13 +16,14 @@ ReLU::ReLU() {
 
 ReLU::ReLU(const ReLU& orig) {
     name = "ReLU" + to_string(++layer_idx);
+    this->mask = orig.mask;
 }
 
 ReLU::~ReLU() {
 }
 
 xt::xarray<double> ReLU::forward(xt::xarray<double> X) {
+    // * ReLU function is defined as f(x) = max(0, x).
     mask = (X > 0);
-    return xt::maximum(X, 0);
-    
+    return X * mask;
 }

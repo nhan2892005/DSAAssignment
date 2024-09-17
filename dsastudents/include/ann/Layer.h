@@ -1,14 +1,9 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/cppFiles/class.h to edit this template
- */
-
-/* 
- * File:   Layer.h
- * Author: ltsach
- *
- * Created on August 25, 2024, 10:54 AM
- */
+    ! NGUYEN PHUC NHAN
+    * Last update: 2024-09-15
+    * Version 1.0
+    * This file defines ADT for Layer
+*/
 
 #ifndef LAYER_H
 #define LAYER_H

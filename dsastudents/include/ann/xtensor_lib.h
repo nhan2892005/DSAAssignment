@@ -44,13 +44,13 @@ enum class_metrics{
 
 string shape2str(xt::svector<unsigned long> vec);
 int positive_index(int idx, int size);
-xt::xarray<double> outer_stack(xt::xarray<double> X, xt::xarray<double>  Y);
-xt::xarray<double> diag_stack(xt::xarray<double> X);
+xt::xarray<double> outer_stack(xt::xarray<double> X, xt::xarray<double>Y);
+// xt::xarray<double> diag_stack(xt::xarray<double> X);
 xt::xarray<double> matmul_on_stack(xt::xarray<double> X, xt::xarray<double>  Y);
 
-xt::xarray<ulong> confusion_matrix(xt::xarray<ulong> y_true, xt::xarray<ulong> y_pred);
-xt::xarray<ulong> class_count(xt::xarray<ulong> confusion);
-double_array calc_metrics(ulong_array y_true, ulong_array y_pred);
+// xt::xarray<ulong> confusion_matrix(xt::xarray<ulong> y_true, xt::xarray<ulong> y_pred);
+// xt::xarray<ulong> class_count(xt::xarray<ulong> confusion);
+// double_array calc_metrics(ulong_array y_true, ulong_array y_pred);
 
 
 #endif /* XTENSOR_LIB_H */

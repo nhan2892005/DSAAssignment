@@ -1,14 +1,11 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/cppFiles/class.h to edit this template
- */
-
-/* 
- * File:   FCLayer.h
- * Author: ltsach
- *
- * Created on August 25, 2024, 11:06 AM
- */
+    ! NGUYEN PHUC NHAN
+    * Last update: 2024-09-15
+    * Version 1.0
+    * This file contains the definition of Fully Connected Layer class
+    * This class is derived from Layer class
+    * Fully Connected Layer is a layer that connects every neuron in one layer to every neuron in another layer
+*/
 
 #ifndef FCLAYER_H
 #define FCLAYER_H
@@ -23,7 +20,24 @@ public:
     virtual ~FCLayer();
     
     xt::xarray<double> forward(xt::xarray<double> X);
-    static FCLayer* fromPretrained(string filename, bool use_bias);
+    static FCLayer* fromPretrained(string filename, bool use_bias){
+        /*TODO: Your code is here*/ 
+        // Load mô hình đã huấn luyện từ file
+        // Implement logic to load weights and biases from the file
+        // Return a new FCLayer object with the loaded weights and biases
+        // Return nullptr if the file does not exist
+        fstream file(filename);
+        file.open(filename, ios::in);
+        if(file.is_open()){
+            int in_features, out_features;
+            file >> in_features;
+            file >> out_features;
+            FCLayer* Inputlayer = new FCLayer(in_features, out_features, use_bias);
+            file.close();
+            return Inputlayer;
+        }
+        return nullptr;
+    };
 
 protected:
     virtual void init_weights();

@@ -1,6 +1,9 @@
 /*
- * File:   DLinkedList.h
- */
+    ! NGUYEN PHUC NHAN
+    * Last update: 2024-09-15
+    * Version 1.0
+    * This file defines a doubly linked list
+*/
 
 #ifndef DLINKEDLIST_H
 #define DLINKEDLIST_H

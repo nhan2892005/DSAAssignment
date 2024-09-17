@@ -1,14 +1,9 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/cppFiles/file.h to edit this template
- */
-
-/* 
- * File:   listheader.h
- * Author: ltsach
- *
- * Created on September 7, 2024, 10:51 PM
- */
+    ! NGUYEN PHUC NHAN
+    * Last update: 2024-09-15
+    * Version 1.0
+    * This file defines the list header
+*/
 
 #ifndef LISTHEADER_H
 #define LISTHEADER_H

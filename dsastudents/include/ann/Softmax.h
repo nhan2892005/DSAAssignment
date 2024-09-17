@@ -1,14 +1,12 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/cppFiles/class.h to edit this template
- */
-
-/* 
- * File:   Softmax.h
- * Author: ltsach
- *
- * Created on August 25, 2024, 2:46 PM
- */
+    ! NGUYEN PHUC NHAN
+    * Last update: 2024-09-15
+    * Version 1.0
+    * This file define Softmax layer
+    * Softmax layer applies the softmax function to an n-dimensional input Tensor 
+    *       rescaling them so that the elements of the n-dimensional output Tensor 
+    *       lie in the range (0,1) and sum to 1.
+*/
 
 #ifndef SOFTMAX_H
 #define SOFTMAX_H
