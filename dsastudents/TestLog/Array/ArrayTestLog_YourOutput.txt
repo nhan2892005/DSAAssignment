@@ -126,7 +126,7 @@ Created list with int*
 []
 
 Added 10 items
-[0x5555555c74b0, 0x5555555c74d0, 0x5555555d6230, 0x5555555d6250, 0x5555555d6270, 0x5555555d6290, 0x5555555d62b0, 0x5555555d62d0, 0x5555555d62f0, 0x5555555d6310]
+[0x4dea320, 0x4dea370, 0x4dea3c0, 0x4dea410, 0x4dea460, 0x4dea4b0, 0x4dea500, 0x4dea550, 0x4dea5a0, 0x4dea5f0]
 
 Item at index 5: 5
 Item at index 0: 0
@@ -286,6 +286,10 @@ Out of range
 Remove at index 10
 Out of range
 Remove at index 15
+Out of range
+Remove at -1
+Out of range
+t index 15
 Out of range
 Remove at -1
 Out of range

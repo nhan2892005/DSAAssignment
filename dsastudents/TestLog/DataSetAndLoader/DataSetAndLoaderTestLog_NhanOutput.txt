@@ -8434,9 +8434,9 @@ Label shape: (100, 5, 8)
 Length of dataset: 100
 Data shape: (100, 10, 3, 6)
 Label shape: (100, 5, 8)
-0x7fffffffcc50
-0x7fffffffcec0
-0x7fffffffd130
+0x7fffffffcc40
+0x7fffffffceb0
+0x7fffffffd120
 Task 5---------------------------------------------------
 Length of dataset: 100
 Data shape: (100, 10, 3, 6)
@@ -12647,9 +12647,9 @@ Label shape: (100, 5, 8)
 Length of dataset: 100
 Data shape: (100, 10, 3, 6)
 Label shape: (100, 5, 8)
-0x7fffffffcc50
-0x7fffffffcec0
-0x7fffffffd130
+0x7fffffffcc40
+0x7fffffffceb0
+0x7fffffffd120
 Task 6---------------------------------------------------
 (60, 10, 3)
 (60, 6)

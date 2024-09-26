@@ -76,7 +76,7 @@ void compareFile(const string& filename1, const string& filename2) {
                 break;  
             }
         }
-        output_task[num - 1][num_line] += line + '\n';
+        output_task[num][num_line] += line + '\n';
         num_line++;
     }
 
@@ -116,7 +116,7 @@ void printUsage() {
     std::cout << "Usage: exe_file [OPTIONS] [TASK]" << std::endl;
     std::cout << "OPTIONS:" << std::endl;
     std::cout << "  ?help: show help" << std::endl;
-    std::cout << "  !demo: run demo" << std::endl;
+    std::cout << "  demo: run demo" << std::endl;
     std::cout << "  !test: run all test" << std::endl;
     std::cout << "  !test [task]: run specific test" << std::endl;
     std::cout << "  !test [start_task] [end_task] : run test from start_task to end_task" << std::endl;
@@ -125,13 +125,13 @@ void printUsage() {
 
 void runDemo() {
     int nsamples = 100;
-    xt::xarray <double > X = xt:: random ::randn <double >({ nsamples , 10});
-    xt::xarray <double > T = xt:: random ::randn <double >({ nsamples , 5});
+    xt::xarray <double > X = xt::random::randn<double>({ nsamples , 10, 10});
+    xt::xarray <double > T = xt::random::randn<double>({ nsamples , 5});
     TensorDataset <double , double > ds(X, T);
     DataLoader <double , double > loader (&ds, 30, true , false);
     for(auto batch: loader){
-        cout << shape2str(batch.getData ().shape ()) << endl;
-        cout << shape2str(batch.getLabel ().shape ()) << endl;
+        cout << batch.getData() << endl;
+        cout << batch.getLabel() << endl;
     }
 }
 
@@ -217,7 +217,7 @@ void test4() {
     cout << &ds4 << endl;
 }
 
-// assignmet operator
+// assignment operator
 void test5()  {
     int nsamples = 100;
     xt::xarray <double > X = xt:: random ::randn <double >({ nsamples , 10, 3, 6});
@@ -300,16 +300,16 @@ int main(int argc, char* argv[]) {
             return 0;
         }
         else
-        if (string(argv[1]) == "!demo") {
+        if (string(argv[1]) == "demo") {
             runDemo();
             return 0;
         }
-        else 
+        else
         {
             string folder = "TestLog/DataSetAndLoader";
             string path = "DataSetAndLoaderTestLog_NhanOutput.txt";
             string output = "DataSetAndLoaderTestLog_YourOutput.txt";
-            fstream file(folder + "/" + path);
+            fstream file(folder + "/" + output);
             if (!file.is_open()) {
                 fs::create_directory(folder);
                 std::cout << "Create folder " << fs::absolute(folder) << std::endl;
@@ -319,7 +319,7 @@ int main(int argc, char* argv[]) {
             streambuf* stream_buffer_cout = cout.rdbuf();
             cout.rdbuf(file.rdbuf());
 
-            if (string(argv[1]) == "!test") {
+            if (string(argv[1]) == "test") {
                 if (argc == 2) {
                     for (int i = 0; i < num_task; i++) {
                         std::cout << "Task " << i + 1 << "---------------------------------------------------" <<std::endl;
@@ -351,7 +351,7 @@ int main(int argc, char* argv[]) {
             // Restore cout
             cout.rdbuf(stream_buffer_cout);
 
-            //compareFile(folder + "/" + path, folder + "/" + output);
+            compareFile(folder + "/" + path, folder + "/" + output);
         }
     }
     return 0;

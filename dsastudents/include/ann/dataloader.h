@@ -44,7 +44,7 @@ private:
     bool shuffle;
     bool drop_last;
     // * Add more member variables to support the iteration
-    std::vector<Batch<DType, LType>> batches;
+    xvector<Batch<DType, LType>> batches;
     xt::xarray<int> indices;
     ulong n_samples;
     ulong n_batches;
@@ -58,6 +58,9 @@ public:
         
         // * Initialize the member variables
         this->ptr_dataset = ptr_dataset;
+        for (size_t i = 0; i < ptr_dataset->len(); i++) {
+            this->ptr_dataset->getitem(i) = ptr_dataset->getitem(i);
+        }
         this->batch_size = batch_size;
         this->shuffle = shuffle;
         this->drop_last = drop_last;
@@ -71,7 +74,7 @@ public:
             this->n_batches += 1;
         }
 
-        this->batches = std::vector<Batch<DType, LType>>(n_batches);
+        this->batches = xvector<Batch<DType, LType>>(0, 0, n_batches);
 
         // * Shuffle the dataset if needed
         if(this->shuffle == true){
@@ -89,14 +92,14 @@ private:
         this->indices = xt::arange(n_samples);
         xt::random::shuffle(indices);
 
-       // * Create a new dataset with the shuffled data
+        // * Create a new dataset with the shuffled data
         // * The shape of new data and label is the same as the original dataset
-        std::vector<size_t> data_shape;
+        xt::svector<size_t> data_shape;
         data_shape.push_back(n_samples);
         for (size_t i = 1; i < this->ptr_dataset->get_data_shape().size(); i++) {
             data_shape.push_back(this->ptr_dataset->get_data_shape()[i]);
         }
-        std::vector<size_t> label_shape;
+        xt::svector<size_t> label_shape;
         label_shape.push_back(n_samples);
         for (size_t i = 1; i < this->ptr_dataset->get_label_shape().size(); i++) {
             label_shape.push_back(this->ptr_dataset->get_label_shape()[i]);
@@ -124,12 +127,12 @@ private:
             }
 
             // * Create a new batch
-            std::vector<size_t> data_shape;
+            xt::svector<size_t> data_shape;
             data_shape.push_back(end - start);
             for (size_t j = 1; j < this->ptr_dataset->get_data_shape().size(); j++) {
                 data_shape.push_back(this->ptr_dataset->get_data_shape()[j]);
             }
-            std::vector<size_t> label_shape;
+            xt::svector<size_t> label_shape;
             label_shape.push_back(end - start);
             for (size_t j = 1; j < this->ptr_dataset->get_label_shape().size(); j++) {
                 label_shape.push_back(this->ptr_dataset->get_label_shape()[j]);
@@ -144,7 +147,8 @@ private:
             }
 
             // * Add the new batch to the list of batches
-            this->batches[i] = Batch<DType, LType>(std::move(data), std::move(label));
+            Batch<DType, LType> batch(std::move(data), std::move(label));
+            this->batches.add(batch);
         }
     }
 public:
@@ -178,7 +182,7 @@ public:
 
         // * Overload the operators*
         Batch<DType, LType>& operator*(){
-            return ptr_loader->batches[index];
+            return ptr_loader->batches.get(index);
         }
 
         // * Overload the operators++

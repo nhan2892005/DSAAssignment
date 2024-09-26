@@ -11,12 +11,12 @@
 #include "ann/funtions.h"
 
 Softmax::Softmax(int axis): axis(axis) {
-    name = "Softmax_" + to_string(++layer_idx);
+    name = "Softmax_" + to_string(layer_idx);
     cached_Y = xt::zeros<double>({1});
 }
 
 Softmax::Softmax(const Softmax& orig) {
-    name = "Softmax_" + to_string(++layer_idx);
+    name = "Softmax_" + to_string(layer_idx);
     axis = orig.axis;
     cached_Y = orig.cached_Y;
 }

@@ -16,11 +16,11 @@ Layer::Layer() {
 Layer::Layer(const Layer& orig) {
     is_training = orig.is_training;
     name = orig.name;
-    layer_idx++;
+    this->layer_idx = orig.layer_idx;
 }
 
 Layer::~Layer() {
 }
 
-unsigned long long Layer::layer_idx = -1;
+unsigned long long Layer::layer_idx = 0;
 

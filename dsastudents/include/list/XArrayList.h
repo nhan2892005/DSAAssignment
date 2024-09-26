@@ -189,7 +189,7 @@ XArrayList<T>::XArrayList(
     int capacity)
     :deleteUserData(deleteUserData), itemEqual(itemEqual), count(0)
 {
-    this->capacity = (capacity >= 0) ? capacity : 10;
+    this->capacity = capacity;
     this->data = new T[this->capacity];
 }
 
@@ -401,9 +401,9 @@ void XArrayList<T>::clear()
     }
     
     count = 0;
+    capacity = 0;
     
     delete[] data;
-    data = new T[capacity];
 }
 
 template <class T>
@@ -502,7 +502,7 @@ void XArrayList<T>::ensureCapacity(int index)
     }
 
     if (count == capacity) {
-        int newCapacity = capacity + 1;
+        int newCapacity = capacity + 100;
         try {
             T* newData = new T[newCapacity];
             

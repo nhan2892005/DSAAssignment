@@ -280,6 +280,12 @@ DLinkedList<T>::DLinkedList(const DLinkedList<T> &list)
     * Parameters: a list to be copied
     */
     this->count = 0;
+
+    this->head = new Node();
+    this->tail = new Node();
+    head->next = tail;
+    tail->prev = head;
+
     this->copyFrom(list);
 }
 
@@ -292,9 +298,9 @@ DLinkedList<T> &DLinkedList<T>::operator=(const DLinkedList<T> &list)
     */
     if (this != &list)
     {
-        this->removeInternalData();
         this->copyFrom(list);
     }
+    return *this;
 }
 
 template <class T>
@@ -305,6 +311,8 @@ DLinkedList<T>::~DLinkedList()
     {
         this->removeInternalData();
     }
+    delete head;
+    delete tail;
     this->count = 0;
 }
 
@@ -400,10 +408,6 @@ void DLinkedList<T>::clear()
     // * Objectives: clear the list
     if (this->count > 0) {
         this->removeInternalData();
-    }
-    if (head->next != tail) {
-        head->next = tail;
-        tail->prev = head;
     }
     count = 0;
 }
@@ -530,13 +534,12 @@ void DLinkedList<T>::copyFrom(const DLinkedList<T> &list)
     }
     this->itemEqual = list.itemEqual;
     this->deleteUserData = list.deleteUserData;
-    this->head = new Node();
-    this->tail = new Node();
-    this->head->next = this->tail;
-    this->tail->prev = this->head;
     
-    for (Node *current = list.head->next; current != list.tail; current = current->next) {
+    Node *current = list.head->next;
+
+    for (int i = 0; i < list.count; i++) {
         this->add(current->data);
+        current = current->next;
     }
     this->count = list.count;
 }
@@ -549,15 +552,16 @@ void DLinkedList<T>::removeInternalData()
         this->deleteUserData(this);
     }
     Node* tmp = head->next;
-    while (tmp != nullptr)
+    while (count > 0)
     {
         Node *current = tmp;
         tmp = tmp->next;
         delete current;
         --count;
     }
+    head->next = tail;
+    tail->prev = head;
     count = 0;
-    delete head;
 }
 
 #endif /* DLINKEDLIST_H */

@@ -13,48 +13,34 @@
 #include "ann/BaseModel.h"
 #include "ann/xtensor_lib.h"
 
-/*
-class BaseModel {
-public:
-    BaseModel();
-    BaseModel(Layer** seq, int size);
-    BaseModel(const BaseModel& orig);
-    virtual ~BaseModel();
-    
-    virtual xt::xarray<double> predict(xt::xarray<double> X);
-protected:
-    DLinkedList<Layer*> layers;
-};
-*/
+template <class T>
+using List = DLinkedList<T>;
+
+
 BaseModel::BaseModel() {
-    /*TODO: Your code is here*/ 
-    layers = DLinkedList<Layer*>();
+    layers = List<Layer*>(List<Layer*>::free);
 }
 BaseModel::BaseModel(Layer** seq, int size) {
-    /*TODO: Your code is here*/ 
-    layers = DLinkedList<Layer*>();
+    layers = List<Layer*>(List<Layer*>::free);
     for(int idx=0; idx < size; idx++){
         layers.add(seq[idx]);
     }
 }
 
 BaseModel::BaseModel(const BaseModel& orig) {
-    /*TODO: Your code is here*/ 
-    layers = DLinkedList<Layer*>();
-    for(int idx=0; idx < orig.layers.size(); idx++){
-        layers.add(orig.layers.get(idx));
+    layers = List<Layer*>(List<Layer*>::free);
+    for(auto ptr_layer : const_cast<DLinkedList<Layer*>&>(orig.layers)){
+        layers.add(ptr_layer);
     }
 }
 
 BaseModel::~BaseModel() {
-    for(auto ptr_layer: layers) delete ptr_layer;
 }
 
 xt::xarray<double> BaseModel::predict(xt::xarray<double> X){
-    /*TODO: Your code is here*/ 
-    xt::xarray<double> Y = X;
-    for(auto ptr_layer: layers){
-        Y = ptr_layer->forward(Y);
+    xt::xarray<double> A = X;
+    for(Layer* layer: layers){
+        A = layer->forward(A);
     }
-    return Y;
+    return A;
 }

@@ -11,11 +11,11 @@
 #include "ann/ReLU.h"
 
 ReLU::ReLU() {
-    name = "ReLU" + to_string(++layer_idx);
+    name = "ReLU_" + to_string(layer_idx);
 }
 
 ReLU::ReLU(const ReLU& orig) {
-    name = "ReLU" + to_string(++layer_idx);
+    name = "ReLU_" + to_string(layer_idx);
     this->mask = orig.mask;
 }
 

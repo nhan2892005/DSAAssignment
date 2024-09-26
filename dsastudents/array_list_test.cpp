@@ -769,7 +769,7 @@ void printUsage() {
     std::cout << "Usage: exe_file [OPTIONS] [TASK]" << std::endl;
     std::cout << "OPTIONS:" << std::endl;
     std::cout << "  ?help: show help" << std::endl;
-    std::cout << "  !demo: run demo" << std::endl;
+    std::cout << "  demo: run demo" << std::endl;
     std::cout << "  !test: run all test" << std::endl;
     std::cout << "  !test [task]: run specific test" << std::endl;
     std::cout << "  !test [start_task] [end_task] : run test from start_task to end_task" << std::endl;
@@ -814,11 +814,11 @@ int main(int argc, char* argv[]) {
             return 0;
         }
         else
-        if (string(argv[1]) == "!demo") {
+        if (string(argv[1]) == "demo") {
             runDemo();
             return 0;
         }
-        else 
+        else if (string(argv[1]) == "test")
         {
             string folder = "TestLog/Array";
             string path = "ArrayTestLog_NhanOutput.txt";
@@ -833,7 +833,7 @@ int main(int argc, char* argv[]) {
             streambuf* stream_buffer_cout = cout.rdbuf();
             cout.rdbuf(file.rdbuf());
 
-            if (string(argv[1]) == "!test") {
+            if (string(argv[1]) == "test") {
                 if (argc == 2) {
                     for (int i = 0; i < num_task; i++) {
                         std::cout << "Task " << i + 1 << "---------------------------------------------------" <<std::endl;

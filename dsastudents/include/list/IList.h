@@ -17,7 +17,7 @@ public:
     /* 
      * add(T e): append item "e" to the list
      */
-    virtual void    add(T e)=0;
+    virtual void    add(T e)=0; 
     
     
     
@@ -43,7 +43,7 @@ public:
      * removeItem(T item, void (*removeItemData)(T)=0): remove item stored in the list
      *   >> removeItemData: a function pointer (maybe NULL, default),
      *          that will be called inside of removeItem to delete the item's data stored in the list
-     *   >> removeItemData, why need? because we DO NOT type T is a pointer or not.
+     *   >> removeItemData, why need? because we DO NOT KNOW type T is a pointer or not.
      * 
      * return:
      *   >> true if "item" stored in the list; 

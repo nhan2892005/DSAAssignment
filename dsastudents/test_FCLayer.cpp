@@ -115,7 +115,7 @@ void printUsage() {
     std::cout << "Usage: exe_file [OPTIONS] [TASK]" << std::endl;
     std::cout << "OPTIONS:" << std::endl;
     std::cout << "  ?help: show help" << std::endl;
-    std::cout << "  !demo: run demo" << std::endl;
+    std::cout << "  demo: run demo" << std::endl;
     std::cout << "  !test: run all test" << std::endl;
     std::cout << "  !test [task]: run specific test" << std::endl;
     std::cout << "  !test [start_task] [end_task] : run test from start_task to end_task" << std::endl;
@@ -225,7 +225,7 @@ int main(int argc, char* argv[]) {
             return 0;
         }
         else
-        if (string(argv[1]) == "!demo") {
+        if (string(argv[1]) == "demo") {
             runDemo();
             return 0;
         }

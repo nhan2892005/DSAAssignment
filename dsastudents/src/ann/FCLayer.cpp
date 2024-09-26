@@ -17,18 +17,15 @@ FCLayer::FCLayer(int in_features, int out_features, bool use_bias) {
     this->m_nIn_Features = in_features;
     this->m_nOut_Features = out_features;
     this->m_bUse_Bias = use_bias;
-    name = "FC_" + to_string(++layer_idx);
+    name = "FC_" + to_string(layer_idx);
     m_unSample_Counter = 0;
     
     init_weights();
 }
 void FCLayer::init_weights(){
-    m_aWeights = xt::random::randn<double>({m_nOut_Features, m_nIn_Features});
-    if(m_bUse_Bias){
-         m_aBias = xt::random::randn<double>({m_nOut_Features});
-    }
-    else{
-         m_aBias = xt::zeros<double>({m_nOut_Features});
+    m_aWeights = 0.01 * xt::random::randn<double>({m_nOut_Features, m_nIn_Features});
+    if (m_bUse_Bias){
+        m_aBias = xt::zeros<double>({m_nOut_Features, 1});
     }
 }
 
@@ -54,12 +51,11 @@ xt::xarray<double> FCLayer::forward(xt::xarray<double> X) {
 
     // * Calculate the output Z
     // * Z = W*X + b
-    xt::xarray<double> Z = xt::linalg::dot(m_aWeights, X);
+    xt::xarray<double> Z = matmul_on_stack(m_aWeights, X);
 
     // * Add bias if needed
     if (m_bUse_Bias){
-        auto bias_expanded = xt::expand_dims(m_aBias, 1);
-        Z = Z + bias_expanded;
+        Z = Z + m_aBias;
     }
     return Z;
 }

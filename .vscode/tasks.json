@@ -11,8 +11,7 @@
                 "-Isrc",
                 "-g",
                 "${fileDirname}/${fileBasename}",
-                "src/ann/xtensor_lib.cpp",
-                "src/ann/functions.cpp",
+                "src/ann/*.cpp",
             ],
             "options": {
                 "cwd": "${fileDirname}"
@@ -46,10 +45,47 @@
                 "--verbose",
                 "--log-file=${fileDirname}/valgrind-out.txt",
                 "--quiet",
-                "${fileDirname}/${fileBasenameNoExtension}","!demo"
+                "${fileDirname}/multilayer_perceptron","demo"
             ],
+        },
+        {
+            "label": "Make Build",
+            "type": "shell",
+            "command": "make",
+            "args": [
+              "file=${fileBasename}"
+            ],
+            "group": {
+              "kind": "build",
+              "isDefault": true
+            },
+            "problemMatcher": ["$gcc"],
+            "detail": "Build the project using Makefile."
+        },{
+            "label" : "Make Clean",
+            "type" : "shell",
+            "command" : "make",
+            "args" : [
+                "clean"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": [],
+            "detail": "Clean the project using Makefile."
+        },
+        {
+            "label": "Check memory leaks and make clean",
+            "dependsOn": [
+                "Check memory leaks",
+                "Make Clean"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
         }
     ],
     "version": "2.0.0"
 }
-

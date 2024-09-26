@@ -7,6 +7,7 @@
 #ifndef DATASET_H
 #define DATASET_H
 #include "ann/xtensor_lib.h"
+#include "list/listheader.h"
 using namespace std;
 
 /*
@@ -34,6 +35,7 @@ public:
 * It's defined by original source
 TODO: Do not modify this class
 */
+
 template<typename DType, typename LType>
 class Batch{
 private:
@@ -49,8 +51,17 @@ public:
     data(data), label(label){
     }
     virtual ~Batch(){}
-    xt::xarray<DType>& getData(){return data; }
-    xt::xarray<LType>& getLabel(){return label; }
+    xt::xarray<DType>& getData() {return data; }
+    xt::xarray<LType>& getLabel() {return label; }
+    const xt::xarray<DType>& getData() const {return data; }
+    const xt::xarray<LType>& getLabel() const {return label; }
+    friend std::ostream& operator<<(std::ostream& os, const Batch<DType, LType>& batch) {
+        os << "Data: " << batch.data << ", Label: " << batch.label;
+        return os;
+    }
+    bool operator==(const Batch<DType, LType>& other) const {
+        return xt::allclose(data, other.data) && xt::allclose(label, other.label);
+    }
 };
 
 /*
@@ -160,6 +171,10 @@ public:
     xt::svector<unsigned long> get_label_shape(){
         return this->label_shape;
     }
+};
+
+class ImageFolderDataset {
+
 };
 #endif /* DATASET_H */
 
