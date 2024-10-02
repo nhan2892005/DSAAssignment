@@ -21,7 +21,7 @@ vector<int> doTasks(0);
 
 void compareFile(const string& filename1, const string& filename2) {
     string log_file = "TestLog/DLinkedList/DLinkedListTestLog_Compare.txt";
-    fstream file(log_file);
+    fstream file(log_file, ios::out);
     if (!file.is_open()) {
         std::cout << "Cannot open file" << std::endl;
         return;
@@ -821,7 +821,7 @@ int main(int argc, char* argv[]) {
             string folder = "TestLog/DLinkedList";
             string path = "DLinkedListTestLog_NhanOutput.txt";
             string output = "DLinkedListTestLog_YourOutput.txt";
-            fstream file(folder + "/" + output);
+            fstream file(folder + "/" + output, ios::out);
             if (!file.is_open()) {
                 fs::create_directory(folder);
                 std::cout << "Create folder " << fs::absolute(folder) << std::endl;

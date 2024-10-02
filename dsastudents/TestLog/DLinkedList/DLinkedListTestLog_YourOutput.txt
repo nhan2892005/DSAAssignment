@@ -289,7 +289,3 @@ Remove at index 15
 Out of range
 Remove at -1
 Out of range
-t index 15
-Out of range
-Remove at -1
-Out of range

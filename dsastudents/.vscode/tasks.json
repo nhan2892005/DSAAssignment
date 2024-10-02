@@ -11,7 +11,6 @@
                 "-Isrc",
                 "-g",
                 "${fileDirname}/${fileBasename}",
-                "src/ann/*.cpp",
             ],
             "options": {
                 "cwd": "${fileDirname}"
@@ -45,7 +44,7 @@
                 "--verbose",
                 "--log-file=${fileDirname}/valgrind-out.txt",
                 "--quiet",
-                "${fileDirname}/multilayer_perceptron","demo"
+                "${fileDirname}/multilayer_perceptron","test"
             ],
         },
         {
@@ -81,6 +80,7 @@
                 "Check memory leaks",
                 "Make Clean"
             ],
+            "dependsOrder": "sequence",
             "group": {
                 "kind": "build",
                 "isDefault": true

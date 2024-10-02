@@ -22,7 +22,7 @@
         }
       ],
       "preLaunchTask": "Make Build",
-      //"postDebugTask": "Check memory leaks",
+      "postDebugTask": "Check memory leaks and make clean",
       "miDebuggerPath": "/usr/bin/gdb"
     },
     {
