@@ -152,7 +152,8 @@ void test1() {
 
     // Assignment Operator
     std::cout << "Assignment Operator" << std::endl;
-    Vector<int> list3 = list;
+    Vector<int> list3;
+    list3 = list;
     std::cout << "List 3" << std::endl;
     list3.println();
     std::cout << '\n';

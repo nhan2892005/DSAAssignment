@@ -239,36 +239,21 @@ void XArrayList<T>::removeInternalData()
         this->deleteUserData(this);
     }
 
-    // Free dynamic array
-    if (this->data != nullptr) {
-        delete[] this->data;
-        this->data = nullptr;
-    }
-
     // Reset parameters
     this->count = 0;
-    this->capacity = 0;
 }
 
 template <class T>
 XArrayList<T>::XArrayList(const XArrayList<T> &list)
 {
-    // Copies the contents into this list
-    this->capacity = list.capacity;
-    this->count = list.count;
-    this->itemEqual = list.itemEqual;
-    this->deleteUserData = list.deleteUserData;
-
-    // This for copy data array.
-    this->data = new T[this->capacity];
-    for (int i = 0; i < this->count; i++) {
-        this->data[i] = list.data[i];
-    }
+    this->count = 0;
+    copyFrom(list);
 }
 
 template <class T>
 XArrayList<T> &XArrayList<T>::operator=(const XArrayList<T> &list)
 {
+    delete[] data;
     copyFrom(list);
     return *this;
 }
@@ -277,6 +262,7 @@ template <class T>
 XArrayList<T>::~XArrayList()
 {
     removeInternalData();
+    delete[] data;
 }
 
 template <class T>
@@ -396,14 +382,7 @@ void XArrayList<T>::clear()
     /*
     * Objectives: clear the list
     */
-    if (deleteUserData != nullptr) {
-        deleteUserData(this);
-    }
-    
-    count = 0;
-    capacity = 0;
-    
-    delete[] data;
+    removeInternalData();
 }
 
 template <class T>
@@ -515,6 +494,18 @@ void XArrayList<T>::ensureCapacity(int index)
             capacity = newCapacity;
         } catch (const bad_alloc& e) {
             throw runtime_error("Memory allocation failed: " + string(e.what()));
+        }
+    } else // Monitor if capacity too large
+    {
+        if (capacity > 1000 && count < capacity / 2) {
+            int newCapacity = capacity / 2;
+            T* newData = new T[newCapacity];
+            for (int i = 0; i < count; i++) {
+                newData[i] = data[i];
+            }
+            delete[] data;
+            data = newData;
+            capacity = newCapacity;
         }
     }
 }

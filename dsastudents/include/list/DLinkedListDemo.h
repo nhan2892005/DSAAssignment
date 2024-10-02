@@ -16,7 +16,7 @@ using namespace std;
 
 void dlistDemo1(){
     List<int> dlist;
-    for(int i = 0; i< 20 ; i++)
+    for(int i = 0; i < 20 ; i++)
         dlist.add(i, i*i);
     dlist.println();
     
