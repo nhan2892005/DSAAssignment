@@ -130,8 +130,8 @@ void runDemo() {
     TensorDataset <double , double > ds(X, T);
     DataLoader <double , double > loader (&ds, 30, true , false);
     for(auto batch: loader){
-        cout << batch.getData() << endl;
-        cout << batch.getLabel() << endl;
+        cout << shape2str(batch.getData().shape()) << endl;
+        cout << shape2str(batch.getLabel().shape()) << endl;
     }
 }
 
@@ -272,7 +272,7 @@ void test7() {
     xt::xarray <double > T = xt:: random ::randn <double >({ nsamples , 1});
     TensorDataset <double , double > ds(X, T);
     DataLoader <double , double > loader (&ds, 200, true , true);
-    for(auto batch = loader.begin(); batch != loader.end(); batch++){
+    for(auto batch = loader.begin(); batch != loader.end(); ++batch){
         auto data = *batch;
         cout << shape2str(data.getData().shape ()) << endl;
         cout << shape2str(data.getLabel().shape ()) << endl;
