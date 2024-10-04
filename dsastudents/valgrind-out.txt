@@ -1,30 +1,295 @@
-==33480== Memcheck, a memory error detector
-==33480== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
-==33480== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
-==33480== Command: /mnt/d/Code_space/DSAAssignment/dsastudents/multilayer_perceptron test
-==33480== Parent PID: 5994
-==33480== 
-==33480== 
-==33480== HEAP SUMMARY:
-==33480==     in use at exit: 24 bytes in 2 blocks
-==33480==   total heap usage: 312,063 allocs, 312,061 frees, 2,372,457 bytes allocated
-==33480== 
-==33480== 12 bytes in 1 blocks are definitely lost in loss record 1 of 2
-==33480==    at 0x4849013: operator new(unsigned long) (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==33480==    by 0x1158DC: test15() (doubly_linked_list_test.cpp:649)
-==33480==    by 0x116B65: main (doubly_linked_list_test.cpp:838)
-==33480== 
-==33480== 12 bytes in 1 blocks are definitely lost in loss record 2 of 2
-==33480==    at 0x4849013: operator new(unsigned long) (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
-==33480==    by 0x1159A6: test15() (doubly_linked_list_test.cpp:657)
-==33480==    by 0x116B65: main (doubly_linked_list_test.cpp:838)
-==33480== 
-==33480== LEAK SUMMARY:
-==33480==    definitely lost: 24 bytes in 2 blocks
-==33480==    indirectly lost: 0 bytes in 0 blocks
-==33480==      possibly lost: 0 bytes in 0 blocks
-==33480==    still reachable: 0 bytes in 0 blocks
-==33480==         suppressed: 0 bytes in 0 blocks
-==33480== 
-==33480== For lists of detected and suppressed errors, rerun with: -s
-==33480== ERROR SUMMARY: 2 errors from 2 contexts (suppressed: 0 from 0)
+==35084== Memcheck, a memory error detector
+==35084== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==35084== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==35084== Command: /mnt/d/Code_space/DSAAssignment/dsastudents/multilayer_perceptron test
+==35084== Parent PID: 578
+==35084== 
+==35084== 
+==35084== Process terminating with default action of signal 2 (SIGINT)
+==35084==    at 0x11A4CA: std::iterator_traits<char const*>::difference_type std::distance<char const*>(char const*, char const*) (stl_iterator_base_funcs.h:141)
+==35084==    by 0x190A5F: void std::vector<char, std::allocator<char> >::_M_range_initialize<char const*>(char const*, char const*, std::forward_iterator_tag) (stl_vector.h:1580)
+==35084==    by 0x18CE6B: std::vector<char, std::allocator<char> >::vector<char const*, void>(char const*, char const*, std::allocator<char> const&) (stl_vector.h:657)
+==35084==    by 0x18756B: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > std::__cxx11::regex_traits<char>::transform_primary<char const*>(char const*, char const*) const (regex.h:270)
+==35084==    by 0x17F93B: std::__detail::_BracketMatcher<std::__cxx11::regex_traits<char>, false, false>::_M_apply(char, std::integral_constant<bool, false>) const::{lambda()#1}::operator()() const (regex_compiler.tcc:616)
+==35084==    by 0x17FAD2: std::__detail::_BracketMatcher<std::__cxx11::regex_traits<char>, false, false>::_M_apply(char, std::integral_constant<bool, false>) const (regex_compiler.tcc:624)
+==35084==    by 0x176F8E: std::__detail::_BracketMatcher<std::__cxx11::regex_traits<char>, false, false>::_M_make_cache(std::integral_constant<bool, true>) (regex_compiler.h:543)
+==35084==    by 0x16F7D0: std::__detail::_BracketMatcher<std::__cxx11::regex_traits<char>, false, false>::_M_ready() (regex_compiler.h:514)
+==35084==    by 0x1704FC: void std::__detail::_Compiler<std::__cxx11::regex_traits<char> >::_M_insert_bracket_matcher<false, false>(bool) (regex_compiler.tcc:431)
+==35084==    by 0x168F60: std::__detail::_Compiler<std::__cxx11::regex_traits<char> >::_M_bracket_expression() (regex_compiler.tcc:358)
+==35084==    by 0x16263A: std::__detail::_Compiler<std::__cxx11::regex_traits<char> >::_M_atom() (regex_compiler.tcc:344)
+==35084==    by 0x15BEC6: std::__detail::_Compiler<std::__cxx11::regex_traits<char> >::_M_term() (regex_compiler.tcc:133)
+==35084== 
+==35084== HEAP SUMMARY:
+==35084==     in use at exit: 8,906,974 bytes in 7,440 blocks
+==35084==   total heap usage: 3,836,159 allocs, 3,828,719 frees, 56,870,688 bytes allocated
+==35084== 
+==35084== 2 bytes in 1 blocks are still reachable in loss record 1 of 26
+==35084==    at 0x4849013: operator new(unsigned long) (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==35084==    by 0x1964B7: __gnu_cxx::new_allocator<std::pair<char, char> >::allocate(unsigned long, void const*) (new_allocator.h:127)
+==35084==    by 0x195821: std::allocator_traits<std::allocator<std::pair<char, char> > >::allocate(std::allocator<std::pair<char, char> >&, unsigned long) (alloc_traits.h:464)
+==35084==    by 0x193EBB: std::_Vector_base<std::pair<char, char>, std::allocator<std::pair<char, char> > >::_M_allocate(unsigned long) (stl_vector.h:346)
+==35084==    by 0x191748: void std::vector<std::pair<char, char>, std::allocator<std::pair<char, char> > >::_M_realloc_insert<std::pair<char, char> >(__gnu_cxx::__normal_iterator<std::pair<char, char>*, std::vector<std::pair<char, char>, std::allocator<std::pair<char, char> > > >, std::pair<char, char>&&) (vector.tcc:440)
+==35084==    by 0x18E38F: std::pair<char, char>& std::vector<std::pair<char, char>, std::allocator<std::pair<char, char> > >::emplace_back<std::pair<char, char> >(std::pair<char, char>&&) (vector.tcc:121)
+==35084==    by 0x188657: std::vector<std::pair<char, char>, std::allocator<std::pair<char, char> > >::push_back(std::pair<char, char>&&) (stl_vector.h:1204)
+==35084==    by 0x1816B4: std::__detail::_BracketMatcher<std::__cxx11::regex_traits<char>, false, false>::_M_make_range(char, char) (regex_compiler.h:503)
+==35084==    by 0x177AE3: bool std::__detail::_Compiler<std::__cxx11::regex_traits<char> >::_M_expression_term<false, false>(std::__detail::_Compiler<std::__cxx11::regex_traits<char> >::_BracketState&, std::__detail::_BracketMatcher<std::__cxx11::regex_traits<char>, false, false>&) (regex_compiler.tcc:513)
+==35084==    by 0x1704B3: void std::__detail::_Compiler<std::__cxx11::regex_traits<char> >::_M_insert_bracket_matcher<false, false>(bool) (regex_compiler.tcc:427)
+==35084==    by 0x168F60: std::__detail::_Compiler<std::__cxx11::regex_traits<char> >::_M_bracket_expression() (regex_compiler.tcc:358)
+==35084==    by 0x16263A: std::__detail::_Compiler<std::__cxx11::regex_traits<char> >::_M_atom() (regex_compiler.tcc:344)
+==35084== 
+==35084== 8 bytes in 1 blocks are still reachable in loss record 2 of 26
+==35084==    at 0x4849013: operator new(unsigned long) (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==35084==    by 0x11F2C3: __gnu_cxx::new_allocator<unsigned long>::allocate(unsigned long, void const*) (new_allocator.h:127)
+==35084==    by 0x166F72: std::allocator_traits<std::allocator<unsigned long> >::allocate(std::allocator<unsigned long>&, unsigned long) (alloc_traits.h:464)
+==35084==    by 0x161CCB: std::_Vector_base<unsigned long, std::allocator<unsigned long> >::_M_allocate(unsigned long) (stl_vector.h:346)
+==35084==    by 0x15BBE2: void std::vector<unsigned long, std::allocator<unsigned long> >::_M_realloc_insert<unsigned long const&>(__gnu_cxx::__normal_iterator<unsigned long*, std::vector<unsigned long, std::allocator<unsigned long> > >, unsigned long const&) (vector.tcc:440)
+==35084==    by 0x156C07: std::vector<unsigned long, std::allocator<unsigned long> >::push_back(unsigned long const&) (stl_vector.h:1198)
+==35084==    by 0x1501F9: std::__detail::_NFA<std::__cxx11::regex_traits<char> >::_M_insert_subexpr_begin() (regex_automaton.h:278)
+==35084==    by 0x14BBB4: std::__detail::_Compiler<std::__cxx11::regex_traits<char> >::_Compiler(char const*, char const*, std::locale const&, std::regex_constants::syntax_option_type) (regex_compiler.tcc:75)
+==35084==    by 0x1479E5: std::__cxx11::basic_regex<char, std::__cxx11::regex_traits<char> >::_M_compile(char const*, char const*, std::regex_constants::syntax_option_type) (regex.h:785)
+==35084==    by 0x144797: std::__cxx11::basic_regex<char, std::__cxx11::regex_traits<char> >::basic_regex(char const*, std::regex_constants::syntax_option_type) (regex.h:454)
+==35084==    by 0x1398A9: compareFile(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) (test_dataset_and_loader.cpp:45)
+==35084==    by 0x1413FC: main (test_dataset_and_loader.cpp:473)
+==35084== 
+==35084== 25 bytes in 1 blocks are still reachable in loss record 3 of 26
+==35084==    at 0x4849013: operator new(unsigned long) (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==35084==    by 0x11A579: void std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_construct<char const*>(char const*, char const*, std::forward_iterator_tag) (basic_string.tcc:219)
+==35084==    by 0x115B74: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string<std::allocator<char> >(char const*, std::allocator<char> const&) (basic_string.h:539)
+==35084==    by 0x140C26: main (test_dataset_and_loader.cpp:428)
+==35084== 
+==35084== 39 bytes in 1 blocks are still reachable in loss record 4 of 26
+==35084==    at 0x4849013: operator new(unsigned long) (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==35084==    by 0x11A579: void std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_construct<char const*>(char const*, char const*, std::forward_iterator_tag) (basic_string.tcc:219)
+==35084==    by 0x115B74: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string<std::allocator<char> >(char const*, std::allocator<char> const&) (basic_string.h:539)
+==35084==    by 0x140C64: main (test_dataset_and_loader.cpp:429)
+==35084== 
+==35084== 39 bytes in 1 blocks are still reachable in loss record 5 of 26
+==35084==    at 0x4849013: operator new(unsigned long) (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==35084==    by 0x11A579: void std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_construct<char const*>(char const*, char const*, std::forward_iterator_tag) (basic_string.tcc:219)
+==35084==    by 0x115B74: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string<std::allocator<char> >(char const*, std::allocator<char> const&) (basic_string.h:539)
+==35084==    by 0x140CA2: main (test_dataset_and_loader.cpp:430)
+==35084== 
+==35084== 61 bytes in 1 blocks are still reachable in loss record 6 of 26
+==35084==    at 0x4849013: operator new(unsigned long) (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==35084==    by 0x11A579: void std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_construct<char const*>(char const*, char const*, std::forward_iterator_tag) (basic_string.tcc:219)
+==35084==    by 0x115B74: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string<std::allocator<char> >(char const*, std::allocator<char> const&) (basic_string.h:539)
+==35084==    by 0x139760: compareFile(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) (test_dataset_and_loader.cpp:26)
+==35084==    by 0x1413FC: main (test_dataset_and_loader.cpp:473)
+==35084== 
+==35084== 64 bytes in 1 blocks are still reachable in loss record 7 of 26
+==35084==    at 0x4849013: operator new(unsigned long) (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==35084==    by 0x16E10B: __gnu_cxx::new_allocator<std::__detail::_StateSeq<std::__cxx11::regex_traits<char> >*>::allocate(unsigned long, void const*) (new_allocator.h:127)
+==35084==    by 0x166EB5: std::allocator_traits<std::allocator<std::__detail::_StateSeq<std::__cxx11::regex_traits<char> >*> >::allocate(std::allocator<std::__detail::_StateSeq<std::__cxx11::regex_traits<char> >*>&, unsigned long) (alloc_traits.h:464)
+==35084==    by 0x16197D: std::_Deque_base<std::__detail::_StateSeq<std::__cxx11::regex_traits<char> >, std::allocator<std::__detail::_StateSeq<std::__cxx11::regex_traits<char> > > >::_M_allocate_map(unsigned long) (stl_deque.h:576)
+==35084==    by 0x15B96D: std::_Deque_base<std::__detail::_StateSeq<std::__cxx11::regex_traits<char> >, std::allocator<std::__detail::_StateSeq<std::__cxx11::regex_traits<char> > > >::_M_initialize_map(unsigned long) (stl_deque.h:625)
+==35084==    by 0x156B65: std::_Deque_base<std::__detail::_StateSeq<std::__cxx11::regex_traits<char> >, std::allocator<std::__detail::_StateSeq<std::__cxx11::regex_traits<char> > > >::_Deque_base() (stl_deque.h:439)
+==35084==    by 0x1500C3: std::deque<std::__detail::_StateSeq<std::__cxx11::regex_traits<char> >, std::allocator<std::__detail::_StateSeq<std::__cxx11::regex_traits<char> > > >::deque() (stl_deque.h:834)
+==35084==    by 0x150136: std::stack<std::__detail::_StateSeq<std::__cxx11::regex_traits<char> >, std::deque<std::__detail::_StateSeq<std::__cxx11::regex_traits<char> >, std::allocator<std::__detail::_StateSeq<std::__cxx11::regex_traits<char> > > > >::stack<std::deque<std::__detail::_StateSeq<std::__cxx11::regex_traits<char> >, std::allocator<std::__detail::_StateSeq<std::__cxx11::regex_traits<char> > > >, void>() (stl_stack.h:163)
+==35084==    by 0x14BB1E: std::__detail::_Compiler<std::__cxx11::regex_traits<char> >::_Compiler(char const*, char const*, std::locale const&, std::regex_constants::syntax_option_type) (regex_compiler.tcc:72)
+==35084==    by 0x1479E5: std::__cxx11::basic_regex<char, std::__cxx11::regex_traits<char> >::_M_compile(char const*, char const*, std::regex_constants::syntax_option_type) (regex.h:785)
+==35084==    by 0x144797: std::__cxx11::basic_regex<char, std::__cxx11::regex_traits<char> >::basic_regex(char const*, std::regex_constants::syntax_option_type) (regex.h:454)
+==35084==    by 0x1398A9: compareFile(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) (test_dataset_and_loader.cpp:45)
+==35084== 
+==35084== 97 bytes in 1 blocks are still reachable in loss record 8 of 26
+==35084==    at 0x4849013: operator new(unsigned long) (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==35084==    by 0x49AF0BD: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_mutate(unsigned long, unsigned long, char const*, unsigned long) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
+==35084==    by 0x49B0B4F: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_append(char const*, unsigned long) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
+==35084==    by 0x146D80: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > std::operator+<char, std::char_traits<char>, std::allocator<char> >(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) (basic_string.h:6162)
+==35084==    by 0x1413A3: main (test_dataset_and_loader.cpp:473)
+==35084== 
+==35084== 97 bytes in 1 blocks are still reachable in loss record 9 of 26
+==35084==    at 0x4849013: operator new(unsigned long) (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==35084==    by 0x49AF0BD: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_mutate(unsigned long, unsigned long, char const*, unsigned long) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
+==35084==    by 0x49B0B4F: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_append(char const*, unsigned long) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
+==35084==    by 0x146D80: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > std::operator+<char, std::char_traits<char>, std::allocator<char> >(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) (basic_string.h:6162)
+==35084==    by 0x1413E3: main (test_dataset_and_loader.cpp:473)
+==35084== 
+==35084== 104 bytes in 1 blocks are still reachable in loss record 10 of 26
+==35084==    at 0x4849013: operator new(unsigned long) (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==35084==    by 0x17D7B9: __gnu_cxx::new_allocator<std::_Sp_counted_ptr_inplace<std::__detail::_NFA<std::__cxx11::regex_traits<char> >, std::allocator<std::__detail::_NFA<std::__cxx11::regex_traits<char> > >, (__gnu_cxx::_Lock_policy)2> >::allocate(unsigned long, void const*) (new_allocator.h:127)
+==35084==    by 0x175576: std::allocator_traits<std::allocator<std::_Sp_counted_ptr_inplace<std::__detail::_NFA<std::__cxx11::regex_traits<char> >, std::allocator<std::__detail::_NFA<std::__cxx11::regex_traits<char> > >, (__gnu_cxx::_Lock_policy)2> > >::allocate(std::allocator<std::_Sp_counted_ptr_inplace<std::__detail::_NFA<std::__cxx11::regex_traits<char> >, std::allocator<std::__detail::_NFA<std::__cxx11::regex_traits<char> > >, (__gnu_cxx::_Lock_policy)2> >&, unsigned long) (alloc_traits.h:464)
+==35084==    by 0x16DE5B: std::__allocated_ptr<std::allocator<std::_Sp_counted_ptr_inplace<std::__detail::_NFA<std::__cxx11::regex_traits<char> >, std::allocator<std::__detail::_NFA<std::__cxx11::regex_traits<char> > >, (__gnu_cxx::_Lock_policy)2> > > std::__allocate_guarded<std::allocator<std::_Sp_counted_ptr_inplace<std::__detail::_NFA<std::__cxx11::regex_traits<char> >, std::allocator<std::__detail::_NFA<std::__cxx11::regex_traits<char> > >, (__gnu_cxx::_Lock_policy)2> > >(std::allocator<std::_Sp_counted_ptr_inplace<std::__detail::_NFA<std::__cxx11::regex_traits<char> >, std::allocator<std::__detail::_NFA<std::__cxx11::regex_traits<char> > >, (__gnu_cxx::_Lock_policy)2> >&) (allocated_ptr.h:98)
+==35084==    by 0x166CE9: std::__shared_count<(__gnu_cxx::_Lock_policy)2>::__shared_count<std::__detail::_NFA<std::__cxx11::regex_traits<char> >, std::allocator<std::__detail::_NFA<std::__cxx11::regex_traits<char> > >, std::locale const&, std::regex_constants::syntax_option_type&>(std::__detail::_NFA<std::__cxx11::regex_traits<char> >*&, std::_Sp_alloc_shared_tag<std::allocator<std::__detail::_NFA<std::__cxx11::regex_traits<char> > > >, std::locale const&, std::regex_constants::syntax_option_type&) (shared_ptr_base.h:648)
+==35084==    by 0x161761: std::__shared_ptr<std::__detail::_NFA<std::__cxx11::regex_traits<char> >, (__gnu_cxx::_Lock_policy)2>::__shared_ptr<std::allocator<std::__detail::_NFA<std::__cxx11::regex_traits<char> > >, std::locale const&, std::regex_constants::syntax_option_type&>(std::_Sp_alloc_shared_tag<std::allocator<std::__detail::_NFA<std::__cxx11::regex_traits<char> > > >, std::locale const&, std::regex_constants::syntax_option_type&) (shared_ptr_base.h:1342)
+==35084==    by 0x15ABF4: std::shared_ptr<std::__detail::_NFA<std::__cxx11::regex_traits<char> > >::shared_ptr<std::allocator<std::__detail::_NFA<std::__cxx11::regex_traits<char> > >, std::locale const&, std::regex_constants::syntax_option_type&>(std::_Sp_alloc_shared_tag<std::allocator<std::__detail::_NFA<std::__cxx11::regex_traits<char> > > >, std::locale const&, std::regex_constants::syntax_option_type&) (shared_ptr.h:409)
+==35084==    by 0x1563E0: std::shared_ptr<std::__detail::_NFA<std::__cxx11::regex_traits<char> > > std::allocate_shared<std::__detail::_NFA<std::__cxx11::regex_traits<char> >, std::allocator<std::__detail::_NFA<std::__cxx11::regex_traits<char> > >, std::locale const&, std::regex_constants::syntax_option_type&>(std::allocator<std::__detail::_NFA<std::__cxx11::regex_traits<char> > > const&, std::locale const&, std::regex_constants::syntax_option_type&) (shared_ptr.h:863)
+==35084==    by 0x14FF36: std::shared_ptr<std::__detail::_NFA<std::__cxx11::regex_traits<char> > > std::make_shared<std::__detail::_NFA<std::__cxx11::regex_traits<char> >, std::locale const&, std::regex_constants::syntax_option_type&>(std::locale const&, std::regex_constants::syntax_option_type&) (shared_ptr.h:879)
+==35084==    by 0x14BAFA: std::__detail::_Compiler<std::__cxx11::regex_traits<char> >::_Compiler(char const*, char const*, std::locale const&, std::regex_constants::syntax_option_type) (regex_compiler.tcc:70)
+==35084==    by 0x1479E5: std::__cxx11::basic_regex<char, std::__cxx11::regex_traits<char> >::_M_compile(char const*, char const*, std::regex_constants::syntax_option_type) (regex.h:785)
+==35084==    by 0x144797: std::__cxx11::basic_regex<char, std::__cxx11::regex_traits<char> >::basic_regex(char const*, std::regex_constants::syntax_option_type) (regex.h:454)
+==35084== 
+==35084== 115 bytes in 1 blocks are still reachable in loss record 11 of 26
+==35084==    at 0x4849013: operator new(unsigned long) (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==35084==    by 0x49AF0BD: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_mutate(unsigned long, unsigned long, char const*, unsigned long) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
+==35084==    by 0x49B0B4F: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_append(char const*, unsigned long) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
+==35084==    by 0x492B609: std::basic_istream<char, std::char_traits<char> >& std::getline<char, std::char_traits<char>, std::allocator<char> >(std::basic_istream<char, std::char_traits<char> >&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&, char) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
+==35084==    by 0x139B89: compareFile(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) (test_dataset_and_loader.cpp:43)
+==35084==    by 0x1413FC: main (test_dataset_and_loader.cpp:473)
+==35084== 
+==35084== 312 bytes in 1 blocks are still reachable in loss record 12 of 26
+==35084==    at 0x4849013: operator new(unsigned long) (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==35084==    by 0x15AA5E: __gnu_cxx::new_allocator<std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > >::allocate(unsigned long, void const*) (new_allocator.h:127)
+==35084==    by 0x156191: std::allocator_traits<std::allocator<std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > > >::allocate(std::allocator<std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > >&, unsigned long) (alloc_traits.h:464)
+==35084==    by 0x14FCB7: std::_Vector_base<std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >, std::allocator<std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > > >::_M_allocate(unsigned long) (stl_vector.h:346)
+==35084==    by 0x14B7CC: std::_Vector_base<std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >, std::allocator<std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > > >::_M_create_storage(unsigned long) (stl_vector.h:361)
+==35084==    by 0x1475E2: std::_Vector_base<std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >, std::allocator<std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > > >::_Vector_base(unsigned long, std::allocator<std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > > const&) (stl_vector.h:305)
+==35084==    by 0x1445F4: std::vector<std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >, std::allocator<std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > > >::vector(unsigned long, std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > const&, std::allocator<std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > > const&) (stl_vector.h:524)
+==35084==    by 0x141835: __static_initialization_and_destruction_0(int, int) (test_dataset_and_loader.cpp:20)
+==35084==    by 0x141B4A: _GLOBAL__sub_I_num_task (test_dataset_and_loader.cpp:477)
+==35084==    by 0x4BBFEBA: call_init (libc-start.c:145)
+==35084==    by 0x4BBFEBA: __libc_start_main@@GLIBC_2.34 (libc-start.c:379)
+==35084==    by 0x110384: (below main) (in /mnt/d/Code_space/DSAAssignment/dsastudents/multilayer_perceptron)
+==35084== 
+==35084== 312 bytes in 1 blocks are still reachable in loss record 13 of 26
+==35084==    at 0x4849013: operator new(unsigned long) (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==35084==    by 0x15AA5E: __gnu_cxx::new_allocator<std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > >::allocate(unsigned long, void const*) (new_allocator.h:127)
+==35084==    by 0x156191: std::allocator_traits<std::allocator<std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > > >::allocate(std::allocator<std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > >&, unsigned long) (alloc_traits.h:464)
+==35084==    by 0x14FCB7: std::_Vector_base<std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >, std::allocator<std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > > >::_M_allocate(unsigned long) (stl_vector.h:346)
+==35084==    by 0x14B7CC: std::_Vector_base<std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >, std::allocator<std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > > >::_M_create_storage(unsigned long) (stl_vector.h:361)
+==35084==    by 0x1475E2: std::_Vector_base<std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >, std::allocator<std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > > >::_Vector_base(unsigned long, std::allocator<std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > > const&) (stl_vector.h:305)
+==35084==    by 0x1445F4: std::vector<std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >, std::allocator<std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > > >::vector(unsigned long, std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > const&, std::allocator<std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > > const&) (stl_vector.h:524)
+==35084==    by 0x14190D: __static_initialization_and_destruction_0(int, int) (test_dataset_and_loader.cpp:21)
+==35084==    by 0x141B4A: _GLOBAL__sub_I_num_task (test_dataset_and_loader.cpp:477)
+==35084==    by 0x4BBFEBA: call_init (libc-start.c:145)
+==35084==    by 0x4BBFEBA: __libc_start_main@@GLIBC_2.34 (libc-start.c:379)
+==35084==    by 0x110384: (below main) (in /mnt/d/Code_space/DSAAssignment/dsastudents/multilayer_perceptron)
+==35084== 
+==35084== 384 bytes in 1 blocks are still reachable in loss record 14 of 26
+==35084==    at 0x4849013: operator new(unsigned long) (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==35084==    by 0x17D9FC: __gnu_cxx::new_allocator<std::__detail::_State<char> >::allocate(unsigned long, void const*) (new_allocator.h:127)
+==35084==    by 0x17583B: std::allocator_traits<std::allocator<std::__detail::_State<char> > >::allocate(std::allocator<std::__detail::_State<char> >&, unsigned long) (alloc_traits.h:464)
+==35084==    by 0x16E3DD: std::_Vector_base<std::__detail::_State<char>, std::allocator<std::__detail::_State<char> > >::_M_allocate(unsigned long) (stl_vector.h:346)
+==35084==    by 0x16708E: void std::vector<std::__detail::_State<char>, std::allocator<std::__detail::_State<char> > >::_M_realloc_insert<std::__detail::_State<char> >(__gnu_cxx::__normal_iterator<std::__detail::_State<char>*, std::vector<std::__detail::_State<char>, std::allocator<std::__detail::_State<char> > > >, std::__detail::_State<char>&&) (vector.tcc:440)
+==35084==    by 0x161DB3: std::__detail::_State<char>& std::vector<std::__detail::_State<char>, std::allocator<std::__detail::_State<char> > >::emplace_back<std::__detail::_State<char> >(std::__detail::_State<char>&&) (vector.tcc:121)
+==35084==    by 0x15BDE1: std::vector<std::__detail::_State<char>, std::allocator<std::__detail::_State<char> > >::push_back(std::__detail::_State<char>&&) (stl_vector.h:1204)
+==35084==    by 0x156CFF: std::__detail::_NFA<std::__cxx11::regex_traits<char> >::_M_insert_state(std::__detail::_State<char>) (regex_automaton.h:328)
+==35084==    by 0x16E68E: std::__detail::_NFA<std::__cxx11::regex_traits<char> >::_M_insert_matcher(std::function<bool (char)>) (regex_automaton.h:271)
+==35084==    by 0x167EBF: void std::__detail::_Compiler<std::__cxx11::regex_traits<char> >::_M_insert_char_matcher<false, false>() (regex_compiler.tcc:393)
+==35084==    by 0x1622BF: std::__detail::_Compiler<std::__cxx11::regex_traits<char> >::_M_atom() (regex_compiler.tcc:317)
+==35084==    by 0x15BEC6: std::__detail::_Compiler<std::__cxx11::regex_traits<char> >::_M_term() (regex_compiler.tcc:133)
+==35084== 
+==35084== 472 bytes in 1 blocks are still reachable in loss record 15 of 26
+==35084==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==35084==    by 0x4C1564D: __fopen_internal (iofopen.c:65)
+==35084==    by 0x4C1564D: fopen@@GLIBC_2.2.5 (iofopen.c:86)
+==35084==    by 0x4933BB3: std::__basic_file<char>::open(char const*, std::_Ios_Openmode, int) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
+==35084==    by 0x497BFFD: std::basic_filebuf<char, std::char_traits<char> >::open(char const*, std::_Ios_Openmode) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
+==35084==    by 0x497C377: std::basic_fstream<char, std::char_traits<char> >::basic_fstream(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::_Ios_Openmode) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
+==35084==    by 0x140D0F: main (test_dataset_and_loader.cpp:431)
+==35084== 
+==35084== 472 bytes in 1 blocks are still reachable in loss record 16 of 26
+==35084==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==35084==    by 0x4C1564D: __fopen_internal (iofopen.c:65)
+==35084==    by 0x4C1564D: fopen@@GLIBC_2.2.5 (iofopen.c:86)
+==35084==    by 0x4933BB3: std::__basic_file<char>::open(char const*, std::_Ios_Openmode, int) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
+==35084==    by 0x497BFFD: std::basic_filebuf<char, std::char_traits<char> >::open(char const*, std::_Ios_Openmode) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
+==35084==    by 0x497C377: std::basic_fstream<char, std::char_traits<char> >::basic_fstream(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::_Ios_Openmode) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
+==35084==    by 0x13978D: compareFile(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) (test_dataset_and_loader.cpp:27)
+==35084==    by 0x1413FC: main (test_dataset_and_loader.cpp:473)
+==35084== 
+==35084== 472 bytes in 1 blocks are still reachable in loss record 17 of 26
+==35084==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==35084==    by 0x4C1564D: __fopen_internal (iofopen.c:65)
+==35084==    by 0x4C1564D: fopen@@GLIBC_2.2.5 (iofopen.c:86)
+==35084==    by 0x4933BB3: std::__basic_file<char>::open(char const*, std::_Ios_Openmode, int) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
+==35084==    by 0x497BFFD: std::basic_filebuf<char, std::char_traits<char> >::open(char const*, std::_Ios_Openmode) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
+==35084==    by 0x497C377: std::basic_fstream<char, std::char_traits<char> >::basic_fstream(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::_Ios_Openmode) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
+==35084==    by 0x139839: compareFile(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) (test_dataset_and_loader.cpp:36)
+==35084==    by 0x1413FC: main (test_dataset_and_loader.cpp:473)
+==35084== 
+==35084== 472 bytes in 1 blocks are still reachable in loss record 18 of 26
+==35084==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==35084==    by 0x4C1564D: __fopen_internal (iofopen.c:65)
+==35084==    by 0x4C1564D: fopen@@GLIBC_2.2.5 (iofopen.c:86)
+==35084==    by 0x4933BB3: std::__basic_file<char>::open(char const*, std::_Ios_Openmode, int) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
+==35084==    by 0x497BFFD: std::basic_filebuf<char, std::char_traits<char> >::open(char const*, std::_Ios_Openmode) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
+==35084==    by 0x497C377: std::basic_fstream<char, std::char_traits<char> >::basic_fstream(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::_Ios_Openmode) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
+==35084==    by 0x139863: compareFile(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) (test_dataset_and_loader.cpp:37)
+==35084==    by 0x1413FC: main (test_dataset_and_loader.cpp:473)
+==35084== 
+==35084== 504 bytes in 1 blocks are still reachable in loss record 19 of 26
+==35084==    at 0x4849013: operator new(unsigned long) (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==35084==    by 0x175760: __gnu_cxx::new_allocator<std::__detail::_StateSeq<std::__cxx11::regex_traits<char> > >::allocate(unsigned long, void const*) (new_allocator.h:127)
+==35084==    by 0x16E13A: std::allocator_traits<std::allocator<std::__detail::_StateSeq<std::__cxx11::regex_traits<char> > > >::allocate(std::allocator<std::__detail::_StateSeq<std::__cxx11::regex_traits<char> > >&, unsigned long) (alloc_traits.h:464)
+==35084==    by 0x166EE3: std::_Deque_base<std::__detail::_StateSeq<std::__cxx11::regex_traits<char> >, std::allocator<std::__detail::_StateSeq<std::__cxx11::regex_traits<char> > > >::_M_allocate_node() (stl_deque.h:562)
+==35084==    by 0x1619FA: std::_Deque_base<std::__detail::_StateSeq<std::__cxx11::regex_traits<char> >, std::allocator<std::__detail::_StateSeq<std::__cxx11::regex_traits<char> > > >::_M_create_nodes(std::__detail::_StateSeq<std::__cxx11::regex_traits<char> >**, std::__detail::_StateSeq<std::__cxx11::regex_traits<char> >**) (stl_deque.h:663)
+==35084==    by 0x15B9C3: std::_Deque_base<std::__detail::_StateSeq<std::__cxx11::regex_traits<char> >, std::allocator<std::__detail::_StateSeq<std::__cxx11::regex_traits<char> > > >::_M_initialize_map(unsigned long) (stl_deque.h:637)
+==35084==    by 0x156B65: std::_Deque_base<std::__detail::_StateSeq<std::__cxx11::regex_traits<char> >, std::allocator<std::__detail::_StateSeq<std::__cxx11::regex_traits<char> > > >::_Deque_base() (stl_deque.h:439)
+==35084==    by 0x1500C3: std::deque<std::__detail::_StateSeq<std::__cxx11::regex_traits<char> >, std::allocator<std::__detail::_StateSeq<std::__cxx11::regex_traits<char> > > >::deque() (stl_deque.h:834)
+==35084==    by 0x150136: std::stack<std::__detail::_StateSeq<std::__cxx11::regex_traits<char> >, std::deque<std::__detail::_StateSeq<std::__cxx11::regex_traits<char> >, std::allocator<std::__detail::_StateSeq<std::__cxx11::regex_traits<char> > > > >::stack<std::deque<std::__detail::_StateSeq<std::__cxx11::regex_traits<char> >, std::allocator<std::__detail::_StateSeq<std::__cxx11::regex_traits<char> > > >, void>() (stl_stack.h:163)
+==35084==    by 0x14BB1E: std::__detail::_Compiler<std::__cxx11::regex_traits<char> >::_Compiler(char const*, char const*, std::locale const&, std::regex_constants::syntax_option_type) (regex_compiler.tcc:72)
+==35084==    by 0x1479E5: std::__cxx11::basic_regex<char, std::__cxx11::regex_traits<char> >::_M_compile(char const*, char const*, std::regex_constants::syntax_option_type) (regex.h:785)
+==35084==    by 0x144797: std::__cxx11::basic_regex<char, std::__cxx11::regex_traits<char> >::basic_regex(char const*, std::regex_constants::syntax_option_type) (regex.h:454)
+==35084== 
+==35084== 8,192 bytes in 1 blocks are still reachable in loss record 20 of 26
+==35084==    at 0x484A2F3: operator new[](unsigned long) (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==35084==    by 0x4978023: std::basic_filebuf<char, std::char_traits<char> >::_M_allocate_internal_buffer() (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
+==35084==    by 0x497C015: std::basic_filebuf<char, std::char_traits<char> >::open(char const*, std::_Ios_Openmode) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
+==35084==    by 0x497C377: std::basic_fstream<char, std::char_traits<char> >::basic_fstream(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::_Ios_Openmode) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
+==35084==    by 0x140D0F: main (test_dataset_and_loader.cpp:431)
+==35084== 
+==35084== 8,192 bytes in 1 blocks are still reachable in loss record 21 of 26
+==35084==    at 0x484A2F3: operator new[](unsigned long) (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==35084==    by 0x4978023: std::basic_filebuf<char, std::char_traits<char> >::_M_allocate_internal_buffer() (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
+==35084==    by 0x497C015: std::basic_filebuf<char, std::char_traits<char> >::open(char const*, std::_Ios_Openmode) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
+==35084==    by 0x497C377: std::basic_fstream<char, std::char_traits<char> >::basic_fstream(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::_Ios_Openmode) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
+==35084==    by 0x13978D: compareFile(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) (test_dataset_and_loader.cpp:27)
+==35084==    by 0x1413FC: main (test_dataset_and_loader.cpp:473)
+==35084== 
+==35084== 8,192 bytes in 1 blocks are still reachable in loss record 22 of 26
+==35084==    at 0x484A2F3: operator new[](unsigned long) (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==35084==    by 0x4978023: std::basic_filebuf<char, std::char_traits<char> >::_M_allocate_internal_buffer() (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
+==35084==    by 0x497C015: std::basic_filebuf<char, std::char_traits<char> >::open(char const*, std::_Ios_Openmode) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
+==35084==    by 0x497C377: std::basic_fstream<char, std::char_traits<char> >::basic_fstream(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::_Ios_Openmode) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
+==35084==    by 0x139839: compareFile(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) (test_dataset_and_loader.cpp:36)
+==35084==    by 0x1413FC: main (test_dataset_and_loader.cpp:473)
+==35084== 
+==35084== 8,192 bytes in 1 blocks are still reachable in loss record 23 of 26
+==35084==    at 0x484A2F3: operator new[](unsigned long) (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==35084==    by 0x4978023: std::basic_filebuf<char, std::char_traits<char> >::_M_allocate_internal_buffer() (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
+==35084==    by 0x497C015: std::basic_filebuf<char, std::char_traits<char> >::open(char const*, std::_Ios_Openmode) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
+==35084==    by 0x497C377: std::basic_fstream<char, std::char_traits<char> >::basic_fstream(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::_Ios_Openmode) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
+==35084==    by 0x139863: compareFile(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) (test_dataset_and_loader.cpp:37)
+==35084==    by 0x1413FC: main (test_dataset_and_loader.cpp:473)
+==35084== 
+==35084== 72,704 bytes in 1 blocks are still reachable in loss record 24 of 26
+==35084==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==35084==    by 0x490D939: ??? (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
+==35084==    by 0x400647D: call_init.part.0 (dl-init.c:70)
+==35084==    by 0x4006567: call_init (dl-init.c:33)
+==35084==    by 0x4006567: _dl_init (dl-init.c:117)
+==35084==    by 0x40202C9: ??? (in /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2)
+==35084==    by 0x1: ???
+==35084==    by 0x1FFF0001EA: ???
+==35084==    by 0x1FFF00022C: ???
+==35084== 
+==35084== 477,451 bytes in 7,390 blocks are still reachable in loss record 25 of 26
+==35084==    at 0x4849013: operator new(unsigned long) (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==35084==    by 0x49AF0BD: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_mutate(unsigned long, unsigned long, char const*, unsigned long) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
+==35084==    by 0x49B0B4F: std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::_M_append(char const*, unsigned long) (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.30)
+==35084==    by 0x139B5A: compareFile(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) (test_dataset_and_loader.cpp:58)
+==35084==    by 0x1413FC: main (test_dataset_and_loader.cpp:473)
+==35084== 
+==35084== 8,320,000 bytes in 26 blocks are still reachable in loss record 26 of 26
+==35084==    at 0x4849013: operator new(unsigned long) (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==35084==    by 0x15A967: __gnu_cxx::new_allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >::allocate(unsigned long, void const*) (new_allocator.h:127)
+==35084==    by 0x156059: std::allocator_traits<std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >::allocate(std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >&, unsigned long) (alloc_traits.h:464)
+==35084==    by 0x14FB77: std::_Vector_base<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >::_M_allocate(unsigned long) (stl_vector.h:346)
+==35084==    by 0x14B610: std::_Vector_base<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >::_M_create_storage(unsigned long) (stl_vector.h:361)
+==35084==    by 0x1473DA: std::_Vector_base<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >::_Vector_base(unsigned long, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > const&) (stl_vector.h:305)
+==35084==    by 0x16159A: std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >::vector(std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > const&) (stl_vector.h:555)
+==35084==    by 0x15AABA: void std::_Construct<std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >, std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > const&>(std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >*, std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > const&) (stl_construct.h:119)
+==35084==    by 0x156211: std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >* std::__uninitialized_fill_n<false>::__uninit_fill_n<std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >*, unsigned long, std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > >(std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >*, unsigned long, std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > const&) (stl_uninitialized.h:237)
+==35084==    by 0x14FD25: std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >* std::uninitialized_fill_n<std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >*, unsigned long, std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > >(std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >*, unsigned long, std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > const&) (stl_uninitialized.h:297)
+==35084==    by 0x14B888: std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >* std::__uninitialized_fill_n_a<std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >*, unsigned long, std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >, std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > >(std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >*, unsigned long, std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > const&, std::allocator<std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > >&) (stl_uninitialized.h:410)
+==35084==    by 0x1476A9: std::vector<std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > >, std::allocator<std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > > >::_M_fill_initialize(unsigned long, std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > const&) (stl_vector.h:1596)
+==35084== 
+==35084== LEAK SUMMARY:
+==35084==    definitely lost: 0 bytes in 0 blocks
+==35084==    indirectly lost: 0 bytes in 0 blocks
+==35084==      possibly lost: 0 bytes in 0 blocks
+==35084==    still reachable: 8,906,974 bytes in 7,440 blocks
+==35084==         suppressed: 0 bytes in 0 blocks
+==35084== 
+==35084== For lists of detected and suppressed errors, rerun with: -s
+==35084== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
