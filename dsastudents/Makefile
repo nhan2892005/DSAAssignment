@@ -1,7 +1,7 @@
 CXX = g++
 CXXFLAGS = -g -Iinclude -Isrc
 BUILD_DIR = build
-ANN_SOURCES = $(wildcard src/ann/*.cpp)
+ANN_SOURCES = $(wildcard src/ann/xtensor_lib.cpp)
 USER_SOURCE = $(file)
 TARGET = multilayer_perceptron
 
@@ -23,4 +23,4 @@ $(USER_OBJECT): $(USER_SOURCE) | $(BUILD_DIR)
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 clean:
-	rm -rf $(TARGET)
+	rm -f $(TARGET) $(USER_OBJECT)

@@ -65,7 +65,8 @@
             "type" : "shell",
             "command" : "make",
             "args" : [
-                "clean"
+                "clean",
+                "file=${fileBasename}"
             ],
             "group": {
                 "kind": "build",

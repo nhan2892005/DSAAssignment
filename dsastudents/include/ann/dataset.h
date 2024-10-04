@@ -23,17 +23,15 @@ private:
     xt::xarray<LType> label;
 public:
     DataLabel(xt::xarray<DType> data,  xt::xarray<LType> label):
-    data(data), label(label){
-    }
-    xt::xarray<DType> getData() const{ return data; }
-    xt::xarray<LType> getLabel() const{ return label; }
+    data(data), label(label){}
+    xt::xarray<DType> getData() const { return data; }
+    xt::xarray<LType> getLabel() const { return label; }
 };
 
 /*
 ! Batch class:
 ? This class is used to store a pair of data and label but in batch (multiple data and label)
 * It's defined by original source
-TODO: Do not modify this class
 */
 
 template<typename DType, typename LType>
@@ -84,7 +82,6 @@ public:
     virtual DataLabel<DType, LType> getitem(int index)=0;
     virtual xt::svector<unsigned long> get_data_shape()=0;
     virtual xt::svector<unsigned long> get_label_shape()=0;
-    
 };
 
 //////////////////////////////////////////////////////////////////////
@@ -115,6 +112,12 @@ public:
         : data(data), label(label) {
         this->data_shape = this->data.shape();
         this->label_shape = this->label.shape();
+        if (data.dimension() == 0) {
+            throw std::invalid_argument("Dataset has no samples.");
+        }
+        if (label.dimension() != 0 && data_shape[0] != label_shape[0]) {
+            throw std::invalid_argument("Number of datas and labels do not match.");
+        }
     }
 
     // * Copy constructor
@@ -135,17 +138,6 @@ public:
 
     ~TensorDataset() {}
 
-    // * Move assignment operator
-    TensorDataset& operator=(TensorDataset&& other) noexcept {
-        if (this != &other) {
-            data = std::move(other.data);
-            label = std::move(other.label);
-            data_shape = std::move(other.data_shape);
-            label_shape = std::move(other.label_shape);
-        }
-        return *this;
-    }
-
     // * len(): return the size of the dataset
     int len(){
         return this->data_shape[0];
@@ -155,13 +147,27 @@ public:
     // * Notes: user can be use negative index
     // *        => use positive_index function in xtensor_lib.h
     DataLabel<DType, LType> getitem(int index){
-        index = positive_index(index, this->data_shape[0]);
-        auto data_slice = xt::view(this->data, index, xt::all());
-        auto label_slice = xt::view(this->label, index, xt::all());
-        return DataLabel<DType, LType>(data_slice, label_slice);
+        int pos_index = positive_index(index, data_shape[0]);
+        // * Ensure that the index is within the valid range for both data and label
+        if (pos_index >= data_shape[0]) {
+            throw std::out_of_range("Index is out of bounds for number of datas.");
+        }
+        // * Check if the label tensor is uninitialized (i.e., it only contains a scalar or shape is zero)
+        if (label.dimension() == 0) {
+            auto empty_label = xt::xarray<LType>();
+            auto slice_data = xt::view(data, pos_index);
+            return DataLabel<DType, LType>(slice_data, empty_label);  
+        }
+        // * Ensure that the index is within the valid range for both data and label
+        if (pos_index >= label_shape[0]) {
+            throw std::out_of_range("Index is out of bounds for number of labels.");
+        }
+        auto slice_data = xt::view(data, pos_index);
+        auto slice_label = xt::view(label, pos_index);
+        // * Return a DataLabel object containing both the data and label at the specified index
+        return DataLabel<DType, LType>(slice_data, slice_label);
     }
 
-    
     // * get_data_shape(): return the shape of the data
     xt::svector<unsigned long> get_data_shape(){
         return this->data_shape;
@@ -173,8 +179,17 @@ public:
     }
 };
 
-class ImageFolderDataset {
 
+
+template <typename DType, typename LType>
+class ImageFolderDataset : public Dataset<DType, LType> {
+private:
+    xt::xarray<DType> data;
+    xt::xarray<LType> labels;
+    xt::svector<unsigned long> data_shape, label_shape;
+public:
+    ImageFolderDataset(const string& root)
+    {}
 };
 #endif /* DATASET_H */
 

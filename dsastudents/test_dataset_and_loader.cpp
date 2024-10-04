@@ -15,16 +15,16 @@ using namespace std;
 
 using namespace std;
 namespace fs = std::filesystem;
-int num_task = 7;
+int num_task = 13;
 
-vector<vector<string>> expected_task (num_task, vector<string>(50, ""));
-vector<vector<string>> output_task (num_task, vector<string>(50, ""));
+vector<vector<string>> expected_task (num_task, vector<string>(10000, ""));
+vector<vector<string>> output_task (num_task, vector<string>(10000, ""));
 vector<int> diffTasks(0);
 vector<int> doTasks(0);
 
 void compareFile(const string& filename1, const string& filename2) {
     string log_file = "TestLog/DataSetAndLoader/DataSetAndLoaderTestLog_Compare.txt";
-    fstream file(log_file);
+    fstream file(log_file, ios::out);
     if (!file.is_open()) {
         std::cout << "Cannot open file" << std::endl;
         return;
@@ -76,7 +76,7 @@ void compareFile(const string& filename1, const string& filename2) {
                 break;  
             }
         }
-        output_task[num][num_line] += line + '\n';
+        output_task[num - 1][num_line] += line + '\n';
         num_line++;
     }
 
@@ -282,6 +282,119 @@ void test7() {
     }
 }
 
+void test8() {
+    // For empty label
+    int nsamples = 100;
+    xt::xarray <double > X = xt:: random ::randn <double >({ nsamples , 10, 3, 6});
+    xt::xarray <double > T;
+    TensorDataset <double , double > ds(X, T);
+    cout << "Length of dataset: " << ds.len() << endl;
+    cout << "Data shape: " << shape2str(ds.get_data_shape()) << endl;
+    cout << "Label shape: " << shape2str(ds.get_label_shape()) << endl;
+    for (int i = 0; i < ds.len(); i++) {
+        auto dl = ds.getitem(i);
+        cout << "Data: " << dl.getData() << endl;
+        cout << "Label: " << dl.getLabel() << endl;
+        cout << "Shape of data: " << shape2str(dl.getData().shape()) << endl;
+        cout << "Shape of label: " << shape2str(dl.getLabel().shape()) << endl;
+    }
+}
+
+void test9() {
+    // For size of data and label not match, data size > label size
+    int nsamples = 100;
+    xt::xarray <double > X = xt:: random ::randn <double >({ nsamples , 10, 3, 6});
+    xt::xarray <double > T = xt:: random ::randn <double >({ nsamples - 40, 5, 8});
+    try {
+        TensorDataset <double , double > ds(X, T);
+        cout << "Length of dataset: " << ds.len() << endl;
+        cout << "Data shape: " << shape2str(ds.get_data_shape()) << endl;
+        cout << "Label shape: " << shape2str(ds.get_label_shape()) << endl;
+        for (int i = 0; i < ds.len(); i++) {
+            auto dl = ds.getitem(i);
+            cout << "Data: " << dl.getData() << endl;
+            cout << "Label: " << dl.getLabel() << endl;
+            cout << "Shape of data: " << shape2str(dl.getData().shape()) << endl;
+            cout << "Shape of label: " << shape2str(dl.getLabel().shape()) << endl;
+        }
+    } catch (const std::exception& e) {
+        cout << e.what() << endl;
+    }
+}
+
+void test10() {
+    // For size of data and label not match, label size > data size
+    int nsamples = 100;
+    xt::xarray <double > X = xt:: random ::randn <double >({ nsamples - 40, 10, 3, 6});
+    xt::xarray <double > T = xt:: random ::randn <double >({ nsamples , 5, 8});
+    try {
+        TensorDataset <double , double > ds(X, T);
+        cout << "Length of dataset: " << ds.len() << endl;
+        cout << "Data shape: " << shape2str(ds.get_data_shape()) << endl;
+        cout << "Label shape: " << shape2str(ds.get_label_shape()) << endl;
+        for (int i = 0; i < ds.len(); i++) {
+            auto dl = ds.getitem(i);
+            cout << "Data: " << dl.getData() << endl;
+            cout << "Label: " << dl.getLabel() << endl;
+            cout << "Shape of data: " << shape2str(dl.getData().shape()) << endl;
+            cout << "Shape of label: " << shape2str(dl.getLabel().shape()) << endl;
+        }
+    } catch (const std::exception& e) {
+        cout << e.what() << endl;
+    }
+}
+
+void test11() {
+    // dataloader data without label
+    try {
+        int nsamples = 100;
+        xt::xarray <double > X = xt:: random ::randn <double >({ nsamples , 10, 3, 6});
+        xt::xarray <double > T;
+        TensorDataset <double , double > ds(X, T);
+        DataLoader <double , double > loader (&ds, 30, true , true);
+        for(auto batch: loader){
+            cout << shape2str(batch.getData ().shape ()) << endl;
+            cout << shape2str(batch.getLabel ().shape ()) << endl;
+        }
+    } catch (const std::exception& e) {
+        cout << e.what() << endl;
+    }
+}
+
+void test12() {
+    // load data with data and label have different size
+    try {
+        int nsamples = 100;
+        xt::xarray <double > X = xt:: random ::randn <double >({ nsamples , 10, 3, 6});
+        xt::xarray <double > T = xt:: random ::randn <double >({ nsamples - 40, 5, 8});
+        TensorDataset <double , double > ds(X, T);
+        DataLoader <double , double > loader (&ds, 30, true , true);
+        for(auto batch: loader){
+            cout << shape2str(batch.getData ().shape ()) << endl;
+            cout << shape2str(batch.getLabel ().shape ()) << endl;
+        }
+    } catch (const std::exception& e) {
+        cout << e.what() << endl;
+    }
+}
+
+void test13() {
+    // load data with data and label have different size
+    try {
+        int nsamples = 100;
+        xt::xarray <double > X = xt:: random ::randn <double >({ nsamples - 40, 10, 3, 6});
+        xt::xarray <double > T = xt:: random ::randn <double >({ nsamples , 5, 8});
+        TensorDataset <double , double > ds(X, T);
+        DataLoader <double , double > loader (&ds, 30, true , true);
+        for(auto batch: loader){
+            cout << shape2str(batch.getData ().shape ()) << endl;
+            cout << shape2str(batch.getLabel ().shape ()) << endl;
+        }
+    } catch (const std::exception& e) {
+        cout << e.what() << endl;
+    }
+}
+
 // pointer function to store 15 test
 void (*testFuncs[])() = {
     test1,
@@ -290,7 +403,13 @@ void (*testFuncs[])() = {
     test4,
     test5,
     test6,
-    test7
+    test7,
+    test8,
+    test9,
+    test10,
+    test11,
+    test12,
+    test13
 };
 
 int main(int argc, char* argv[]) {
@@ -309,7 +428,7 @@ int main(int argc, char* argv[]) {
             string folder = "TestLog/DataSetAndLoader";
             string path = "DataSetAndLoaderTestLog_NhanOutput.txt";
             string output = "DataSetAndLoaderTestLog_YourOutput.txt";
-            fstream file(folder + "/" + output);
+            fstream file(folder + "/" + path, ios::out);
             if (!file.is_open()) {
                 fs::create_directory(folder);
                 std::cout << "Create folder " << fs::absolute(folder) << std::endl;
