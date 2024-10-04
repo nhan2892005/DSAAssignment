@@ -363,8 +363,20 @@ typename DLinkedList<T>::Node *DLinkedList<T>::getPreviousNodeOf(int index)
      * Efficiently navigates to the node by choosing the shorter path based on the index's position.
      */
     Node *current = head;
-    for (int i = 0; i < index; i++) {
-        current = current->next;
+    if (index < count / 2)
+    {
+        for (int i = 0; i < index; i++)
+        {
+            current = current->next;
+        }
+    }
+    else
+    {
+        current = tail;
+        for (int i = count; i >= index; i--)
+        {
+            current = current->prev;
+        }
     }
     return current;
 }
