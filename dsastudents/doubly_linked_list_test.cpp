@@ -825,7 +825,7 @@ int main(int argc, char* argv[]) {
             if (!file.is_open()) {
                 fs::create_directory(folder);
                 std::cout << "Create folder " << fs::absolute(folder) << std::endl;
-                file.open(folder + "/" + output);
+                file.open(folder + "/" + output, ios::out);
             }
             //change cout to file
             streambuf* stream_buffer_cout = cout.rdbuf();

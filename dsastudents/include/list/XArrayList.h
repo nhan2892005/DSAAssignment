@@ -13,6 +13,9 @@
 #include <sstream>
 #include <iostream>
 #include <type_traits>
+#define LOOP_in_range(i, start, end) for (int i = start; i < end; ++i)
+#define LOOP_in_range_reverse(i, start, end) for (int i = start; i >= end; --i)
+#define push_to_stringstream(item) ss << (item)
 using namespace std;
 
 template <class T>
@@ -187,9 +190,8 @@ XArrayList<T>::XArrayList(
     void (*deleteUserData)(XArrayList<T> *),
     bool (*itemEqual)(T &, T &),
     int capacity)
-    :deleteUserData(deleteUserData), itemEqual(itemEqual), count(0)
+    :deleteUserData(deleteUserData), itemEqual(itemEqual), count(0), capacity(capacity)
 {
-    this->capacity = capacity;
     this->data = new T[this->capacity];
 }
 
@@ -293,7 +295,7 @@ void XArrayList<T>::add(int index, T e)
     ensureCapacity(index);
 
     // Shift all elements to the right from index to count
-    for (int i = count; i > index; i--) {
+    LOOP_in_range_reverse(i, count, index + 1) {
         data[i] = data[i - 1];
     }
     
@@ -319,7 +321,7 @@ T XArrayList<T>::removeAt(int index)
     T removedItem = data[index];
     
     // Shift all elements to the left from index + 1 to count
-    for (int i = index; i < count - 1; i++) {
+    LOOP_in_range(i, index, count - 1) {
         data[i] = data[i + 1];
     }
     
@@ -404,7 +406,7 @@ int XArrayList<T>::indexOf(T item)
     * Objectives: get the index of an item in the list
     * Return: the index of the item if it exists, otherwise -1
     */
-    for (int i = 0; i < count; i++) {
+    LOOP_in_range(i, 0, count) {
         if (equals(data[i], item, itemEqual)) {
             return i;
         }
@@ -434,21 +436,20 @@ string XArrayList<T>::toString(string (*item2str)(T &))
      */
 
     stringstream ss;
-    ss << "[";
+    push_to_stringstream("[");
     
-    for (int i = 0; i < count; i++) {
-        if (i > 0) {
-            ss << ", ";
-        }
-        
+    LOOP_in_range(i, 0, count) {        
         if (item2str != nullptr) {
-            ss << item2str(data[i]);
+            push_to_stringstream(item2str(data[i]));
         } else {
-            ss << data[i];
+            push_to_stringstream(data[i]);
+        }
+        if (i < count - 1) {
+            push_to_stringstream(", ");
         }
     }
     
-    ss << "]";
+    push_to_stringstream("]");
     return ss.str();
 }
 

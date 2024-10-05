@@ -13,6 +13,9 @@
 #include <sstream>
 #include <iostream>
 #include <type_traits>
+#define LOOP_in_range(i, start, end) for (int i = start; i < end; ++i)
+#define LOOP_in_range_reverse(i, start, end) for (int i = start; i >= end; --i)
+#define push_to_stringstream(item) ss << (item)
 using namespace std;
 
 template <class T>
@@ -51,16 +54,6 @@ public:
     bool contains(T item);
     string toString(string (*item2str)(T &) = 0);
     // Inherit from IList: END
-
-    // Student's methods
-    // BEGIN
-    /* Check valid for index of element in list
-        * + index: index of element in list
-        * + for_extend: if for_extend = 1, list need to add element => index can be equal count
-        *                if for_extend = 0, list need to get element => index must be less than count
-    */
-    void checkIndex(int index, bool for_extend);
-    // END
 
     void println(string (*item2str)(T &) = 0)
     {
@@ -147,6 +140,18 @@ protected:
     void copyFrom(const DLinkedList<T> &list);
     void removeInternalData();
     Node *getPreviousNodeOf(int index);
+
+    // Student's methods
+    // BEGIN
+    /* Check valid for index of element in list
+        * + index: index of element in list
+        * + for_extend: if for_extend = 1, list need to add element => index can be equal count
+        *                if for_extend = 0, list need to get element => index must be less than count
+    */
+    void checkIndex(int index, bool for_extend);
+    void init_head_tail(bool in_constructor = true);
+    void addAfter(Node* &prevNode, T e);
+    // END
 
     //////////////////////////////////////////////////////////////////////
     ////////////////////////  INNER CLASSES DEFNITION ////////////////////
@@ -251,6 +256,24 @@ using List = DLinkedList<T>;
 //////////////////////////////////////////////////////////////////////
 ////////////////////////     METHOD DEFNITION      ///////////////////
 //////////////////////////////////////////////////////////////////////
+template <class T>
+void DLinkedList<T>::init_head_tail(bool in_constructor) {
+    if (in_constructor) {
+        this->head = new Node();
+        this->tail = new Node();
+    }
+    head->next = tail;
+    tail->prev = head;
+}
+
+template <class T>
+void DLinkedList<T>::addAfter(Node* &prevNode, T e) {
+    Node *newNode = new Node(e, prevNode->next, prevNode);
+    prevNode->next = newNode;
+    newNode->next->prev = newNode;
+    ++count;
+}
+
 
 template <class T>
 void DLinkedList<T>::checkIndex(int index, bool for_extend){
@@ -266,10 +289,7 @@ DLinkedList<T>::DLinkedList(
     bool (*itemEqual)(T &, T &))
     : deleteUserData(deleteUserData), itemEqual(itemEqual), count(0)
 {
-    this->head = new Node();
-    this->tail = new Node();
-    head->next = tail;
-    tail->prev = head;
+    init_head_tail();
 }
 
 template <class T>
@@ -281,10 +301,7 @@ DLinkedList<T>::DLinkedList(const DLinkedList<T> &list)
     */
     this->count = 0;
 
-    this->head = new Node();
-    this->tail = new Node();
-    head->next = tail;
-    tail->prev = head;
+    init_head_tail();
 
     this->copyFrom(list);
 }
@@ -322,19 +339,11 @@ void DLinkedList<T>::add(T e)
     /*
     * Objectives: add an item to the end of the list
     */
-    Node *newNode = new Node(e);
     if (head->next == tail) {           // ? empty list
-        head->next = newNode;
-        tail->prev = newNode;
-        newNode->prev = head;
-        newNode->next = tail;
+        addAfter(head, e);
     } else {                            // : non-empty list
-        tail->prev->next = newNode;
-        newNode->prev = tail->prev;
-        newNode->next = tail;
-        tail->prev = newNode;
+        addAfter(tail->prev, e);
     }
-    count++;
 }
 template <class T>
 void DLinkedList<T>::add(int index, T e)
@@ -348,10 +357,7 @@ void DLinkedList<T>::add(int index, T e)
         return;
     }
     Node *current = getPreviousNodeOf(index);
-    Node *newNode = new Node(e, current->next, current);
-    current->next = newNode;
-    newNode->next->prev = newNode;
-    ++count;
+    addAfter(current, e);
 }
 
 template <class T>
@@ -365,7 +371,7 @@ typename DLinkedList<T>::Node *DLinkedList<T>::getPreviousNodeOf(int index)
     Node *current = head;
     if (index < count / 2)
     {
-        for (int i = 0; i < index; i++)
+        LOOP_in_range(i, 0, index)
         {
             current = current->next;
         }
@@ -373,7 +379,7 @@ typename DLinkedList<T>::Node *DLinkedList<T>::getPreviousNodeOf(int index)
     else
     {
         current = tail;
-        for (int i = count; i >= index; i--)
+        LOOP_in_range_reverse(i, count, index)
         {
             current = current->prev;
         }
@@ -448,7 +454,7 @@ int DLinkedList<T>::indexOf(T item)
     *     if it is not null
     */
     Node *current = head->next;
-    for (int i = 0; i < count; i++) {
+    LOOP_in_range(i, 0, count) {
         if (equals(current->data, item, itemEqual)) {
             return i;
         }
@@ -467,21 +473,15 @@ bool DLinkedList<T>::removeItem(T item, void (*removeItemData)(T))
     *    if it is not null
     */
     Node *current = head->next;
-    for (int i = 0; i < count; i++) {
-        if (equals(current->data, item, itemEqual)) {
-            Node *removeNode = current;
-            current->prev->next = current->next;
-            current->next->prev = current->prev;
-            if (removeItemData) {
-                removeItemData(current->data);
-            }
-            delete removeNode;
-            count--;
-            return true;
-        }
-        current = current->next;
+    int idx = indexOf(item);
+    if (idx == -1) {
+        return false;
     }
-    return false;
+    T data = removeAt(idx);
+    if (removeItemData) {
+        removeItemData(data);
+    }
+    return true;
 }
 
 template <class T>
@@ -494,7 +494,7 @@ bool DLinkedList<T>::contains(T item)
     *   if it is not null
     */
     Node *current = head->next;
-    for (int i = 0; i < count; i++) {
+    LOOP_in_range(i, 0, count) {
         if (equals(current->data, item, itemEqual)) {
             return true;
         }
@@ -516,16 +516,16 @@ string DLinkedList<T>::toString(string (*item2str)(T &))
      */
     // TODO
     stringstream ss;
-    ss << "[";
+    push_to_stringstream("[");
     Node *current = head->next;
-    for (int i = 0; i < count; i++) {
+    LOOP_in_range(i, 0, count) {
         if (item2str) {
-            ss << item2str(current->data);
+            push_to_stringstream(item2str(current->data));
         } else {
-            ss << current->data;
+            push_to_stringstream(current->data);
         }
         if (i < count - 1) {
-            ss << ", ";
+            push_to_stringstream(", ");
         }
         current = current->next;
     }
@@ -549,7 +549,7 @@ void DLinkedList<T>::copyFrom(const DLinkedList<T> &list)
     
     Node *current = list.head->next;
 
-    for (int i = 0; i < list.count; i++) {
+    LOOP_in_range(i, 0, list.count) {
         this->add(current->data);
         current = current->next;
     }
@@ -571,8 +571,7 @@ void DLinkedList<T>::removeInternalData()
         delete current;
         --count;
     }
-    head->next = tail;
-    tail->prev = head;
+    init_head_tail(false);
     count = 0;
 }
 
