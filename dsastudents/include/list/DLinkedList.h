@@ -550,7 +550,13 @@ void DLinkedList<T>::copyFrom(const DLinkedList<T> &list)
     Node *current = list.head->next;
 
     LOOP_in_range(i, 0, list.count) {
-        this->add(current->data);
+        T copy_data;
+        if constexpr (std::is_pointer<T>::value) {
+            copy_data = new std::remove_pointer_t<T>(*current->data);
+        } else {
+            copy_data = current->data;
+        }
+        this->add(copy_data);
         current = current->next;
     }
     this->count = list.count;

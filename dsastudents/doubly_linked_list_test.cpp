@@ -12,7 +12,7 @@
 
 using namespace std;
 namespace fs = std::filesystem;
-int num_task = 16;
+int num_task = 17;
 
 vector<vector<string>> expected_task (num_task, vector<string>(50, ""));
 vector<vector<string>> output_task (num_task, vector<string>(50, ""));
@@ -763,6 +763,32 @@ void test16() {
     }
 }
 
+void test17() {
+    cout << "Test 17: Test with int*" << endl;
+    Vector<int*> list1(&Vector<int*>::free, &equal);
+
+    list1.add(new int(6));
+    list1.add(new int(2));
+    list1.add(new int(5));
+    list1.add(new int(4));
+
+    cout << "List 1: ";
+    list1.println(&print);
+
+    cout << "Copy Constructor" << endl;
+    Vector<int*> list2(list1);
+
+    cout << "Clear List 1" << endl;
+    list1.clear();
+
+    cout << "List 2: ";
+    list2.println(&print);
+
+    cout << "Clear List 2: ";
+    list2.clear();
+    list2.println(&print);
+}
+
 
 
 void printUsage() {
@@ -802,7 +828,8 @@ void (*testFuncs[])() = {
     test13, 
     test14, 
     test15,
-    test16
+    test16,
+    test17
 };
 
 int main(int argc, char* argv[]) {
@@ -821,7 +848,7 @@ int main(int argc, char* argv[]) {
             string folder = "TestLog/DLinkedList";
             string path = "DLinkedListTestLog_NhanOutput.txt";
             string output = "DLinkedListTestLog_YourOutput.txt";
-            fstream file(folder + "/" + output, ios::out);
+            fstream file(folder + "/" + path, ios::out);
             if (!file.is_open()) {
                 fs::create_directory(folder);
                 std::cout << "Create folder " << fs::absolute(folder) << std::endl;

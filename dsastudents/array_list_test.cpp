@@ -12,7 +12,7 @@
 
 using namespace std;
 namespace fs = std::filesystem;
-int num_task = 16;
+int num_task = 17;
 
 vector<vector<string>> expected_task (num_task, vector<string>(50, ""));
 vector<vector<string>> output_task (num_task, vector<string>(50, ""));
@@ -764,6 +764,32 @@ void test16() {
     }
 }
 
+void test17() {
+    cout << "Test 17: Test with int*" << endl;
+    Vector<int*> list1(&Vector<int*>::free, &equal);
+
+    list1.add(new int(6));
+    list1.add(new int(2));
+    list1.add(new int(5));
+    list1.add(new int(4));
+
+    cout << "List 1: ";
+    list1.println(&print);
+
+    cout << "Copy Constructor" << endl;
+    Vector<int*> list2(list1);
+
+    cout << "Clear List 1" << endl;
+    list1.clear();
+
+    cout << "List 2: ";
+    list2.println(&print);
+
+    cout << "Clear List 2: ";
+    list2.clear();
+    list2.println(&print);
+}
+
 
 
 void printUsage() {
@@ -771,9 +797,9 @@ void printUsage() {
     std::cout << "OPTIONS:" << std::endl;
     std::cout << "  ?help: show help" << std::endl;
     std::cout << "  demo: run demo" << std::endl;
-    std::cout << "  !test: run all test" << std::endl;
-    std::cout << "  !test [task]: run specific test" << std::endl;
-    std::cout << "  !test [start_task] [end_task] : run test from start_task to end_task" << std::endl;
+    std::cout << "  test: run all test" << std::endl;
+    std::cout << "  test [task]: run specific test" << std::endl;
+    std::cout << "  test [start_task] [end_task] : run test from start_task to end_task" << std::endl;
     std::cout << "This test has 15 tasks" << std::endl;
 }
 
@@ -801,7 +827,8 @@ void (*testFuncs[])() = {
     test13, 
     test14, 
     test15,
-    test16
+    test16,
+    test17
 };
 
 // ! NOTES: in function removeItem from original source

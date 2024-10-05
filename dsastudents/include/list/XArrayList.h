@@ -223,7 +223,11 @@ void XArrayList<T>::copyFrom(const XArrayList<T> &list)
     // This for copy data array.
     this->data = new T[this->capacity];
     for (int i = 0; i < this->count; i++) {
-        this->data[i] = list.data[i];
+        if constexpr (std::is_pointer<T>::value) {
+            this->data[i] = new std::remove_pointer_t<T>(*list.data[i]);
+        } else {
+            this->data[i] = list.data[i];
+        }
     }
 }
 

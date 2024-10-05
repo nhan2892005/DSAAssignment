@@ -1,3 +1,15 @@
 Task 9 - Line 5:
 Expected: [0x55555565c4b0, 0x55555565c4d0, 0x55555566b230, 0x55555566b250, 0x55555566b270, 0x55555566b290, 0x55555566b2b0, 0x55555566b2d0, 0x55555566b2f0, 0x55555566b310]
-Output: [0x4deb2b0, 0x4deb300, 0x4deb350, 0x4deb3a0, 0x4deb3f0, 0x4deb440, 0x4deb490, 0x4deb4e0, 0x4deb530, 0x4deb580]
+Output: [0x4debff0, 0x4dec040, 0x4dec090, 0x4dec0e0, 0x4dec130, 0x4dec180, 0x4dec1d0, 0x4dec220, 0x4dec270, 0x4dec2c0]
+Task 16 - Line 0:
+Expected: Output: Task 17---------------------------------------------------
+Task 16 - Line 1:
+Expected: Output: Test 17: Test with int*
+Task 16 - Line 2:
+Expected: Output: List 1: [6, 2, 5, 4]
+Task 16 - Line 3:
+Expected: Output: Copy Constructor
+Task 16 - Line 4:
+Expected: Output: Clear List 1
+Task 16 - Line 5:
+Expected: Output: List 2: [6, 2, 5, 4]
