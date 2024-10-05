@@ -84,7 +84,7 @@ public:
         // * Split the dataset into batches
         this->SplitDataset();
     }
-    virtual ~DataLoader(){delete ptr_dataset;}
+    virtual ~DataLoader(){if (shuffle) delete ptr_dataset;}
 private:
     void ShuffleDataset() {
 

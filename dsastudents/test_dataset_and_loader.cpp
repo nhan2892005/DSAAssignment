@@ -97,6 +97,7 @@ void compareFile(const string& filename1, const string& filename2) {
             diffTasks.push_back(task);
         }
     }
+    cout << "End of compare" << endl;
     
     cout.rdbuf(stream_buffer_cout);
     float prop = (float)diffTasks.size() / (float)doTasks.size();
@@ -159,7 +160,7 @@ void test2() {
     cout << "Length of dataset: " << ds.len() << endl;
     cout << "Data shape: " << shape2str(ds.get_data_shape()) << endl;
     cout << "Label shape: " << shape2str(ds.get_label_shape()) << endl;
-    DataLoader <double , double > loader (&ds, 30, true , true);
+    DataLoader <double , double > loader (&ds, 30, false , true);
     for(auto batch: loader){
         cout << shape2str(batch.getData().shape ()) << endl;
         cout << shape2str(batch.getLabel().shape ()) << endl;
@@ -271,7 +272,7 @@ void test7() {
     xt::xarray <double > X = xt:: random ::randn <double >({ nsamples , 1, 2});
     xt::xarray <double > T = xt:: random ::randn <double >({ nsamples , 1});
     TensorDataset <double , double > ds(X, T);
-    DataLoader <double , double > loader (&ds, 200, true , true);
+    DataLoader <double , double > loader (&ds, 200, false , false);
     for(auto batch = loader.begin(); batch != loader.end(); ++batch){
         auto data = *batch;
         cout << shape2str(data.getData().shape ()) << endl;
@@ -428,7 +429,7 @@ int main(int argc, char* argv[]) {
             string folder = "TestLog/DataSetAndLoader";
             string path = "DataSetAndLoaderTestLog_NhanOutput.txt";
             string output = "DataSetAndLoaderTestLog_YourOutput.txt";
-            fstream file(folder + "/" + path, ios::out);
+            fstream file(folder + "/" + output, ios::out);
             if (!file.is_open()) {
                 fs::create_directory(folder);
                 std::cout << "Create folder " << fs::absolute(folder) << std::endl;
