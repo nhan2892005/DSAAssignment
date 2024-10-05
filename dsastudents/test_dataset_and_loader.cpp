@@ -124,6 +124,82 @@ void printUsage() {
     std::cout << "This test has 15 tasks" << std::endl;
 }
 
+void dataloadertc1(){
+    xt::random::seed(10);
+    xt::xarray<double> X = xt::random::randn<double>({105, 10, 10});
+    xt::xarray<int> t = xt::ones<int>({105});
+    TensorDataset<double, int> ds(X, t);
+    cout << ds.len() << endl;
+    DataLabel<double, int> item = ds.getitem(0);
+    cout << item.getData() << endl;
+    cout << item.getLabel() << endl;
+}
+void dataloadertc2(){
+    xt::random::seed(10);
+    xt::xarray<double> X = xt::random::randn<double>({105, 10, 10});
+    xt::xarray<int> t = xt::ones<int>({105});
+    TensorDataset<double, int> ds(X, t);
+    cout << xt::adapt(ds.get_data_shape()) << endl;
+    cout << xt::adapt(ds.get_label_shape()) << endl;
+}
+void dataloadertc3(){
+    xt::random::seed(10);
+    xt::xarray<double> X = xt::random::randn<double>({105, 10, 10});
+    xt::xarray<int> t = xt::ones<int>({105});
+    TensorDataset<double, int> ds(X, t);
+    DataLoader<double, int> loader(&ds, 10, false);
+    auto it = loader.begin();
+    it++;
+    cout << xt::adapt((*it).getData().shape()) << endl;
+    cout << xt::adapt((*it).getLabel().shape()) << endl;
+    cout << xt::adapt((*(++it)).getData().shape()) << endl;
+    cout << xt::adapt((*(++it)).getLabel().shape()) << endl;
+}
+void dataloadertc4(){
+    xt::random::seed(10);
+    xt::xarray<double> X = xt::random::randn<double>({105, 10, 10});
+    xt::xarray<int> t = xt::ones<int>({105});
+    TensorDataset<double, int> ds(X, t);
+    DataLoader<double, int> loader(&ds, 10, false);
+    for(auto it = loader.begin(); it != loader.end(); it++){
+        cout << ((*it).getData().shape()[0]) << endl;
+        cout << ((*it).getLabel().shape()[0]) << endl;
+    }
+}
+void dataloadertc5(){
+    xt::random::seed(10);
+    xt::xarray<double> X = xt::random::randn<double>({105, 10, 10});
+    xt::xarray<int> t = xt::ones<int>({105});
+    TensorDataset<double, int> ds(X, t);
+    DataLoader<double, int> loader(&ds, 10, false);
+    for(auto batch: loader){
+        cout << (xt::adapt(batch.getData().shape())) << endl;
+        cout << (xt::adapt(batch.getLabel().shape())) << endl;
+    }
+}
+void dataloadertc6(){
+    xt::random::seed(10);
+    xt::xarray<double> X = xt::random::randn<double>({100, 3, 3});
+    xt::xarray<int> t = xt::ones<int>({100});
+    TensorDataset<double, int> ds(X, t);
+    DataLoader<double, int> loader(&ds, 10, false, true);
+    for(auto batch: loader){
+        cout << batch.getData() << endl;
+        cout << batch.getLabel() << endl;
+    }
+}
+void dataloadertc7(){
+    xt::random::seed(10);
+    xt::xarray<double> X = xt::random::randn<double>({105, 10, 10});
+    xt::xarray<int> t = xt::ones<int>({105});
+    TensorDataset<double, int> ds(X, t);
+    DataLoader<double, int> loader(&ds, 10, false, true);
+    for(auto batch: loader){
+        cout << (xt::adapt(batch.getData().shape())) << endl;
+        cout << (xt::adapt(batch.getLabel().shape())) << endl;
+    }
+}
+
 void runDemo() {
     int nsamples = 100;
     xt::xarray <double > X = xt::random::randn<double>({ nsamples , 10, 10});
@@ -134,6 +210,20 @@ void runDemo() {
         cout << shape2str(batch.getData().shape()) << endl;
         cout << shape2str(batch.getLabel().shape()) << endl;
     }
+    cout << "Demo 1" << endl;
+    dataloadertc1();
+    cout << "Demo 2" << endl;
+    dataloadertc2();
+    cout << "Demo 3" << endl;
+    dataloadertc3();
+    cout << "Demo 4" << endl;
+    dataloadertc4();
+    cout << "Demo 5" << endl;
+    dataloadertc5();
+    cout << "Demo 6" << endl;
+    dataloadertc6();
+    cout << "Demo 7" << endl;
+    dataloadertc7();
 }
 
 // basic

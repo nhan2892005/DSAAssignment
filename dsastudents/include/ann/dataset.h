@@ -7,7 +7,6 @@
 #ifndef DATASET_H
 #define DATASET_H
 #include "ann/xtensor_lib.h"
-#include "list/listheader.h"
 using namespace std;
 
 /*
@@ -95,101 +94,50 @@ TODO: You need to implement the following methods:
 * get_data_shape(): return the shape of the data
 * get_label_shape(): return the shape of the label
 */
-template<typename DType, typename LType>
-class TensorDataset: public Dataset<DType, LType>{
+//////////////////////////////////////////////////////////////////////
+template <typename DType, typename LType>
+class TensorDataset : public Dataset<DType, LType> {
 private:
     xt::xarray<DType> data;
     xt::xarray<LType> label;
     xt::svector<unsigned long> data_shape, label_shape;
-    
 public:
-    /* TensorDataset: 
-     * need to initialize:
-     * 1. data, label;
-     * 2. data_shape, label_shape
-    */
-    TensorDataset(const xt::xarray<DType>& data, const xt::xarray<LType>& label)
-        : data(data), label(label) {
-        this->data_shape = this->data.shape();
-        this->label_shape = this->label.shape();
-        if (data.dimension() == 0) {
-            throw std::invalid_argument("Dataset has no samples.");
-        }
-        if (label.dimension() != 0 && data_shape[0] != label_shape[0]) {
-            throw std::invalid_argument("Number of datas and labels do not match.");
+    TensorDataset(xt::xarray<DType> data, xt::xarray<LType> label) 
+    :data(data), label(label), data_shape(data.shape()), label_shape(label.shape()) {
+        if (label.size() == 0) {
+            this->label = xt::empty<LType>(data_shape);
+            this->label_shape = data_shape;
         }
     }
 
-    // * Copy constructor
-    TensorDataset(const TensorDataset& other)
-        : data(other.data), label(other.label),
-        data_shape(other.data_shape), label_shape(other.label_shape) {}
+    int len() {return int(this->data_shape[0]);}
 
-    // * Copy assignment operator
-    TensorDataset& operator=(const TensorDataset& other) {
-        if (this != &other) {
-            data = other.data;
-            label = other.label;
-            data_shape = other.data_shape;
-            label_shape = other.label_shape;
+    DataLabel<DType, LType> getitem(int index) {
+
+        if(index < 0 || index >= this->len()){
+            throw std::out_of_range("Index is out of range!");
         }
-        return *this;
+
+        unsigned long tmp_idx = static_cast<unsigned long>(index);
+        xt::xarray<DType> temp_data;
+        xt::xarray<LType> temp_label;
+        if(this->data.size() > 1){
+            temp_data = xt::view(this->data, tmp_idx);
+        }
+        if(this->label.size() > 1){
+            temp_label = xt::view(this->label, tmp_idx);
+        }
+        return DataLabel<DType, LType>(temp_data, temp_label);
     }
 
-    ~TensorDataset() {}
-
-    // * len(): return the size of the dataset
-    int len(){
-        return this->data_shape[0];
-    }
-    
-    // * getitem(int index): return the DataLabel object at the specified index
-    // * Notes: user can be use negative index
-    // *        => use positive_index function in xtensor_lib.h
-    DataLabel<DType, LType> getitem(int index){
-        int pos_index = positive_index(index, data_shape[0]);
-        // * Ensure that the index is within the valid range for both data and label
-        if (pos_index >= data_shape[0]) {
-            throw std::out_of_range("Index is out of bounds for number of datas.");
-        }
-        // * Check if the label tensor is uninitialized (i.e., it only contains a scalar or shape is zero)
-        if (label.dimension() == 0) {
-            auto empty_label = xt::xarray<LType>();
-            auto slice_data = xt::view(data, pos_index);
-            return DataLabel<DType, LType>(slice_data, empty_label);  
-        }
-        // * Ensure that the index is within the valid range for both data and label
-        if (pos_index >= label_shape[0]) {
-            throw std::out_of_range("Index is out of bounds for number of labels.");
-        }
-        auto slice_data = xt::view(data, pos_index);
-        auto slice_label = xt::view(label, pos_index);
-        // * Return a DataLabel object containing both the data and label at the specified index
-        return DataLabel<DType, LType>(slice_data, slice_label);
+    xt::svector<unsigned long> get_data_shape() { 
+        return data_shape; 
     }
 
-    // * get_data_shape(): return the shape of the data
-    xt::svector<unsigned long> get_data_shape(){
-        return this->data_shape;
-    }
-
-    // * get_label_shape(): return the shape of the label
-    xt::svector<unsigned long> get_label_shape(){
-        return this->label_shape;
+    xt::svector<unsigned long> get_label_shape() { 
+        return label_shape; 
     }
 };
 
-
-
-template <typename DType, typename LType>
-class ImageFolderDataset : public Dataset<DType, LType> {
-private:
-    xt::xarray<DType> data;
-    xt::xarray<LType> labels;
-    xt::svector<unsigned long> data_shape, label_shape;
-public:
-    ImageFolderDataset(const string& root)
-    {}
-};
 #endif /* DATASET_H */
 

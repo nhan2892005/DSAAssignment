@@ -1,5 +1,5 @@
 CXX = g++
-CXXFLAGS = -g -Iinclude -Isrc
+CXXFLAGS = -g -Iinclude -Isrc -std=c++17
 BUILD_DIR = build
 ANN_SOURCES = $(wildcard src/ann/xtensor_lib.cpp)
 USER_SOURCE = $(file)
