@@ -69,10 +69,6 @@ public:
         // * Calculate the number of batches and remaining samples
         this->n_batches = this->n_samples / this->batch_size;
         this->n_remain = this->n_samples % this->batch_size;
-        // * If drop_last is false and there are remaining samples
-        if(this->drop_last == false && this->n_remain > 0){
-            this->n_batches += 1;
-        }
 
         this->batches = xvector<Batch<DType, LType>>(0, 0, n_batches);
 
@@ -122,8 +118,8 @@ private:
             // * Calculate the start and end index of the batch
             size_t start = i * this->batch_size;
             size_t end = (i + 1) * this->batch_size;
-            if (i == n_batches - 1 && n_remain > 0) {
-                end = start + n_remain;
+            if (i == n_batches - 1 && n_remain > 0 && !drop_last) {
+                end += n_remain;
             }
 
             // * Create a new batch
