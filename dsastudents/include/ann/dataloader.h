@@ -98,7 +98,7 @@ private:
         xt::svector<size_t> label_shape;
         label_shape.push_back(n_samples);
         size_t label_shape_size = this->ptr_dataset->get_label_shape().size();
-        LOOP_in_range(i, 1, data_shape_size) {
+        LOOP_in_range(i, 1, label_shape_size) {
             label_shape.push_back(this->ptr_dataset->get_label_shape()[i]);
         }
 

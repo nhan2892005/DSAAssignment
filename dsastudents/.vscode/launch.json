@@ -7,7 +7,7 @@
       "request": "launch",
       "program": "${fileDirname}/multilayer_perceptron",
       "args": [
-        "test"
+        "demo"
       ],
       "stopAtEntry": false,
       "cwd": "${fileDirname}",
