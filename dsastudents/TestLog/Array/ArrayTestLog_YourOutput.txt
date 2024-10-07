@@ -295,4 +295,4 @@ List 1: [6, 2, 5, 4]
 Copy Constructor
 Clear List 1
 List 2: [6, 2, 5, 4]
-Clear List 2: 
+Clear List 2: []

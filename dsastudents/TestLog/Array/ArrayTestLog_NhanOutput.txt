@@ -126,7 +126,7 @@ Created list with int*
 []
 
 Added 10 items
-[0x55555565c4b0, 0x55555565c4d0, 0x55555566b230, 0x55555566b250, 0x55555566b270, 0x55555566b290, 0x55555566b2b0, 0x55555566b2d0, 0x55555566b2f0, 0x55555566b310]
+[0x4debff0, 0x4dec040, 0x4dec090, 0x4dec0e0, 0x4dec130, 0x4dec180, 0x4dec1d0, 0x4dec220, 0x4dec270, 0x4dec2c0]
 
 Item at index 5: 5
 Item at index 0: 0
@@ -289,3 +289,10 @@ Remove at index 15
 Out of range
 Remove at -1
 Out of range
+Task 17---------------------------------------------------
+Test 17: Test with int*
+List 1: [6, 2, 5, 4]
+Copy Constructor
+Clear List 1
+List 2: [6, 2, 5, 4]
+Clear List 2: []

@@ -13,9 +13,9 @@
 #include <sstream>
 #include <iostream>
 #include <type_traits>
-#define LOOP_in_range(i, start, end) for (int i = start; i < end; ++i)
-#define LOOP_in_range_reverse(i, start, end) for (int i = start; i >= end; --i)
-#define push_to_stringstream(item) ss << (item)
+#define FOR_in_range(i, start, end) for (int i = start; i < end; ++i)
+#define FOR_in_range_reverse(i, start, end) for (int i = start; i >= end; --i)
+#define push_to_ss(item) ss << (item)
 using namespace std;
 
 template <class T>
@@ -371,7 +371,7 @@ typename DLinkedList<T>::Node *DLinkedList<T>::getPreviousNodeOf(int index)
     Node *current = head;
     if (index < count / 2)
     {
-        LOOP_in_range(i, 0, index)
+        FOR_in_range(i, 0, index)
         {
             current = current->next;
         }
@@ -379,7 +379,7 @@ typename DLinkedList<T>::Node *DLinkedList<T>::getPreviousNodeOf(int index)
     else
     {
         current = tail;
-        LOOP_in_range_reverse(i, count, index)
+        FOR_in_range_reverse(i, count, index)
         {
             current = current->prev;
         }
@@ -454,7 +454,7 @@ int DLinkedList<T>::indexOf(T item)
     *     if it is not null
     */
     Node *current = head->next;
-    LOOP_in_range(i, 0, count) {
+    FOR_in_range(i, 0, count) {
         if (equals(current->data, item, itemEqual)) {
             return i;
         }
@@ -494,7 +494,7 @@ bool DLinkedList<T>::contains(T item)
     *   if it is not null
     */
     Node *current = head->next;
-    LOOP_in_range(i, 0, count) {
+    FOR_in_range(i, 0, count) {
         if (equals(current->data, item, itemEqual)) {
             return true;
         }
@@ -516,16 +516,16 @@ string DLinkedList<T>::toString(string (*item2str)(T &))
      */
     // TODO
     stringstream ss;
-    push_to_stringstream("[");
+    push_to_ss("[");
     Node *current = head->next;
-    LOOP_in_range(i, 0, count) {
+    FOR_in_range(i, 0, count) {
         if (item2str) {
-            push_to_stringstream(item2str(current->data));
+            push_to_ss(item2str(current->data));
         } else {
-            push_to_stringstream(current->data);
+            push_to_ss(current->data);
         }
         if (i < count - 1) {
-            push_to_stringstream(", ");
+            push_to_ss(", ");
         }
         current = current->next;
     }
@@ -549,7 +549,7 @@ void DLinkedList<T>::copyFrom(const DLinkedList<T> &list)
     
     Node *current = list.head->next;
 
-    LOOP_in_range(i, 0, list.count) {
+    FOR_in_range(i, 0, list.count) {
         T copy_data;
         if constexpr (std::is_pointer<T>::value) {
             copy_data = new std::remove_pointer_t<T>(*current->data);

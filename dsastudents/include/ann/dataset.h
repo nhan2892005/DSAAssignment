@@ -112,12 +112,9 @@ public:
         : data(data), label(label) {
         this->data_shape = this->data.shape();
         this->label_shape = this->label.shape();
-        if (data.dimension() == 0) {
-            throw std::invalid_argument("Dataset has no samples.");
-        }
-        if (label.dimension() != 0 && data_shape[0] != label_shape[0]) {
-            throw std::invalid_argument("Number of datas and labels do not match.");
-        }
+        exception_throw_ivlarg(data.dimension() == 0, "Dataset has no samples.");
+        exception_throw_ivlarg(label.dimension() != 0 && data_shape[0] != label_shape[0], 
+                                "Data and label must have the same number of samples.");
     }
 
     // * Copy constructor

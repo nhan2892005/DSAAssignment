@@ -44,7 +44,7 @@
                 "--verbose",
                 "--log-file=${fileDirname}/valgrind-out.txt",
                 "--quiet",
-                "${fileDirname}/multilayer_perceptron","demo"
+                "${fileDirname}/multilayer_perceptron","test"
             ],
         },
         {

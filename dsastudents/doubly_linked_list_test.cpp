@@ -848,7 +848,7 @@ int main(int argc, char* argv[]) {
             string folder = "TestLog/DLinkedList";
             string path = "DLinkedListTestLog_NhanOutput.txt";
             string output = "DLinkedListTestLog_YourOutput.txt";
-            fstream file(folder + "/" + path, ios::out);
+            fstream file(folder + "/" + output, ios::out);
             if (!file.is_open()) {
                 fs::create_directory(folder);
                 std::cout << "Create folder " << fs::absolute(folder) << std::endl;

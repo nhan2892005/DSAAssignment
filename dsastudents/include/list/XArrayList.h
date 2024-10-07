@@ -13,9 +13,13 @@
 #include <sstream>
 #include <iostream>
 #include <type_traits>
-#define LOOP_in_range(i, start, end) for (int i = start; i < end; ++i)
-#define LOOP_in_range_reverse(i, start, end) for (int i = start; i >= end; --i)
+#define LOOP_in_range(i, start, end) for (size_t i = start; i < end; ++i)
+#define LOOP_in_range_reverse(i, start, end) for (size_t i = start; i >= end; --i)
 #define push_to_stringstream(item) ss << (item)
+#define statement_is_true(statement) if ((statement))
+#define statement_is_false(statement) if (!(statement))
+#define exception_throw_ivlarg(statement, message) if ((statement)) { throw std::invalid_argument(message); }
+#define exception_throw_oor(statement, message) if ((statement)) { throw std::out_of_range(message); }
 using namespace std;
 
 template <class T>
@@ -186,47 +190,44 @@ public:
 //////////////////////////////////////////////////////////////////////
 
 template <class T>
-XArrayList<T>::XArrayList(
-    void (*deleteUserData)(XArrayList<T> *),
-    bool (*itemEqual)(T &, T &),
-    int capacity)
-    :deleteUserData(deleteUserData), itemEqual(itemEqual), count(0), capacity(capacity)
-{
-    this->data = new T[this->capacity];
-}
-
-template <class T>
-void XArrayList<T>::copyFrom(const XArrayList<T> &list)
+void XArrayList<T>::ensureCapacity(int index)
 {
     /*
-     * Copies the contents of another XArrayList into this list.
-     * Initializes the list with the same capacity as the source list and copies all elements.
-     * Also duplicates user-defined comparison and deletion functions, if applicable.
+     * Ensures that the list has enough capacity to accommodate the given index.
+     * If the index is out of range, it throws an std::out_of_range exception. 
+     * If the index exceeds the current capacity, reallocates the internal array with increased capacity, copying the existing elements to the new array.
+     * In case of memory allocation failure, catches std::bad_alloc.
      */
-
-    // Check self-assignment
-    if (this == &list) {
-        return;
+    statement_is_true(index != count) {
+        checkIndex(index);
     }
 
-    // Delete current data if it exists
-    if (this->count > 0) {
-        this->removeInternalData();
-    }
-
-    // Copies the contents into this list
-    this->capacity = list.capacity;
-    this->count = list.count;
-    this->itemEqual = list.itemEqual;
-    this->deleteUserData = list.deleteUserData;
-
-    // This for copy data array.
-    this->data = new T[this->capacity];
-    for (int i = 0; i < this->count; i++) {
-        if constexpr (std::is_pointer<T>::value) {
-            this->data[i] = new std::remove_pointer_t<T>(*list.data[i]);
-        } else {
-            this->data[i] = list.data[i];
+    statement_is_true(count == capacity) {
+        int newCapacity = capacity + 100;
+        try {
+            T* newData = new T[newCapacity];
+            
+            LOOP_in_range(i, 0, count) {
+                newData[i] = data[i];
+            }
+            
+            delete[] data;
+            data = newData;
+            capacity = newCapacity;
+        } catch (const bad_alloc& e) {
+            throw runtime_error("Memory allocation failed: " + string(e.what()));
+        }
+    } else // Monitor if capacity too large
+    {
+        statement_is_true(capacity > 1000 && count < capacity / 2) {
+            int newCapacity = count + 100;
+            T* newData = new T[newCapacity];
+            LOOP_in_range(i, 0, count) {
+                newData[i] = data[i];
+            }
+            delete[] data;
+            data = newData;
+            capacity = newCapacity;
         }
     }
 }
@@ -250,25 +251,54 @@ void XArrayList<T>::removeInternalData()
 }
 
 template <class T>
-XArrayList<T>::XArrayList(const XArrayList<T> &list)
+void XArrayList<T>::copyFrom(const XArrayList<T> &list)
 {
-    this->count = 0;
-    copyFrom(list);
+    /*
+     * Copies the contents of another XArrayList into this list.
+     * Initializes the list with the same capacity as the source list and copies all elements.
+     * Also duplicates user-defined comparison and deletion functions, if applicable.
+     */
+
+    // Check self-assignment
+    statement_is_true(this == &list) {
+        return;
+    }
+
+    // Copies the contents into this list
+    this->capacity = list.capacity;
+    this->count = list.count;
+    this->itemEqual = list.itemEqual;
+    this->deleteUserData = list.deleteUserData;
+
+    // This for copy data array.
+    this->data = new T[this->capacity];
+    LOOP_in_range(i, 0, list.count) {
+        if constexpr (std::is_pointer<T>::value) {
+            this->data[i] = new std::remove_pointer_t<T>(*list.data[i]);
+        } else {
+            this->data[i] = list.data[i];
+        }
+    }
 }
 
 template <class T>
-XArrayList<T> &XArrayList<T>::operator=(const XArrayList<T> &list)
+bool XArrayList<T>::empty()
 {
-    delete[] data;
-    copyFrom(list);
-    return *this;
+    /*
+    * Objectives: check if the list is empty
+    * Return: true if the list is empty, otherwise false
+    */
+    return count == 0;
 }
 
 template <class T>
-XArrayList<T>::~XArrayList()
+int XArrayList<T>::size()
 {
-    removeInternalData();
-    delete[] data;
+    /*
+    * Objectives: get the number of items in the list
+    * Return: the number of items in the list
+    */
+    return count;
 }
 
 template <class T>
@@ -349,37 +379,19 @@ bool XArrayList<T>::removeItem(T item, void (*removeItemData)(T))
     int index = indexOf(item);
 
     // Check if the item is in the list
-    if (index == -1) return false;
+    statement_is_true(index == -1) {
+        return false;
+    }
     
     // Remove the item at the index
     T removedItem = removeAt(index);
     
     // Call the removeItemData function if it exists
-    if (removeItemData != nullptr) {
+    statement_is_true(removeItemData != nullptr) {
         removeItemData(removedItem);
     }
     
     return true;
-}
-
-template <class T>
-bool XArrayList<T>::empty()
-{
-    /*
-    * Objectives: check if the list is empty
-    * Return: true if the list is empty, otherwise false
-    */
-    return count == 0;
-}
-
-template <class T>
-int XArrayList<T>::size()
-{
-    /*
-    * Objectives: get the number of items in the list
-    * Return: the number of items in the list
-    */
-    return count;
 }
 
 template <class T>
@@ -443,12 +455,12 @@ string XArrayList<T>::toString(string (*item2str)(T &))
     push_to_stringstream("[");
     
     LOOP_in_range(i, 0, count) {        
-        if (item2str != nullptr) {
+        statement_is_true(item2str != nullptr) {
             push_to_stringstream(item2str(data[i]));
         } else {
             push_to_stringstream(data[i]);
         }
-        if (i < count - 1) {
+        statement_is_true(i < count - 1) {
             push_to_stringstream(", ");
         }
     }
@@ -468,51 +480,41 @@ void XArrayList<T>::checkIndex(int index)
      * Throws an std::out_of_range exception if the index is negative or exceeds the number of elements.
      * Ensures safe access to the list's elements by preventing invalid index operations.
      */
-    if (index < 0 || index >= count) {
-        throw out_of_range("Index is out of range!");
-    }
+    exception_throw_oor(index < 0 || index >= count, "Index is out of range!");
+}
+
+template <class T>
+XArrayList<T>::XArrayList(
+    void (*deleteUserData)(XArrayList<T> *),
+    bool (*itemEqual)(T &, T &),
+    int capacity)
+    :deleteUserData(deleteUserData), itemEqual(itemEqual), count(0), capacity(capacity)
+{
+    this->data = new T[this->capacity];
 }
 template <class T>
-void XArrayList<T>::ensureCapacity(int index)
+XArrayList<T>::XArrayList(const XArrayList<T> &list)
 {
-    /*
-     * Ensures that the list has enough capacity to accommodate the given index.
-     * If the index is out of range, it throws an std::out_of_range exception. 
-     * If the index exceeds the current capacity, reallocates the internal array with increased capacity, copying the existing elements to the new array.
-     * In case of memory allocation failure, catches std::bad_alloc.
-     */
-    if (index != count) {
-        checkIndex(index);
-    }
+    copyFrom(list);
+}
 
-    if (count == capacity) {
-        int newCapacity = capacity + 100;
-        try {
-            T* newData = new T[newCapacity];
-            
-            for (int i = 0; i < count; i++) {
-                newData[i] = data[i];
-            }
-            
-            delete[] data;
-            data = newData;
-            capacity = newCapacity;
-        } catch (const bad_alloc& e) {
-            throw runtime_error("Memory allocation failed: " + string(e.what()));
-        }
-    } else // Monitor if capacity too large
-    {
-        if (capacity > 1000 && count < capacity / 2) {
-            int newCapacity = capacity / 2;
-            T* newData = new T[newCapacity];
-            for (int i = 0; i < count; i++) {
-                newData[i] = data[i];
-            }
-            delete[] data;
-            data = newData;
-            capacity = newCapacity;
-        }
+template <class T>
+XArrayList<T> &XArrayList<T>::operator=(const XArrayList<T> &list)
+{
+    // Delete current data if it exists
+    if (this->count > 0) {
+        this->removeInternalData();
     }
+    delete[] this->data;
+    copyFrom(list);
+    return *this;
+}
+
+template <class T>
+XArrayList<T>::~XArrayList()
+{
+    removeInternalData();
+    delete[] data;
 }
 
 #endif /* XARRAYLIST_H */
