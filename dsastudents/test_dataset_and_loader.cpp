@@ -12,10 +12,11 @@ using namespace std;
 #include "ann/xtensor_lib.h"
 #include "ann/dataset.h"
 #include "ann/dataloader.h"
+#include "ann/DataLoaderDemo.h"
 
 using namespace std;
 namespace fs = std::filesystem;
-int num_task = 13;
+int num_task = 22;
 
 vector<vector<string>> expected_task (num_task, vector<string>(10000, ""));
 vector<vector<string>> output_task (num_task, vector<string>(10000, ""));
@@ -210,20 +211,24 @@ void runDemo() {
         cout << shape2str(batch.getData().shape()) << endl;
         cout << shape2str(batch.getLabel().shape()) << endl;
     }
-    cout << "Demo 1" << endl;
+    // change output buffer to file lms_output.txt
+    std::ofstream out("lms_output.txt");
+    std::streambuf *coutbuf = std::cout.rdbuf();
+    std::cout.rdbuf(out.rdbuf());
+
     dataloadertc1();
-    cout << "Demo 2" << endl;
     dataloadertc2();
-    cout << "Demo 3" << endl;
     dataloadertc3();
-    cout << "Demo 4" << endl;
     dataloadertc4();
-    cout << "Demo 5" << endl;
     dataloadertc5();
-    cout << "Demo 6" << endl;
     dataloadertc6();
-    cout << "Demo 7" << endl;
     dataloadertc7();
+    case_data_wo_label_1();
+    case_data_wi_label_1();
+    case_batch_larger_nsamples();
+
+    // reset output buffer
+    std::cout.rdbuf(coutbuf);
 }
 
 // basic
@@ -268,8 +273,6 @@ void test3() {
     cout << "Label shape: " << shape2str(ds.get_label_shape()) << endl;
     for (int i = 0; i < ds.len(); i++) {
         auto dl = ds.getitem(i);
-        cout << "Data: " << dl.getData() << endl;
-        cout << "Label: " << dl.getLabel() << endl;
         cout << "Shape of data: " << shape2str(dl.getData().shape()) << endl;
         cout << "Shape of label: " << shape2str(dl.getLabel().shape()) << endl;
     }
@@ -287,8 +290,6 @@ void test4() {
     cout << "Label shape: " << shape2str(ds2.get_label_shape()) << endl;
     for (int i = 0; i < ds2.len(); i++) {
         auto dl = ds2.getitem(i);
-        cout << "Data: " << dl.getData() << endl;
-        cout << "Label: " << dl.getLabel() << endl;
         cout << "Shape of data: " << shape2str(dl.getData().shape()) << endl;
         cout << "Shape of label: " << shape2str(dl.getLabel().shape()) << endl;
     }
@@ -320,8 +321,6 @@ void test5()  {
     cout << "Label shape: " << shape2str(ds2.get_label_shape()) << endl;
     for (int i = 0; i < ds2.len(); i++) {
         auto dl = ds2.getitem(i);
-        cout << "Data: " << dl.getData() << endl;
-        cout << "Label: " << dl.getLabel() << endl;
         cout << "Shape of data: " << shape2str(dl.getData().shape()) << endl;
         cout << "Shape of label: " << shape2str(dl.getLabel().shape()) << endl;
     }
@@ -367,9 +366,6 @@ void test7() {
         auto data = *batch;
         cout << shape2str(data.getData().shape ()) << endl;
         cout << shape2str(data.getLabel().shape ()) << endl;
-
-        cout << data.getData() << endl;
-        cout << data.getLabel() << endl;
     }
 }
 
@@ -384,8 +380,6 @@ void test8() {
     cout << "Label shape: " << shape2str(ds.get_label_shape()) << endl;
     for (int i = 0; i < ds.len(); i++) {
         auto dl = ds.getitem(i);
-        cout << "Data: " << dl.getData() << endl;
-        cout << "Label: " << dl.getLabel() << endl;
         cout << "Shape of data: " << shape2str(dl.getData().shape()) << endl;
         cout << "Shape of label: " << shape2str(dl.getLabel().shape()) << endl;
     }
@@ -403,8 +397,6 @@ void test9() {
         cout << "Label shape: " << shape2str(ds.get_label_shape()) << endl;
         for (int i = 0; i < ds.len(); i++) {
             auto dl = ds.getitem(i);
-            cout << "Data: " << dl.getData() << endl;
-            cout << "Label: " << dl.getLabel() << endl;
             cout << "Shape of data: " << shape2str(dl.getData().shape()) << endl;
             cout << "Shape of label: " << shape2str(dl.getLabel().shape()) << endl;
         }
@@ -425,8 +417,6 @@ void test10() {
         cout << "Label shape: " << shape2str(ds.get_label_shape()) << endl;
         for (int i = 0; i < ds.len(); i++) {
             auto dl = ds.getitem(i);
-            cout << "Data: " << dl.getData() << endl;
-            cout << "Label: " << dl.getLabel() << endl;
             cout << "Shape of data: " << shape2str(dl.getData().shape()) << endl;
             cout << "Shape of label: " << shape2str(dl.getLabel().shape()) << endl;
         }
@@ -486,6 +476,138 @@ void test13() {
     }
 }
 
+// test data without label
+void test14() {
+    int nsamples = 100;
+    xt::xarray <double > X = xt:: random ::randn <double >({ nsamples , 10, 10});
+    xt::xarray <double > T;
+    TensorDataset <double , double > ds(X, T);
+    cout << "Length of dataset: " << ds.len() << endl;
+    cout << "Data shape: " << shape2str(ds.get_data_shape()) << endl;
+    cout << "Label shape: " << shape2str(ds.get_label_shape()) << endl;
+    DataLoader <double , double > loader (&ds, 30, true , false);
+    for(auto batch: loader){
+        cout << shape2str(batch.getData ().shape ()) << endl;
+        cout << shape2str(batch.getLabel ().shape ()) << endl;
+    }
+}
+
+// test data with label
+void test15() {
+    int nsamples = 100;
+    xt::xarray <double > X = xt:: random ::randn <double >({ nsamples , 10, 10});
+    xt::xarray <double > T = xt:: random ::randn <double >({ nsamples , 5});
+    TensorDataset <double , double > ds(X, T);
+    cout << "Length of dataset: " << ds.len() << endl;
+    cout << "Data shape: " << shape2str(ds.get_data_shape()) << endl;
+    cout << "Label shape: " << shape2str(ds.get_label_shape()) << endl;
+    DataLoader <double , double > loader (&ds, 30, true , false);
+    for(auto batch: loader){
+        cout << shape2str(batch.getData ().shape ()) << endl;
+        cout << shape2str(batch.getLabel ().shape ()) << endl;
+    }
+}
+
+// test batch larger than nsamples
+void test16() {
+    int nsamples = 10;
+    xt::xarray <double > X = xt::arange<double>(nsamples*4).reshape({nsamples, 4});
+    xt::xarray <double > T;
+    TensorDataset <double , double > ds(X, T);
+    DataLoader <double , double > loader (&ds, 30, true , false);
+    for(auto batch: loader){
+        cout << shape2str(batch.getData ().shape ()) << endl;
+        cout << shape2str(batch.getLabel ().shape ()) << endl;
+    }
+}
+
+// test with seed in dataloader
+void test17() {
+    int nsamples = 10;
+    xt::xarray <double > X = xt::arange<double>(nsamples*4).reshape({nsamples, 4});
+    xt::xarray <double > T;
+    TensorDataset <double , double > ds(X, T);
+    DataLoader <double , double > loader (&ds, 30, true , false, 100);
+    for(auto batch: loader){
+        auto data = batch.getData();
+        auto label = batch.getLabel();
+        cout << shape2str(batch.getData ().shape ()) << endl;
+        cout << data << endl;
+        cout << shape2str(batch.getLabel ().shape ()) << endl;
+        cout << label << endl;
+    }
+}
+
+// test with seed in dataloader, seed < 0
+void test18() {
+    int nsamples = 10;
+    xt::xarray <double > X = xt::arange<double>(nsamples*4).reshape({nsamples, 4});
+    xt::xarray <double > T;
+    TensorDataset <double , double > ds(X, T);
+    DataLoader <double , double > loader (&ds, 30, true , false, -100);
+    for(auto batch: loader){
+        cout << shape2str(batch.getData ().shape ()) << endl;
+        cout << shape2str(batch.getLabel ().shape ()) << endl;
+    }
+}
+
+// test with ++it in batch
+void test19() {
+    int nsamples = 10;
+    xt::xarray <double > X = xt::arange<double>(nsamples*4).reshape({nsamples, 4});
+    xt::xarray <double > T;
+    TensorDataset <double , double > ds(X, T);
+    DataLoader <double , double > loader (&ds, 30, true , false);
+    auto it = loader.begin();
+    it++;
+    cout << shape2str((*it).getData().shape()) << endl;
+    cout << shape2str((*it).getLabel().shape()) << endl;
+    cout << shape2str((*(++it)).getData().shape()) << endl;
+    cout << shape2str((*(++it)).getLabel().shape()) << endl;
+}
+
+// test with auto data = *batch
+void test20() {
+    int nsamples = 10;
+    xt::xarray <double > X = xt::arange<double>(nsamples*4).reshape({nsamples, 4});
+    xt::xarray <double > T;
+    TensorDataset <double , double > ds(X, T);
+    DataLoader <double , double > loader (&ds, 30, true , false);
+    for(auto batch = loader.begin(); batch != loader.end(); ++batch){
+        auto data = *batch;
+        cout << shape2str(data.getData().shape()) << endl;
+        cout << shape2str(data.getLabel().shape()) << endl;
+    }
+}
+
+// test with it++
+void test21() {
+    int nsamples = 10;
+    xt::xarray <double > X = xt::arange<double>(nsamples*4).reshape({nsamples, 4});
+    xt::xarray <double > T;
+    TensorDataset <double , double > ds(X, T);
+    DataLoader <double , double > loader (&ds, 30, true , false);
+    for(auto batch = loader.begin(); batch != loader.end(); batch++){
+        auto data = *batch;
+        cout << shape2str(data.getData().shape()) << endl;
+        cout << shape2str(data.getLabel().shape()) << endl;
+    }
+}
+
+// test with it++ and auto data = *batch
+void test22() {
+    int nsamples = 10;
+    xt::xarray <double > X = xt::arange<double>(nsamples*4).reshape({nsamples, 4});
+    xt::xarray <double > T;
+    TensorDataset <double , double > ds(X, T);
+    DataLoader <double , double > loader (&ds, 30, true , false);
+    for(auto batch = loader.begin(); batch != loader.end(); batch++){
+        auto data = *batch;
+        cout << shape2str(data.getData().shape()) << endl;
+        cout << shape2str(data.getLabel().shape()) << endl;
+    }
+}
+
 // pointer function to store 15 test
 void (*testFuncs[])() = {
     test1,
@@ -500,7 +622,16 @@ void (*testFuncs[])() = {
     test10,
     test11,
     test12,
-    test13
+    test13,
+    test14,
+    test15,
+    test16,
+    test17,
+    test18,
+    test19,
+    test20,
+    test21,
+    test22
 };
 
 int main(int argc, char* argv[]) {

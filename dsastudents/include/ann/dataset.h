@@ -82,6 +82,7 @@ public:
     virtual DataLabel<DType, LType> getitem(int index)=0;
     virtual xt::svector<unsigned long> get_data_shape()=0;
     virtual xt::svector<unsigned long> get_label_shape()=0;
+    virtual bool is_empty_label() const = 0;
 };
 
 //////////////////////////////////////////////////////////////////////
@@ -173,6 +174,10 @@ public:
     // * get_label_shape(): return the shape of the label
     xt::svector<unsigned long> get_label_shape(){
         return this->label_shape;
+    }
+
+    bool is_empty_label() const {
+        return label.dimension() == 0;
     }
 };
 #endif /* DATASET_H */

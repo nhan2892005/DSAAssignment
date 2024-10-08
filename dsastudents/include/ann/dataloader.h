@@ -49,12 +49,13 @@ private:
     ulong n_samples;
     ulong n_batches;
     ulong n_remain;
+    int random_seed;
 public:
     // * Constructor
     DataLoader(Dataset<DType, LType>* ptr_dataset,
             int batch_size,
             bool shuffle=true,
-            bool drop_last=false){
+            bool drop_last=false, int random_seed = -1){
         
         // * Initialize the member variables
         this->ptr_dataset = ptr_dataset;
@@ -65,6 +66,7 @@ public:
         this->shuffle = shuffle;
         this->drop_last = drop_last;
         this->n_samples = this->ptr_dataset->len();
+        this->random_seed = random_seed;
 
         // * Calculate the number of batches and remaining samples
         this->n_batches = this->n_samples / this->batch_size;
@@ -86,7 +88,12 @@ private:
 
         // * Create a random permutation of indices
         this->indices = xt::arange(n_samples);
-        xt::random::shuffle(indices);
+        if (random_seed >= 0) {
+            xt::random::seed(random_seed);
+            xt::random::shuffle(indices);
+        } else {
+            xt::random::shuffle(indices);
+        }
 
         // * Create a new dataset with the shuffled data
         // * The shape of new data and label is the same as the original dataset
@@ -96,17 +103,25 @@ private:
             data_shape.push_back(this->ptr_dataset->get_data_shape()[i]);
         }
         xt::svector<size_t> label_shape;
-        label_shape.push_back(n_samples);
-        for (size_t i = 1; i < this->ptr_dataset->get_label_shape().size(); i++) {
-            label_shape.push_back(this->ptr_dataset->get_label_shape()[i]);
+        
+        if (!ptr_dataset->is_empty_label()) {
+            label_shape.push_back(n_samples);
+            for (size_t i = 1; i < this->ptr_dataset->get_label_shape().size(); i++) {
+                label_shape.push_back(this->ptr_dataset->get_label_shape()[i]);
+            }
         }
 
         // * Create new xarrays for data and label
         xt::xarray<DType> data = xt::zeros<DType>(data_shape);
-        xt::xarray<LType> label = xt::zeros<LType>(label_shape);
+        xt::xarray<LType> label;
+        if (!ptr_dataset->is_empty_label()) {
+            label = xt::zeros<LType>(label_shape);
+        }
         for (size_t i = 0; i < n_samples; i++) {
             xt::view(data, i) = this->ptr_dataset->getitem(indices[i]).getData();
-            xt::view(label, i) = this->ptr_dataset->getitem(indices[i]).getLabel();
+            if (!ptr_dataset->is_empty_label()) {
+                xt::view(label, i) = this->ptr_dataset->getitem(indices[i]).getLabel();
+            }
         }
         
         // * Create a new dataset with the shuffled data
@@ -129,17 +144,24 @@ private:
                 data_shape.push_back(this->ptr_dataset->get_data_shape()[j]);
             }
             xt::svector<size_t> label_shape;
-            label_shape.push_back(end - start);
-            for (size_t j = 1; j < this->ptr_dataset->get_label_shape().size(); j++) {
-                label_shape.push_back(this->ptr_dataset->get_label_shape()[j]);
+            if (!ptr_dataset->is_empty_label()) {
+                label_shape.push_back(end - start);
+                for (size_t j = 1; j < this->ptr_dataset->get_label_shape().size(); j++) {
+                    label_shape.push_back(this->ptr_dataset->get_label_shape()[j]);
+                }
             }
 
             xt::xarray<DType> data = xt::zeros<DType>(data_shape);
-            xt::xarray<LType> label = xt::zeros<LType>(label_shape);
+            xt::xarray<LType> label;
+            if (!ptr_dataset->is_empty_label()) {
+                label = xt::zeros<LType>(label_shape);
+            }
 
             for (size_t j = start; j < end; j++) {
                 xt::view(data, j - start) = this->ptr_dataset->getitem(j).getData();
-                xt::view(label, j - start) = this->ptr_dataset->getitem(j).getLabel();
+                if (!ptr_dataset->is_empty_label()) {
+                    xt::view(label, j - start) = this->ptr_dataset->getitem(j).getLabel();
+                }
             }
 
             // * Add the new batch to the list of batches
