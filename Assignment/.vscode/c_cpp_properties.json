@@ -1,0 +1,28 @@
+{
+    "configurations": [
+        {
+            "name": "linux-gcc-x64",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "${workspaceFolder}/Code",
+                "${workspaceFolder}/Self_test",
+                "${workspaceFolder}/Self_LMS_sample_test/",
+                "${workspaceFolder}/Code/include/",
+                "${workspaceFolder}/Code/src/",
+                "${workspaceFolder}/Code/demo/",
+                "${workspaceFolder}/Code/demo/list"
+            ],
+            "compilerPath": "/usr/bin/gcc",
+            "cStandard": "${default}",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "linux-gcc-x64",
+            "compilerArgs": [
+                ""
+            ],
+            "defines": [
+                "VERSION=1.0"
+            ]
+        }
+    ],
+    "version": 4
+}

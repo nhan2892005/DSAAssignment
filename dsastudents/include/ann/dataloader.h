@@ -36,7 +36,7 @@ TODO: You need to implement the following methods:
 template<typename DType, typename LType>
 class DataLoader{
 public:
-    
+    class Iterator;    // Forward declaration
 private:
     // ? This is part of the original source code
     Dataset<DType, LType>* ptr_dataset;

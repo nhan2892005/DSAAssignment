@@ -102,6 +102,7 @@ private:
     xt::xarray<DType> data;
     xt::xarray<LType> label;
     xt::svector<unsigned long> data_shape, label_shape;
+    bool empty_label;
     
 public:
     /* TensorDataset: 
@@ -113,6 +114,7 @@ public:
         : data(data), label(label) {
         this->data_shape = this->data.shape();
         this->label_shape = this->label.shape();
+        this->empty_label = label.dimension() == 0;
         exception_throw_ivlarg(data.dimension() == 0, "Dataset has no samples.");
         exception_throw_ivlarg(label.dimension() != 0 && data_shape[0] != label_shape[0], 
                                 "Data and label must have the same number of samples.");
@@ -177,7 +179,7 @@ public:
     }
 
     bool is_empty_label() const {
-        return label.dimension() == 0;
+        return empty_label;
     }
 };
 #endif /* DATASET_H */

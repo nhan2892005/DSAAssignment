@@ -52,42 +52,6 @@ void case_data_wo_label_1(){
     }
     cout << endl << endl;
     delete pLoader;
-
-    cout << "Loading (2): with shuffle=true + no seed (seed < 0):" << endl;
-    cout << "when seed < 0: DO NOT call xt::random:seed" << endl;
-    cout << "################################" << endl;
-    shuffle = true;
-    seed = -1;
-    pLoader = new DataLoader<int, int>(&ds, batch_size, shuffle, drop_last, seed);
-    batch_idx = 1;
-    for(auto batch: *pLoader){
-        cout << "batch_idx:" << batch_idx++ << endl;
-        string dshape = shape2str(batch.getData().shape());
-        string lshape = shape2str(batch.getLabel().shape());
-        cout << "(data.shape, label.shape): " << dshape + ", " + lshape << endl;
-        cout << "data:"  << endl << batch.getData() << endl;
-        cout << "label:" << endl << batch.getLabel() << endl;
-    }
-    cout << endl << endl;
-    delete pLoader;
-    
-    cout << "Loading (3): with shuffle=true + no seed (seed < 0):" << endl;
-    cout << "when seed < 0: DO NOT call xt::random:seed" << endl;
-    cout << "################################" << endl;
-    shuffle = true;
-    seed = -1;
-    pLoader = new DataLoader<int, int>(&ds, batch_size, shuffle, drop_last, seed);
-    batch_idx = 1;
-    for(auto batch: *pLoader){
-        cout << "batch_idx:" << batch_idx++ << endl;
-        string dshape = shape2str(batch.getData().shape());
-        string lshape = shape2str(batch.getLabel().shape());
-        cout << "(data.shape, label.shape): " << dshape + ", " + lshape << endl;
-        cout << "data:"  << endl << batch.getData() << endl;
-        cout << "label:" << endl << batch.getLabel() << endl;
-    }
-    cout << endl << endl;
-    delete pLoader;
     cout << "NOTE: Loading (2) and (3): DO NOT CALL seed; so results are different." << endl;
     cout << endl << endl;
     
@@ -156,42 +120,6 @@ void case_data_wi_label_1(){
     shuffle = false;
     pLoader = new DataLoader<int, int>(&ds, batch_size, shuffle, drop_last, seed);
     int batch_idx = 1;
-    for(auto batch: *pLoader){
-        cout << "batch_idx:" << batch_idx++ << endl;
-        string dshape = shape2str(batch.getData().shape());
-        string lshape = shape2str(batch.getLabel().shape());
-        cout << "(data.shape, label.shape): " << dshape + ", " + lshape << endl;
-        cout << "data:"  << endl << batch.getData() << endl;
-        cout << "label:" << endl << batch.getLabel() << endl;
-    }
-    cout << endl << endl;
-    delete pLoader;
-    
-    cout << "Loading (2): with shuffle=true + no seed (seed < 0):" << endl;
-    cout << "when seed < 0: DO NOT call xt::random:seed" << endl;
-    cout << "################################" << endl;
-    shuffle = true;
-    seed = -1;
-    pLoader = new DataLoader<int, int>(&ds, batch_size, shuffle, drop_last, seed);
-    batch_idx = 1;
-    for(auto batch: *pLoader){
-        cout << "batch_idx:" << batch_idx++ << endl;
-        string dshape = shape2str(batch.getData().shape());
-        string lshape = shape2str(batch.getLabel().shape());
-        cout << "(data.shape, label.shape): " << dshape + ", " + lshape << endl;
-        cout << "data:"  << endl << batch.getData() << endl;
-        cout << "label:" << endl << batch.getLabel() << endl;
-    }
-    cout << endl << endl;
-    delete pLoader;
-    
-    cout << "Loading (3): with shuffle=true + no seed (seed < 0):" << endl;
-    cout << "when seed < 0: DO NOT call xt::random:seed" << endl;
-    cout << "################################" << endl;
-    shuffle = true;
-    seed = -1;
-    pLoader = new DataLoader<int, int>(&ds, batch_size, shuffle, drop_last, seed);
-    batch_idx = 1;
     for(auto batch: *pLoader){
         cout << "batch_idx:" << batch_idx++ << endl;
         string dshape = shape2str(batch.getData().shape());
