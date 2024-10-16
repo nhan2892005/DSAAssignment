@@ -59,14 +59,14 @@ build_unit_test:
 #Create object file for unit test
 	$(CXX) $(CFLAGS) $(CPPFLAGS) -c $(UNIT_TEST_SOURCE) -o $(UNIT_TEST_OBJ)
 #Create object file for main program
-	$(CXX) $(CFLAGS) $(CPPFLAGS) $(UNIT_TEST_SOURCE) -o $(TEST_DIR)/$(BIN) $(LDLIBS)
+	$(CXX) $(CFLAGS) $(CPPFLAGS) -g $(UNIT_TEST_SOURCE) -o $(TEST_DIR)/$(BIN) $(LDLIBS)
 
 build_loaddata_test:
 #build xt_lib and unit_test_source
 	$(CXX) $(CFLAGS) $(CPPFLAGS) -c $(UNIT_TEST_SOURCE) -o $(UNIT_TEST_OBJ)
 	$(CXX) $(CFLAGS) $(CPPFLAGS) -c  $(xt_lib) -o $(XT_LIB_OBJ)
 #build main program
-	$(CXX) $(CFLAGS) $(CPPFLAGS) $(UNIT_TEST_SOURCE) $(xt_lib) -o $(TEST_DIR)/$(BIN_LOADDATA) $(LDLIBS)
+	$(CXX) $(CFLAGS) $(CPPFLAGS) -g $(UNIT_TEST_SOURCE) $(xt_lib) -o $(TEST_DIR)/$(BIN_LOADDATA) $(LDLIBS)
 
 # Run the demos
 run_demo: $(BIN)

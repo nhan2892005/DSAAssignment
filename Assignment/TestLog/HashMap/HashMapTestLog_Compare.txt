@@ -1,0 +1,3 @@
+Task 7 - Line 4:
+Expected: max #collisions: 7
+Output: max #collisions: 5
