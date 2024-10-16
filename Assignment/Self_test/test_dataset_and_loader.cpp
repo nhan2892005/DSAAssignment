@@ -212,7 +212,7 @@ void runDemo() {
         cout << shape2str(batch.getLabel().shape()) << endl;
     }
     // change output buffer to file lms_output.txt
-    std::ofstream out("lms_output.txt");
+    std::ofstream out("DemoLog.txt");
     std::streambuf *coutbuf = std::cout.rdbuf();
     std::cout.rdbuf(out.rdbuf());
 

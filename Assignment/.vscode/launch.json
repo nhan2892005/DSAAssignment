@@ -29,7 +29,7 @@
       "name": "Test g++ - Build and debug active file",
       "type": "cppdbg",
       "request": "launch",
-      "program": "${workspaceFolder}/unit_test_program",
+      "program": "${fileDirname}/unit_test_program",
       "args": [
         "test"
       ],
