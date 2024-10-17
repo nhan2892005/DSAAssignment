@@ -128,7 +128,7 @@ protected:
     int count;      //number of entries stored hash-map
     float loadFactor; //define max number of entries can be stored (< (loadFactor * capacity))
     
-    int (*hashCode)(K&,int); //hasCode(K key, int tableSize): tableSize means capacity
+    int (*hashCode)(K&,int); //hashCode(K key, int tableSize): tableSize means capacity
     bool (*keyEqual)(K&,K&);  //keyEqual(K& lhs, K& rhs): test if lhs == rhs
     bool (*valueEqual)(V&,V&); //valueEqual(V& lhs, V& rhs): test if lhs == rhs
     void (*deleteKeys)(xMap<K,V>*); //deleteKeys(xMap<K,V>* pMap): delete all keys stored in pMap
@@ -447,6 +447,14 @@ xMap<K,V>::xMap(
 template<class K, class V>
 xMap<K,V>::xMap(const xMap<K,V>& map){
     //YOUR CODE IS HERE
+    this->deleteKeys = 0;
+    this->deleteValues = 0;
+    this->keyEqual = 0;
+    this->valueEqual = 0;
+    this->count = 0;
+    this->capacity = 1;
+    this->hashCode = 0;
+    this->table = new DLinkedList<Entry*>[capacity];
     copyMapFrom(map);
 }
 
@@ -766,11 +774,11 @@ void xMap<K,V>::copyMapFrom(const xMap<K,V>& map){
     this->count = 0;
     this->table = new DLinkedList<Entry*>[capacity];
     
-    this->hashCode = hashCode;
-    this->loadFactor = loadFactor;
+    this->hashCode = map.hashCode;
+    this->loadFactor = map.loadFactor;
     
-    this->valueEqual = valueEqual;
-    this->keyEqual = keyEqual;
+    this->valueEqual = map.valueEqual;
+    this->keyEqual = map.keyEqual;
     //SHOULD NOT COPY: deleteKeys, deleteValues => delete ONLY TIME in map if needed
     
     //copy entries

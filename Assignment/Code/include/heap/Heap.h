@@ -42,6 +42,22 @@ protected:
     void (*deleteUserData)(Heap<T>* pHeap); //see above
     
 public:
+/*
+? Notes:
+    * The default value of "comparator" is 0, which means that the user does not provide any comparator.
+        => always define min-heap, data type T must have operator <, >, ==
+    * The default value of "comparator" isn't 0
+        * Case 1: Want to define min-heap, return value of "comparator" is:
+            *   -1: lhs < rhs
+            *    0: lhs == rhs
+            *    1: lhs > rhs
+        * Case 2: Want to define max-heap, return value of "comparator" is:
+            *   -1: lhs > rhs
+            *    0: lhs == rhs
+            *    1: lhs < rhs
+    * The default value of "deleteUserData" is 0, which means that the user does not provide any method to delete user's data.
+        => if T is a pointer type, the user must provide a method to delete user's data.
+*/
     Heap(   int (*comparator)(T& , T&)=0, 
             void (*deleteUserData)(Heap<T>*)=0 );
     
@@ -51,15 +67,64 @@ public:
     ~Heap();
     
     //Inherit from IHeap: BEGIN
+    /*
+    ! push(item): add item to the heap and maintains the heap property (min or max)
+    * Exception: None
+    */
     void push(T item);
+
+    /*
+    ! pop(): remove the root item from the heap and maintains the heap property (min or max)
+    * Exception: If the heap is empty, throw std::underflow_error(“Calling to peek with the empty heap.“)
+    */
     T pop();
+
+    /*
+    ! peek(): return the root item of the heap
+    * Exception: If the heap is empty, throw std::underflow_error(“Calling to peek with the empty heap.“)
+    */
     const T peek();
+
+    /*
+    ! remove(item): remove the item from the heap and maintains the heap property (min or max)
+    * Exception: None
+    */
     void remove(T item, void (*removeItemData)(T)=0);
+
+    /*
+    ! contains(item): check if the item is in the heap
+    * Exception: None
+    */
     bool contains(T item);
+
+    /*
+    ! size(): return the number of items in the heap
+    * Exception: None
+    */
     int size();
+
+    /*
+    ! heapify(array, size): build heap from array having size items
+    * Exception: None
+    */
     void heapify(T array[], int size);
+
+    /*
+    ! clear(): remove all items in the heap
+    * Exception: None
+    */
     void clear();
+
+    /*
+    ! empty(): check if the heap is empty
+    * Exception: None
+    */
     bool empty();
+
+    /*
+    ! toString(): convert the heap to string
+    * Exception: None
+    */
     string toString(string (*item2str)(T&)=0 );
     //Inherit from IHeap: END
     
@@ -100,13 +165,40 @@ private:
         }
     }
     
+    /*
+    ! ensureCapacity(minCapacity): ensure the capacity of the dynamic array
+    * Exception: None
+    */
     void ensureCapacity(int minCapacity); 
+
+    /*
+    ! swap(a, b): swap the elements at position a and b
+    */
     void swap(int a, int b);
+
+    /*
+    ! reheapUp(position): maintain the heap property from position to the root
+    */
     void reheapUp(int position);
+
+    /*
+    ! reheapDown(position): maintain the heap property from position to the leaf
+    */
     void reheapDown(int position);
+
+    /*
+    ! getItem(item): return the index of the item in the heap
+    */
     int getItem(T item);
     
+    /*
+    ! removeInternalData(): remove internal data
+    */
     void removeInternalData();
+
+    /*
+    ! copyFrom(heap): copy from other heap
+    */
     void copyFrom(const Heap<T>& heap);
     
     
@@ -167,15 +259,24 @@ Heap<T>::Heap(
         int (*comparator)(T&, T&), 
         void (*deleteUserData)(Heap<T>* ) ){
     //YOUR CODE IS HERE
+    this->capacity = 10;
+    this->count = 0;
+    this->comparator = comparator;
+    this->deleteUserData = deleteUserData;
+    this->elements = new T[capacity];
 }
 template<class T>
 Heap<T>::Heap(const Heap<T>& heap){
     //YOUR CODE IS HERE
+    copyFrom(heap);
 }
 
 template<class T>
 Heap<T>& Heap<T>::operator=(const Heap<T>& heap){
     //YOUR CODE IS HERE
+    if(this == &heap) return *this;
+    removeInternalData();
+    copyFrom(heap);
     return *this;
 }
 
@@ -183,11 +284,16 @@ Heap<T>& Heap<T>::operator=(const Heap<T>& heap){
 template<class T>
 Heap<T>::~Heap(){
     //YOUR CODE IS HERE
+    removeInternalData();
 }
 
 template<class T>
 void Heap<T>::push(T item){ //item  = 25
     //YOUR CODE IS HERE
+    ensureCapacity(count + 1);
+    elements[count] = item;
+    reheapUp(count);
+    count++;
 }
 /*
       18
@@ -208,6 +314,12 @@ void Heap<T>::push(T item){ //item  = 25
 template<class T>
 T Heap<T>::pop(){
     //YOUR CODE IS HERE
+    if(empty()) throw std::underflow_error("Calling to peek with the empty heap.");
+    T item = elements[0];
+    elements[0] = elements[count - 1];
+    count--;
+    reheapDown(0);
+    return item;
 }
 
 /*
@@ -224,37 +336,56 @@ T Heap<T>::pop(){
 template<class T>
 const T Heap<T>::peek(){
     //YOUR CODE IS HERE
+    if(empty()) throw std::underflow_error("Calling to peek with the empty heap.");
+    return elements[0];
 }
 
 
 template<class T>
 void Heap<T>::remove(T item, void (*removeItemData)(T)){
     //YOUR CODE IS HERE
+    int item_idx = getItem(item);
+    if(item_idx == -1) return;
+    if(removeItemData != 0) removeItemData(elements[item_idx]);
+    elements[item_idx] = elements[count - 1];
+    count--;
+    reheapDown(item_idx);
 }
 
 template<class T>
 bool Heap<T>::contains(T item){
     //YOUR CODE IS HERE
+    if (getItem(item) == -1) return false;
+    return true;
 }
 
 template<class T>
 int Heap<T>::size(){
     //YOUR CODE IS HERE
+    return count;
 }
 
 template<class T>
 void Heap<T>::heapify(T array[], int size){
     //YOUR CODE IS HERE
+    for(int idx = 0; idx < size; idx++){
+        this->push(array[idx]);
+    }
 }
 
 template<class T>
 void Heap<T>::clear(){
     //YOUR CODE IS HERE
+    removeInternalData();
+    capacity = 10;
+    count = 0;
+    elements = new T[capacity];
 }
 
 template<class T>
 bool Heap<T>::empty(){
     //YOUR CODE IS HERE
+    return count == 0;
 }
 
 template<class T>
@@ -311,16 +442,42 @@ void Heap<T>::swap(int a, int b){
 template<class T>
 void Heap<T>::reheapUp(int position){
     //YOUR CODE IS HERE
+    int parent = (position - 1) / 2;
+    while(position > 0 && aLTb(elements[position], elements[parent])){
+        swap(position, parent);
+        position = parent;
+        parent = (position - 1) / 2;
+    }
 }
 
 template<class T>
 void Heap<T>::reheapDown(int position){
     //YOUR CODE IS HERE
+    int left = 2*position + 1;
+    int right = 2*position + 2;
+    int smaller = left;
+    while(left < count){
+        if(right < count && aLTb(elements[right], elements[left])) smaller = right;
+        if(aLTb(elements[smaller], elements[position])){
+            swap(position, smaller);
+            position = smaller;
+            left = 2*position + 1;
+            right = 2*position + 2;
+            smaller = left;
+        }
+        else break;
+    }
 }
 
 template<class T>
 int Heap<T>::getItem(T item){
     //YOUR CODE IS HERE
+    int root_idx = 0;
+    while(root_idx < count){
+        if(elements[root_idx] == item) return root_idx;
+        root_idx++;
+    }
+    return -1;
 }
 
 template<class T>
@@ -338,7 +495,7 @@ void Heap<T>::copyFrom(const Heap<T>& heap){
     this->deleteUserData = heap.deleteUserData;
     
     //Copy items from heap:
-    for(int idx=0; idx < heap.size(); idx++){
+    for(int idx=0; idx < heap.count; idx++){
         this->elements[idx] = heap.elements[idx];
     }
 }

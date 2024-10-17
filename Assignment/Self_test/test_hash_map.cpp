@@ -12,7 +12,7 @@
 
 using namespace std;
 namespace fs = std::filesystem;
-int num_task = 8;
+int num_task = 10;
 
 vector<vector<string>> expected_task (num_task, vector<string>(1000, ""));
 vector<vector<string>> output_task (num_task, vector<string>(1000, ""));
@@ -78,7 +78,7 @@ void compareFile(const string& filename1, const string& filename2) {
     }
 
     // Compare content of tasks
-    for (int task = 1; task < num_task; task++) {
+    for (int task = 0; task < num_task; task++) {
         int count_diff = 0;
         if (output_task[task][0] == "") continue;
         doTasks.push_back(task);
@@ -787,10 +787,92 @@ void runDemo() {
         cout << e.what() << endl;
     }
 }
+//test with operator=, copy constructure
+void test9() {
+    // test with static type
+    xMap<int, int> hash(&fake_hash, 0.5);
+    for (int i = 0; i < 10; i++) {
+        hash.put(i, i);
+    }
+    cout << "Created hash 1" << endl;
+    hash.println();
 
+    cout << "Created hash 2 by copy constructure" << endl;
+    xMap<int, int> hash2 = hash;
+    hash2.println();
+
+    cout << "Created hash 3 by operator=" << endl;
+    xMap<int, int> hash3(&fake_hash, 0.75);
+    hash3 = hash;
+    hash3.println();
+
+    // change content of hash 1
+    cout << "Change content of hash 1" << endl;
+    for (int i = 0; i < 10; i++) {
+        hash.put(i, i * 2);
+    }
+    cout << "hash 1" << endl;
+    hash.println();
+    cout << "hash 2" << endl;
+    hash2.println();
+    cout << "hash 3" << endl;
+    hash3.println();
+
+    // clear hash 2
+    cout << "Clear hash 2" << endl;
+    hash2.clear();
+    hash2.println();
+    cout << "hash 1" << endl;
+    hash.println();
+    cout << "hash 3" << endl;
+    hash3.println();
+}
+
+void test10() {
+    // test with dynamic type
+    xmap<int*, int*> hashMap(
+            &hashFunc,
+            0.75,
+            &valueEQ,
+            &xmap<int*, int*>::freeValue,
+            &keyEQ,
+            &xmap<int*, int*>::freeKey
+            );
+    for (int i = 0; i < 10; i++) {
+        int* key = new int(i);
+        int* value = new int(i);
+        hashMap.put(key, value);
+    }
+    cout << "Created hash 1" << endl;
+    hashMap.println(&key2str, &value2str);
+
+    cout << "Created hash 2 by copy constructure" << endl;
+    xmap<int*, int*> hashMap2 = hashMap;
+    hashMap2.println(&key2str, &value2str);
+
+    cout << "Created hash 3 by operator=" << endl;
+    xmap<int*, int*> hashMap3(&hashFunc);
+    hashMap3 = hashMap;
+    hashMap3.println(&key2str, &value2str);
+
+    // change content of hash 1
+    cout << "Change content of hash 1" << endl;
+    for (int i = 0; i < 10; i++) {
+        int* key = new int(i);
+        int* value = new int(i * 2);
+        int* oldValue = hashMap.put(key, value);
+        if (oldValue != nullptr) {
+            delete oldValue;
+        }
+        delete key;
+    }
+
+    cout << "hash 1" << endl;
+    hashMap.println(&key2str, &value2str);
+}
 // pointer function to store 15 test
 void (*testFuncs[])() = {
-    test1, test2, test3, test4, test5, test6, test7, test8
+    test1, test2, test3, test4, test5, test6, test7, test8, test9, test10
 };
 
 // ! NOTES: in function removeItem from original source
