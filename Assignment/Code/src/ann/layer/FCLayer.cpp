@@ -143,10 +143,36 @@ FCLayer::~FCLayer() {
 }
 
 xt::xarray<double> FCLayer::forward(xt::xarray<double> X) {
-    //YOUR CODE IS HERE
+    // * Store the input X for backpropagation
+    m_aCached_X = X;
+
+    // * Calculate the output Z
+    // * Y = W*X + b
+    xt::xarray<double> trans_X = xt::transpose(X);
+    xt::xarray<double> Z = xt::linalg::dot(m_aWeights, trans_X);
+
+    // * Add bias if needed
+    if (m_bUse_Bias){
+        Z = Z + m_aBias;
+    }
+    return xt::transpose(Z);
 }
 xt::xarray<double> FCLayer::backward(xt::xarray<double> DY) {
     //YOUR CODE IS HERE
+    // * Calculate the gradient of the weights
+    // * dW = DY*X.T
+    m_aGrad_W = xt::linalg::dot(xt::transpose(DY), m_aCached_X);
+
+    // * Calculate the gradient of the bias
+    // * db = DY
+    if (m_bUse_Bias){
+        m_aGrad_b = xt::sum(DY, {1});
+    }
+
+    // * Calculate the gradient of the input
+    // * dX = W.T*DY
+    xt::xarray<double> dX = xt::linalg::dot(DY, m_aWeights);
+    return dX;
 }
 
 int FCLayer::register_params(IParamGroup* ptr_group){

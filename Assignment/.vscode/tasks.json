@@ -78,6 +78,21 @@
             "detail": "Build the project using Makefile."
         },
         {
+            "label": "Make Build ANN Layer",
+            "type": "shell",
+            "command": "make",
+            "args": [
+              "build_ann_test_layer",
+              "file=${workspaceFolder}/Self_test/${fileBasename}"
+            ],
+            "group": {
+              "kind": "build",
+              "isDefault": true
+            },
+            "problemMatcher": ["$gcc"],
+            "detail": "Build the project using Makefile."
+        },
+        {
             "label" : "Make Clean",
             "type" : "shell",
             "command" : "make",

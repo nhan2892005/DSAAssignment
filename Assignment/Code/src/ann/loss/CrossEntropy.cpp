@@ -25,7 +25,10 @@ CrossEntropy::~CrossEntropy() {
 }
 
 double CrossEntropy::forward(xt::xarray<double> X, xt::xarray<double> t){
-    //YOUR CODE IS HERE
+    m_aYtarget = t;
+    m_aCached_Ypred = X;
+    double loss = 0.0;
+    return loss;
 }
 xt::xarray<double> CrossEntropy::backward() {
     //YOUR CODE IS HERE

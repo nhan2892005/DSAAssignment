@@ -6,7 +6,6 @@
                 "${workspaceFolder}/**",
                 "${workspaceFolder}/Code",
                 "${workspaceFolder}/Self_test",
-                "${workspaceFolder}/Self_LMS_sample_test/",
                 "${workspaceFolder}/Code/include/",
                 "${workspaceFolder}/Code/src/",
                 "${workspaceFolder}/Code/demo/",

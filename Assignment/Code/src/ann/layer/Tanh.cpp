@@ -9,10 +9,13 @@
  * 
  * Created on September 1, 2024, 7:03 PM
  */
-
 #include "layer/Tanh.h"
 #include "sformat/fmt_lib.h"
 #include "ann/functions.h"
+
+xt::xarray<double> tanh(xt::xarray<double> X){
+    return xt::tanh(X);
+}
 
 Tanh::Tanh(string name) {
     if(trim(name).size() != 0) m_sName = name;
@@ -28,9 +31,14 @@ Tanh::~Tanh() {
 
 xt::xarray<double> Tanh::forward(xt::xarray<double> X) {
     //YOUR CODE IS HERE
+    m_aCached_Y = tanh(X);
+    return m_aCached_Y;
 }
 xt::xarray<double> Tanh::backward(xt::xarray<double> DY) {
     //YOUR CODE IS HERE
+    auto Y_square = m_aCached_Y * m_aCached_Y;
+    auto complement_Y_square = 1 - Y_square;
+    return DY * complement_Y_square;
 }
 
 string Tanh::get_desc(){
