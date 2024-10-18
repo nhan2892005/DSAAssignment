@@ -115,7 +115,17 @@
     "stdexcept": "cpp",
     "streambuf": "cpp",
     "typeindex": "cpp",
-    "typeinfo": "cpp"
+    "typeinfo": "cpp",
+    "charconv": "cpp",
+    "expected": "cpp",
+    "optional": "cpp",
+    "source_location": "cpp",
+    "format": "cpp",
+    "semaphore": "cpp",
+    "span": "cpp",
+    "stop_token": "cpp",
+    "thread": "cpp",
+    "variant": "cpp"
   },
   "cmake.sourceDirectory": "/mnt/d/Code_space/DSAAssignment/dsastudents/include/xflens/cxxblas"
 }
