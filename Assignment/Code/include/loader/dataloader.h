@@ -170,6 +170,9 @@ private:
         }
     }
 public:
+    int get_total_batch(){
+        return this->n_batches;
+    }
     /////////////////////////////////////////////////////////////////////////
     // The section for supporting the iteration and for-each to DataLoader //
     /// START: Section                                                     //

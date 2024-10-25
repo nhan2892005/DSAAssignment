@@ -21,7 +21,8 @@ IMetrics::IMetrics(const IMetrics& orig) {
 IMetrics::~IMetrics() {
 }
 double IMetrics::evaluate(xt::xarray<double> pred, xt::xarray<double> target){
-    return 0;
+    accumulate(target, pred);
+    return m_metrics(0);
 }
 
 void IMetrics::accumulate(double_tensor y_true, double_tensor y_pred){

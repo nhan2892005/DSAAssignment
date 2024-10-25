@@ -67,6 +67,11 @@ void AdamParamGroup::register_param(string param_name,
         xt::xarray<double>* ptr_param,
         xt::xarray<double>* ptr_grad){
     //YOUR CODE IS HERE
+    m_pParams->put(param_name, ptr_param);
+    m_pGrads->put(param_name, ptr_grad);
+    //prepare first-momment and second-momment
+    m_pFirstMomment->put(param_name, new double_tensor);
+    m_pSecondMomment->put(param_name, new double_tensor);
 }
 void AdamParamGroup::register_sample_count(unsigned long long* pCounter){
     m_pCounter = pCounter;
@@ -74,10 +79,37 @@ void AdamParamGroup::register_sample_count(unsigned long long* pCounter){
 
 void AdamParamGroup::zero_grad(){
     //YOUR CODE IS HERE
+    DLinkedList<string> keys = m_pGrads->keys();
+    for(auto key: keys){
+        xt::xarray<double>* pGrad = m_pGrads->get(key);
+        xt::xarray<double>* pFirstMomment = m_pFirstMomment->get(key);
+        xt::xarray<double>* pSecondMomment = m_pSecondMomment->get(key);
+        xt::xarray<double>* pParam = m_pParams->get(key);
+        *pGrad = xt::zeros<double>(pParam->shape());
+        *pFirstMomment = xt::zeros<double>(pParam->shape());
+        *pSecondMomment = xt::zeros<double>(pParam->shape());
+    }
+    //reset sample_counter
+    *m_pCounter = 0;
 }
 
 void AdamParamGroup::step(double lr){
     //YOUR CODE IS HERE
+    DLinkedList<string> keys = m_pGrads->keys();
+    for(auto key: keys){
+        xt::xarray<double>& grad_P = *m_pGrads->get(key);
+        xt::xarray<double>& first_momment = *m_pFirstMomment->get(key);
+        xt::xarray<double>& second_momment = *m_pSecondMomment->get(key);
+        xt::xarray<double>& P = *m_pParams->get(key);
+        
+        first_momment = m_beta1*first_momment + (1 - m_beta1)*grad_P;
+        second_momment = m_beta2*second_momment + (1 - m_beta2)*grad_P*grad_P;
+        
+        xt::xarray<double> first_momment_hat = first_momment/(1 - m_beta1_t);
+        xt::xarray<double> second_momment_hat = second_momment/(1 - m_beta2_t);
+        
+        P = P - lr*first_momment_hat/(xt::sqrt(second_momment_hat) + 1e-7);
+    }
     
     //UPDATE step_idx:
     m_step_idx += 1;

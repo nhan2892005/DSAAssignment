@@ -151,11 +151,13 @@ xt::xarray<double> FCLayer::forward(xt::xarray<double> X) {
     xt::xarray<double> trans_X = xt::transpose(X);
     xt::xarray<double> Z = xt::linalg::dot(m_aWeights, trans_X);
 
+    Z = xt::transpose(Z);
     // * Add bias if needed
     if (m_bUse_Bias){
+        // broadcast the bias to the shape of Z
         Z = Z + m_aBias;
     }
-    return xt::transpose(Z);
+    return Z;
 }
 xt::xarray<double> FCLayer::backward(xt::xarray<double> DY) {
     //YOUR CODE IS HERE
@@ -166,7 +168,7 @@ xt::xarray<double> FCLayer::backward(xt::xarray<double> DY) {
     // * Calculate the gradient of the bias
     // * db = DY
     if (m_bUse_Bias){
-        m_aGrad_b = xt::sum(DY, {1});
+        m_aGrad_b = xt::sum(DY, {0});
     }
 
     // * Calculate the gradient of the input

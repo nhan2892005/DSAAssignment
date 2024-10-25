@@ -60,7 +60,8 @@ double_tensor MLPClassifier::predict(double_tensor X, bool make_decision){
     //DO the inference
     
     //YOUR CODE IS HERE
-    
+    xt::xarray<double> Y = forward(X);
+        
     //RESTORE the previous mode
     this->set_working_mode(old_mode);
     
@@ -89,6 +90,23 @@ double_tensor MLPClassifier::predict(
     unsigned long long nsamples = 0;
     for(auto batch: *pLoader){
         //YOUR CODE IS HERE
+        xt::xarray<double> X = batch.getData();
+        xt::xarray<double> Y = forward(X);
+
+        if(first_batch){
+            results = Y;
+            first_batch = false;
+        }
+        else{
+            results = xt::concatenate(xt::xtuple(results, Y), 0);
+        }
+
+        nsamples += X.shape()[0];
+        string info = fmt::format("{:<6d}/{:<12d}|{:<50d}\r",
+                    batch_idx, total_batch, nsamples);
+        cout << info;
+        batch_idx += 1;
+        
     }
     cout << "Prediction: End" << endl;
     
@@ -108,8 +126,17 @@ double_tensor MLPClassifier::evaluate(DataLoader<double, double>* pLoader){
     meter.reset_metrics();
     
     //YOUR CODE IS HERE
+    for(auto batch: *pLoader){
+        xt::xarray<double> X = batch.getData();
+        xt::xarray<double> t = batch.getLabel();
+        xt::xarray<double> Y = forward(X);
+        
+        ulong_tensor y_pred = xt::argmax(Y, 1);
+        meter.accumulate(t, y_pred);
+    }
 
-    //
+    double_tensor metrics = meter.get_metrics();
+    
     this->set_working_mode(old_mode);
     return metrics;
 }
@@ -145,9 +172,18 @@ void MLPClassifier::set_working_mode(bool trainable){
 //protected: for the training mode: begin
 double_tensor MLPClassifier::forward(double_tensor X){
     //YOUR CODE IS HERE
+    xt::xarray<double> Y = X;
+    for(auto pLayer: m_layers){
+        Y = pLayer->forward(Y);
+    }
+    return Y;
 }
 void MLPClassifier::backward(){
     //YOUR CODE IS HERE
+    xt::xarray<double> DY = m_pLossLayer->backward();
+    for (DLinkedList<ILayer*>::BWDIterator it = m_layers.bbegin(); it != m_layers.bend(); --it){
+        DY = (*it)->backward(DY);
+    }
 }
 //protected: for the training mode: end
 

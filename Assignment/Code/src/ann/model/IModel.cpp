@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/cppFiles/file.cc to edit this template
- */
+
 
 #include "model/IModel.h"
 #include "config/Config.h"
@@ -31,25 +28,29 @@ void IModel::fit(DataLoader<double, double>* pTrainLoader,
         for(auto batch: *pTrainLoader){
             double_tensor X = batch.getData();
             double_tensor t = batch.getLabel();
+
             on_begin_step(X.shape()[0]);
             
             //(0) Set gradient buffer to zeros
             //YOUR CODE IS HERE
-            
+            m_pOptimizer->zero_grad();
             //(1) FORWARD-Pass
             //YOUR CODE IS HERE
-            
+            xt::xarray<double> Y = forward(X);
+            double batch_loss = m_pLossLayer->forward(Y, t);                      
             //(2) BACKWARD-Pass
             //YOUR CODE IS HERE
-            
+            m_pLossLayer->backward();
+            backward();            
             //(3) UPDATE learnable parameters
             //YOUR CODE IS HERE
-            
+            m_pOptimizer->step();
+
             //Record the performance for each batch
             ulong_tensor y_true = xt::argmax(t, 1);
             ulong_tensor y_pred = xt::argmax(Y, 1);
             m_pMetricLayer->accumulate(y_true, y_pred);
-            
+                
             on_end_step(batch_loss);
         }//for-each batch: end
         on_end_epoch();

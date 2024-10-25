@@ -1,0 +1,7 @@
+model name: 3c-classification
+FC        , FC_7           : 2   , 50  , 1   
+ReLU      , ReLU_8         :
+FC        , FC_9           : 50  , 20  , 1   
+ReLU      , ReLU_10        :
+FC        , FC_11          : 20  , 3   , 1   
+Softmax   , Softmax_12     :   -1

@@ -9,7 +9,10 @@
                 "${workspaceFolder}/Code/include/",
                 "${workspaceFolder}/Code/src/",
                 "${workspaceFolder}/Code/demo/",
-                "${workspaceFolder}/Code/demo/list"
+                "${workspaceFolder}/Code/demo/list",
+                "${workspaceFolder}/Code/include/ann",
+                "${workspaceFolder}/Code/include/tensor",
+                "${workspaceFolder}/Code/include/sformat"
             ],
             "compilerPath": "/usr/bin/gcc",
             "cStandard": "${default}",

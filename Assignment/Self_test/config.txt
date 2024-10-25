@@ -1,0 +1,29 @@
+# Configuration for Two-Class Classification Model
+
+# Root directory for datasets
+dataset_root: ./datasets
+
+# Dataset files (assuming these files are stored in the dataset_root folder)
+train_file: 2c_train.npy
+valid_file: 2c_valid.npy
+test_file: 2c_test.npy
+
+# Model saving and loading paths
+model_root: ./models
+
+# Model checkpoint name
+ckpt_name: 2c-classification
+
+# Training settings
+batch_size: 50
+learning_rate: 0.002
+epochs: 10
+optimizer: sgd
+
+# Architecture settings
+# (You could customize these if you want to make them adjustable from the config file)
+input_size: 2
+hidden_size_1: 50
+hidden_size_2: 20
+output_size: 2
+activation: relu
