@@ -37,11 +37,10 @@ void IModel::fit(DataLoader<double, double>* pTrainLoader,
             //(1) FORWARD-Pass
             //YOUR CODE IS HERE
             xt::xarray<double> Y = forward(X);
-            double batch_loss = m_pLossLayer->forward(Y, t);                      
+            double batch_loss = m_pLossLayer->forward(Y, t);
             //(2) BACKWARD-Pass
             //YOUR CODE IS HERE
-            m_pLossLayer->backward();
-            backward();            
+            backward();
             //(3) UPDATE learnable parameters
             //YOUR CODE IS HERE
             m_pOptimizer->step();
@@ -85,7 +84,7 @@ void IModel::on_begin_epoch(){
 }
 void IModel::on_end_epoch(){
     cout << "Validation results: " << endl;
-    cout << this->evaluate(m_pValidLoader) << endl;
+    cout << m_pMetricLayer->get_metrics() << endl;
 }
 void IModel::on_begin_step(int batch_size){
     this->m_current_batch += 1; //the first batch: 1

@@ -30,12 +30,10 @@ Sigmoid::Sigmoid(const Sigmoid& orig) {
 Sigmoid::~Sigmoid() {
 }
 xt::xarray<double> Sigmoid::forward(xt::xarray<double> X) {
-    //YOUR CODE IS HERE
     m_aCached_Y = sigmoid(X);
     return m_aCached_Y;
 }
 xt::xarray<double> Sigmoid::backward(xt::xarray<double> DY) {
-    //YOUR CODE IS HERE
     return DY * m_aCached_Y * (1 - m_aCached_Y);
 }
 

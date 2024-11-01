@@ -1,16 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/* 
- * File:   Heap.h
- * Author: LTSACH
- *
- * Created on 22 August 2020, 18:18
- */
-
 #ifndef HEAP_H
 #define HEAP_H
 #include <memory.h>
@@ -367,7 +354,6 @@ int Heap<T>::size(){
 
 template<class T>
 void Heap<T>::heapify(T array[], int size){
-    //YOUR CODE IS HERE
     for(int idx = 0; idx < size; idx++){
         this->push(array[idx]);
     }
@@ -441,7 +427,6 @@ void Heap<T>::swap(int a, int b){
 
 template<class T>
 void Heap<T>::reheapUp(int position){
-    //YOUR CODE IS HERE
     int parent = (position - 1) / 2;
     while(position > 0 && aLTb(elements[position], elements[parent])){
         swap(position, parent);
@@ -452,7 +437,6 @@ void Heap<T>::reheapUp(int position){
 
 template<class T>
 void Heap<T>::reheapDown(int position){
-    //YOUR CODE IS HERE
     int left = 2*position + 1;
     int right = 2*position + 2;
     int smaller = left;

@@ -148,10 +148,9 @@ xt::xarray<double> FCLayer::forward(xt::xarray<double> X) {
 
     // * Calculate the output Z
     // * Y = W*X + b
-    xt::xarray<double> trans_X = xt::transpose(X);
-    xt::xarray<double> Z = xt::linalg::dot(m_aWeights, trans_X);
-
-    Z = xt::transpose(Z);
+    xt::xarray<double> trans_W = xt::transpose(m_aWeights);
+    xt::xarray<double> Z = xt::linalg::dot(X, trans_W);
+    
     // * Add bias if needed
     if (m_bUse_Bias){
         // broadcast the bias to the shape of Z
@@ -160,7 +159,6 @@ xt::xarray<double> FCLayer::forward(xt::xarray<double> X) {
     return Z;
 }
 xt::xarray<double> FCLayer::backward(xt::xarray<double> DY) {
-    //YOUR CODE IS HERE
     // * Calculate the gradient of the weights
     // * dW = DY*X.T
     m_aGrad_W = xt::linalg::dot(xt::transpose(DY), m_aCached_X);

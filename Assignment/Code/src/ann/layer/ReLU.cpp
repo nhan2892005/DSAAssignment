@@ -27,13 +27,11 @@ ReLU::~ReLU() {
 }
 
 xt::xarray<double> ReLU::forward(xt::xarray<double> X) {
-    //YOUR CODE IS HERE
     // * ReLU function is defined as f(x) = max(0, x).
-    m_aMask = (X > 0);
+    m_aMask = (X >= 0);
     return m_aMask * X;
 }
 xt::xarray<double> ReLU::backward(xt::xarray<double> DY) {
-    //YOUR CODE IS HERE
     return DY * m_aMask;
 }
 

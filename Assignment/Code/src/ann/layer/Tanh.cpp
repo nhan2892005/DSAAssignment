@@ -30,12 +30,10 @@ Tanh::~Tanh() {
 }
 
 xt::xarray<double> Tanh::forward(xt::xarray<double> X) {
-    //YOUR CODE IS HERE
     m_aCached_Y = tanh(X);
     return m_aCached_Y;
 }
 xt::xarray<double> Tanh::backward(xt::xarray<double> DY) {
-    //YOUR CODE IS HERE
     auto Y_square = m_aCached_Y * m_aCached_Y;
     auto complement_Y_square = 1 - Y_square;
     return DY * complement_Y_square;

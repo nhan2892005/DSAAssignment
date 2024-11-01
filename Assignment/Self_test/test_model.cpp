@@ -23,7 +23,7 @@ using namespace std;
 
 using namespace std;
 namespace fs = std::filesystem;
-int num_task = 1;
+int num_task = 0;
 
 
 vector<vector<string>> expected_task (num_task, vector<string>(1000, ""));
@@ -139,7 +139,6 @@ void runDemo() {
 
     cout << "Three Class" << endl;
     threeclasses_classification();
-    cout << endl << endl << endl;
 }
 
 // pointer function to store 15 test

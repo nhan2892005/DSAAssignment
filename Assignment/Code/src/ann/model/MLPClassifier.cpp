@@ -131,8 +131,9 @@ double_tensor MLPClassifier::evaluate(DataLoader<double, double>* pLoader){
         xt::xarray<double> t = batch.getLabel();
         xt::xarray<double> Y = forward(X);
         
+        ulong_tensor y_true = xt::argmax(t, 1);
         ulong_tensor y_pred = xt::argmax(Y, 1);
-        meter.accumulate(t, y_pred);
+        meter.accumulate(y_true, y_pred);
     }
 
     double_tensor metrics = meter.get_metrics();

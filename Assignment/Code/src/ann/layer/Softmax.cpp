@@ -35,7 +35,6 @@ xt::xarray<double> Softmax::forward(xt::xarray<double> X) {
 }
 xt::xarray<double> Softmax::backward(xt::xarray<double> DY) {
     //YOUR CODE IS HERE
-    cout << "Y Shape: " << shape2str(m_aCached_Y.shape()) << endl;
     auto diag_Y = diag_stack(m_aCached_Y);
     auto outer_Y = outer_stack(m_aCached_Y, m_aCached_Y);
     return matmul_on_stack(diag_Y - outer_Y, DY);

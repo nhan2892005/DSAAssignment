@@ -54,7 +54,7 @@ xmap<string, TensorDataset<double, double>*>* DSFactory::get_datasets_3cc(){
     TensorDataset<double, double>* train_ds = new TensorDataset<double, double>(X_train, T_train);
     TensorDataset<double, double>* valid_ds = new TensorDataset<double, double>(X_valid, T_valid);
     TensorDataset<double, double>* test_ds = new TensorDataset<double, double>(X_test, T_test);
-
+    
     xmap<string, TensorDataset<double, double>*>* pMap =
         new xmap<string, TensorDataset<double, double>*>(
             &stringHash,
@@ -83,10 +83,9 @@ xmap<string, TensorDataset<double, double>*>* DSFactory::get_datasets_2cc(){
     xt::xarray<double> valid_table = xt::load_npy<double>(valid_file);
     xt::xarray<double> test_table = xt::load_npy<double>(test_file);
     
-    
     xt::xarray<double> mu, sigma;
     estimate_params(xt::view(train_table, xt::all(), xt::range(0,2)), mu, sigma);
-    
+
     cout << shape2str(train_table.shape()) << endl;
     xt::xarray<double> X_train = normalize(xt::view(train_table, xt::all(), xt::range(0,2)), mu, sigma );
     xt::xarray<double> t_train = xt::view(train_table, xt::all(), -1);
@@ -104,7 +103,7 @@ xmap<string, TensorDataset<double, double>*>* DSFactory::get_datasets_2cc(){
     TensorDataset<double, double>* train_ds = new TensorDataset<double, double>(X_train, T_train);
     TensorDataset<double, double>* valid_ds = new TensorDataset<double, double>(X_valid, T_valid);
     TensorDataset<double, double>* test_ds = new TensorDataset<double, double>(X_test, T_test);
-    
+
     xmap<string, TensorDataset<double, double>*>* pMap =
         new xmap<string, TensorDataset<double, double>*>(
             &stringHash,

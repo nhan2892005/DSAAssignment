@@ -168,6 +168,14 @@ public:
         return DataLabel<DType, LType>(slice_data, slice_label);
     }
 
+    xt::xarray<DType> get_data() const {
+        return data;
+    }
+
+    xt::xarray<LType> get_label() const {
+        return label;
+    }
+
     // * get_data_shape(): return the shape of the data
     xt::svector<unsigned long> get_data_shape(){
         return this->data_shape;
