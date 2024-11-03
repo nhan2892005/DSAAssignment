@@ -1,14 +1,9 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/cppFiles/class.cc to edit this template
- */
-
-/* 
- * File:   Softmax.cpp
- * Author: ltsach
- * 
- * Created on August 25, 2024, 2:46 PM
- */
+    ! NGUYEN PHUC NHAN
+    * Last update: 2024-11-01
+    * Version 1.0
+    * This file implements the Softmax Layer class
+*/
 
 #include "layer/Softmax.h"
 #include "ann/functions.h"
@@ -28,7 +23,6 @@ Softmax::~Softmax() {
 }
 
 xt::xarray<double> Softmax::forward(xt::xarray<double> X) {
-    //YOUR CODE IS HERE
     // * Softmax function is defined as f(x) = exp(x) / sum(exp(x))
     m_aCached_Y = softmax(X, m_nAxis);
     return m_aCached_Y;

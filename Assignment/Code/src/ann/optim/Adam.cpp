@@ -1,14 +1,9 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/cppFiles/class.cc to edit this template
- */
-
-/* 
- * File:   Adam.cpp
- * Author: ltsach
- * 
- * Created on September 5, 2024, 5:31 PM
- */
+    ! NGUYEN PHUC NHAN
+    * Last update: 2024-11-01
+    * Version 1.0
+    * This file implements the Adam class
+*/
 
 #include "optim/Adam.h"
 #include "optim/AdamParamGroup.h"

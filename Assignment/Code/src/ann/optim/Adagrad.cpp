@@ -1,14 +1,9 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/cppFiles/class.cc to edit this template
- */
-
-/* 
- * File:   Adagrad.cpp
- * Author: ltsach
- * 
- * Created on September 5, 2024, 5:30 PM
- */
+    ! NGUYEN PHUC NHAN
+    * Last update: 2024-11-01
+    * Version 1.0
+    * This file implements the Ada Gradient class
+*/
 
 #include "optim/Adagrad.h"
 #include "optim/AdaParamGroup.h"

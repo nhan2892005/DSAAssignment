@@ -1,14 +1,9 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/cppFiles/class.cc to edit this template
- */
-
-/* 
- * File:   FCLayer.cpp
- * Author: ltsach
- * 
- * Created on August 25, 2024, 11:06 AM
- */
+    ! NGUYEN PHUC NHAN
+    * Last update: 2024-11-01
+    * Version 1.0
+    * This file implements the FCLayer class
+*/
 
 #include "layer/FCLayer.h"
 #include "ann/functions.h"
@@ -159,6 +154,9 @@ xt::xarray<double> FCLayer::forward(xt::xarray<double> X) {
     return Z;
 }
 xt::xarray<double> FCLayer::backward(xt::xarray<double> DY) {
+    // * Update sample counter
+    m_unSample_Counter += DY.shape()[0];
+
     // * Calculate the gradient of the weights
     // * dW = DY*X.T
     m_aGrad_W = xt::linalg::dot(xt::transpose(DY), m_aCached_X);

@@ -1,14 +1,9 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/cppFiles/class.cc to edit this template
- */
-
-/* 
- * File:   CrossEntropy.cpp
- * Author: ltsach
- * 
- * Created on August 25, 2024, 2:47 PM
- */
+    ! NGUYEN PHUC NHAN
+    * Last update: 2024-11-01
+    * Version 1.0
+    * This file implements the Cross Entropy class
+*/
 
 #include "loss/CrossEntropy.h"
 #include "ann/functions.h"
