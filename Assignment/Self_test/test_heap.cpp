@@ -10,11 +10,9 @@
 #include "heap/HeapDemo.h"
 #include <regex>
 #include <random>
-
 using namespace std;
 namespace fs = std::filesystem;
 int num_task = 6;
-
 vector<vector<string>> expected_task (num_task, vector<string>(1000, ""));
 vector<vector<string>> output_task (num_task, vector<string>(1000, ""));
 vector<int> diffTasks(0);

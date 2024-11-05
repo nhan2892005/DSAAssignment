@@ -9,7 +9,6 @@
 #include "util/Point.h"
 #include "hash/xMapDemo.h"
 #include <regex>
-
 using namespace std;
 namespace fs = std::filesystem;
 int num_task = 10;
@@ -171,6 +170,7 @@ void test1() {
 void test2() {
     // test put, remove(Key), get
     // test with pair (char, string)
+
     xMap<char, string> hash(&hash_char, 0.5);
     char key[] = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j'};
     string value[] = {"apple", "banana", "carrot", "dog", "elephant", "fish", "goat", "horse", "ice-cream", "jelly"};

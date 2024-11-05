@@ -1,14 +1,9 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/cppFiles/file.h to edit this template
- */
-
-/* 
- * File:   xMap.h
- * Author: ltsach
- *
- * Created on October 11, 2024, 7:08 PM
- */
+    ! NGUYEN PHUC NHAN
+    * Last update: 2024-11-01
+    * Version 1.0
+    * This file implements the FCLayer class
+*/
 
 #ifndef XMAP_H
 #define XMAP_H
@@ -21,94 +16,6 @@ using namespace std;
 
 #include "list/DLinkedList.h"
 #include "hash/IMap.h"
-
-// ! Recall:
-/*
-template <class T>
-class DLinkedList : public IList<T>
-{
-public:
-    class Node;        // Forward declaration
-    class Iterator;    // Forward declaration
-    class BWDIterator; // Forward declaration
-
-protected:
-    Node *head; // this node does not contain user's data
-    Node *tail; // this node does not contain user's data
-    int count;
-    bool (*itemEqual)(T &lhs, T &rhs);        // function pointer: test if two items (type: T&) are equal or not
-    void (*deleteUserData)(DLinkedList<T> *); // function pointer: be called to remove items (if they are pointer type)
-
-public:
-    DLinkedList(
-        void (*deleteUserData)(DLinkedList<T> *) = 0,
-        bool (*itemEqual)(T &, T &) = 0);
-    DLinkedList(const DLinkedList<T> &list);
-    DLinkedList<T> &operator=(const DLinkedList<T> &list);
-    ~DLinkedList();
-
-    // Inherit from IList: BEGIN
-    void add(T e);
-    void add(int index, T e);
-    T removeAt(int index);
-    bool removeItem(T item, void (*removeItemData)(T) = 0);
-    bool empty();
-    int size();
-    void clear();
-    T &get(int index);
-    int indexOf(T item);
-    bool contains(T item);
-    string toString(string (*item2str)(T &) = 0);
-    // Inherit from IList: END
-
-    void println(string (*item2str)(T &) = 0)
-    {
-        cout << toString(item2str) << endl;
-    }
-    void setDeleteUserDataPtr(void (*deleteUserData)(DLinkedList<T> *) = 0)
-    {
-        this->deleteUserData = deleteUserData;
-    }
-
-    bool contains(T array[], int size)
-    {
-        int idx = 0;
-        for (DLinkedList<T>::Iterator it = begin(); it != end(); it++)
-        {
-            if (!equals(*it, array[idx++], this->itemEqual))
-                return false;
-        }
-        return true;
-    }
-
-    static void free(DLinkedList<T> *list)
-    {
-        typename DLinkedList<T>::Iterator it = list->begin();
-        while (it != list->end())
-        {
-            delete *it;
-            it++;
-        }
-    }
-    Iterator begin()
-    {
-        return Iterator(this, true);
-    }
-    Iterator end()
-    {
-        return Iterator(this, false);
-    }
-    BWDIterator bbegin()
-    {
-        return BWDIterator(this, true);
-    }
-    BWDIterator bend()
-    {
-        return BWDIterator(this, false);
-    }
-
-*/
-
 
 /*
  * xMap<K, V>:
@@ -283,6 +190,7 @@ public:
             DLinkedList<Entry*> list = pMap->table[idx];
             for(auto pEntry: list){
                 delete pEntry->key;
+                deleteEntry(pEntry);
             }
         }
     }
@@ -298,6 +206,7 @@ public:
             DLinkedList<Entry*> list = pMap->table[idx];
             for(auto pEntry: list){
                 delete pEntry->value;
+                deleteEntry(pEntry);
             }
         }
     }
@@ -432,7 +341,6 @@ xMap<K,V>::xMap(
                 void (*deleteValues)(xMap<K,V>*),
                 bool (*keyEqual)(K& lhs, K& rhs),
                 void (*deleteKeys)(xMap<K,V>* pMap) ){
-    //YOUR CODE IS HERE
     this->hashCode = hashCode;
     this->loadFactor = loadFactor;
     this->valueEqual = valueEqual;
@@ -446,7 +354,6 @@ xMap<K,V>::xMap(
 
 template<class K, class V>
 xMap<K,V>::xMap(const xMap<K,V>& map){
-    //YOUR CODE IS HERE
     this->deleteKeys = 0;
     this->deleteValues = 0;
     this->keyEqual = 0;
@@ -460,7 +367,6 @@ xMap<K,V>::xMap(const xMap<K,V>& map){
 
 template<class K, class V>
 xMap<K,V>& xMap<K,V>::operator=(const xMap<K,V>& map){
-    //YOUR CODE IS HERE
     if(this == &map) return *this;
     copyMapFrom(map);
     return *this;
@@ -468,7 +374,6 @@ xMap<K,V>& xMap<K,V>::operator=(const xMap<K,V>& map){
 
 template<class K, class V>
 xMap<K,V>::~xMap(){
-    //YOUR CODE IS HERE
     removeInternalData();
 }
 
@@ -480,7 +385,6 @@ template<class K, class V>
 V xMap<K,V>::put(K key, V value){
     int index = this->hashCode(key, capacity);
     V retValue = value;
-    //YOUR CODE IS HERE    
     DLinkedList<Entry*>& list = table[index];
     for(auto pEntry: list){
         if(keyEQ(pEntry->key, key)){
@@ -499,7 +403,6 @@ V xMap<K,V>::put(K key, V value){
 template<class K, class V>
 V& xMap<K,V>::get(K key){
     int index = hashCode(key, capacity);
-    //YOUR CODE IS HERE   
     DLinkedList<Entry*>& list = table[index];
     for(auto pEntry: list){
         if(keyEQ(pEntry->key, key)){
@@ -515,7 +418,6 @@ V& xMap<K,V>::get(K key){
 template<class K, class V>
 V xMap<K,V>::remove(K key,void (*deleteKeyInMap)(K)){
     int index = hashCode(key, capacity);
-    //YOUR CODE IS HERE   
     DLinkedList<Entry*>& list = table[index];
     for(auto pEntry: list){
         if(keyEQ(pEntry->key, key)){
@@ -534,7 +436,6 @@ V xMap<K,V>::remove(K key,void (*deleteKeyInMap)(K)){
 
 template<class K, class V>
 bool xMap<K,V>::remove(K key, V value, void (*deleteKeyInMap)(K), void (*deleteValueInMap)(V)){
-    //YOUR CODE IS HERE  
     int index = hashCode(key, capacity);
     DLinkedList<Entry*>& list = table[index];
     for(auto pEntry: list){
@@ -551,7 +452,6 @@ bool xMap<K,V>::remove(K key, V value, void (*deleteKeyInMap)(K), void (*deleteV
 
 template<class K, class V>
 bool xMap<K,V>::containsKey(K key){
-    //YOUR CODE IS HERE 
     int index = hashCode(key, capacity);
     DLinkedList<Entry*>& list = table[index];
     for(auto pEntry: list){
@@ -564,7 +464,6 @@ bool xMap<K,V>::containsKey(K key){
 
 template<class K, class V>
 bool xMap<K,V>::containsValue(V value){
-    //YOUR CODE IS HERE 
     for(int idx=0; idx < capacity; idx++){
         DLinkedList<Entry*>& list = table[idx];
         for(auto pEntry: list){
@@ -577,19 +476,16 @@ bool xMap<K,V>::containsValue(V value){
 }
 template<class K, class V>
 bool xMap<K,V>::empty(){
-    //YOUR CODE IS HERE 
     return count == 0;
 }
 
 template<class K, class V>
 int xMap<K,V>::size(){
-    //YOUR CODE IS HERE 
     return count;
 }
 
 template<class K, class V>
 void xMap<K,V>::clear(){
-    //YOUR CODE IS HERE 
     removeInternalData();
     capacity = 10;
     count = 0;
@@ -598,7 +494,6 @@ void xMap<K,V>::clear(){
 
 template<class K, class V>
 DLinkedList<K> xMap<K,V>::keys(){
-    //YOUR CODE IS HERE 
     DLinkedList<K> keyList;
     for(int idx=0; idx < capacity; idx++){
         DLinkedList<Entry*>& list = table[idx];
@@ -624,7 +519,6 @@ DLinkedList<V> xMap<K,V>::values(){
 
 template<class K, class V>
 DLinkedList<int> xMap<K,V>::clashes(){
-    //YOUR CODE IS HERE 
     DLinkedList<int> clashList;
     for(int idx=0; idx < capacity; idx++){
         DLinkedList<Entry*>& list = table[idx];
@@ -655,6 +549,9 @@ string xMap<K,V>::toString(string (*key2str)(K&), string (*value2str)(V&)){
             else itemos << pEntry->value;
             
             itemos << ");";
+        }
+        for (auto pEntry: list) {
+            deleteEntry(pEntry);
         }
         string valuestr = itemos.str();
         if(valuestr.length() > 0) valuestr = valuestr.substr(0, valuestr.length()-1);
@@ -714,23 +611,22 @@ void xMap<K,V>::ensureLoadFactor(int current_size){
  *      3. free the old table.
  */
 template<class K, class V>
-void xMap<K,V>::rehash(int newCapacity){
+void xMap<K,V>::rehash(int newCapacity) {
     DLinkedList<Entry*>* pOldMap = this->table;
     int oldCapacity = capacity;
     
-    //Create new table:
+    // Tạo bảng mới không có delete function
     this->table = new DLinkedList<Entry*>[newCapacity];
-    this->capacity = newCapacity; //keep "count" not changed
     
+    // Di chuyển entries (không copy)
+    this->capacity = newCapacity;
     moveEntries(pOldMap, oldCapacity, this->table, newCapacity);
     
-    //remove old data: only remove nodes in list, no entry
-    for(int idx=0; idx < oldCapacity; idx++){
-        DLinkedList<Entry*>& list =  pOldMap[idx];
-        list.clear();
+    // Clear bảng cũ (không delete Entry*)
+    for(int idx = 0; idx < oldCapacity; idx++) {
+        pOldMap[idx].clear();
     }
-    //Remove oldTable
-    delete []pOldMap;
+    delete[] pOldMap;
 }
 
 /*

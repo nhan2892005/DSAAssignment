@@ -294,6 +294,21 @@ public:
             return iterator;
         }
 
+        // Prefix ++ overload
+        BWDIterator &operator++()
+        {
+            pNode = pNode->next;
+            return *this;
+        }
+
+        // Postfix ++ overload
+        BWDIterator operator++(int)
+        {
+            BWDIterator iterator = *this;
+            ++*this;
+            return iterator;
+        }
+
         T &operator*()
         {
             return pNode->data;
@@ -577,7 +592,11 @@ void DLinkedList<T>::copyFrom(const DLinkedList<T> &list)
 
     FOR_in_range(i, 0, list.count) {
         T copy_data;
-        copy_data = current->data;
+        if constexpr (std::is_pointer<T>::value) {
+            copy_data = new std::remove_pointer_t<T>(*current->data);
+        } else {
+            copy_data = current->data;
+        }
         this->add(copy_data);
         current = current->next;
     }
