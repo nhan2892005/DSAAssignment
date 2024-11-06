@@ -21,12 +21,13 @@ class SimpleMLP(nn.Module):
     
     def forward(self, x):
         return self.layers(x)
+    
 
 # Load data from .npy files
 def load_data():
-    train_data = np.load('./datasets/3c-classification/3c_train.npy', allow_pickle=True)
-    valid_data = np.load('./datasets/3c-classification/3c_valid.npy', allow_pickle=True)
-    test_data = np.load('./datasets/3c-classification/3c_test.npy', allow_pickle=True)
+    train_data = np.load('./datasets/2c-classification/2c_train.npy', allow_pickle=True)
+    valid_data = np.load('./datasets/2c-classification/2c_valid.npy', allow_pickle=True)
+    test_data = np.load('./datasets/2c-classification/2c_test.npy', allow_pickle=True)
     
     X_train, y_train = train_data[:, :-1], train_data[:, -1].astype(np.int64)
     X_valid, y_valid = valid_data[:, :-1], valid_data[:, -1].astype(np.int64)
