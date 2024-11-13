@@ -44,7 +44,7 @@
                 "--verbose",
                 "--log-file=${fileDirname}/valgrind-out.txt",
                 "--quiet",
-                "${fileDirname}/unit_test_program","test"
+                "${fileDirname}/unit_test_program","demo"
             ],
         },
         {

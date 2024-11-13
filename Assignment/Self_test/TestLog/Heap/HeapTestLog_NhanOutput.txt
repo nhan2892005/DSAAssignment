@@ -55,7 +55,7 @@ Size: 10
 Empty: 0
 Clear: []
 Empty: 1
-Removed: [10,7,8,3,6,5,4,1,2]
+Removed: [10,9,8,7,6,5,4,3,2,1]
 Containss 5: 0
 Contains 10: 0
 Contains 0: 0

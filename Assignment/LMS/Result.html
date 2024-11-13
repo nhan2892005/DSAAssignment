@@ -1,0 +1,1023 @@
+<html lang="en"><head><script async="false" type="text/javascript" src="chrome-extension://kjmoohlgokccodicjjfebfomlbljgfhk/in-page.js"></script><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Graded Results</title>
+    <style>
+     table {
+        border-collapse: collapse;
+        width: 100%;
+        border: 2px solid green; /* Green border around the table */
+        background-color: #f7f7f7; /* Light gray background for the entire table */
+    }
+    th, td {
+        border: 1px solid green; /* Cell borders */
+        padding: 8px;
+        text-align: left;
+    }
+    th {
+        background-color: #f0f0f0; /* Light gray for headers */
+        color: black;
+    }
+    td {
+        background-color: #f7f7f7; /* Light gray for cells */
+        color: black;
+    }
+    tr:nth-child(even) td {
+        background-color: #ebebeb; /* Slightly darker gray for alternating rows */
+    }
+
+    /* Style for the results box below the table */
+    .results-box {
+        border: 2px solid green;
+        background-color: #ccffcc; /* Light green background for passed tests */
+        padding: 10px;
+        margin-top: 10px;
+        font-weight: bold;
+        color: black;
+    }
+
+    /* Style for the Đúng label */
+    .status-label {
+        display: inline-block;
+        background-color: green;
+        color: white;
+        padding: 5px 10px;
+        border-radius: 5px;
+        font-weight: bold;
+        margin-top: 5px;
+    }
+    </style>
+</head>
+<body><div class="outcome clearfix" id="yui_3_18_1_1_1731411036799_152"><h4 class="accesshide">Phản hồi</h4><div class="feedback" id="yui_3_18_1_1_1731411036799_151"><div class="specificfeedback" id="yui_3_18_1_1_1731411036799_150"><div class="coderunner-test-results good" id="yui_3_18_1_1_1731411036799_149"><div class="table-responsive" id="yui_3_18_1_1_1731411036799_148"><table class="coderunner-test-results" id="yui_3_18_1_1_1731411036799_147">
+<thead>
+<tr>
+<td class="header c0" ></td>
+<th class="header c1"  scope="col">Test</th>
+<th class="header c2"  scope="col">Expected</th>
+<th class="header c3"  scope="col">Got</th>
+<td class="header c4 lastcol" ></td>
+</tr>
+</thead>
+<tbody id="yui_3_18_1_1_1731411036799_146">
+    <tr class="r1 lastrow" id="yui_3_18_1_1_1731411036799_145">
+<td class="cell c0" ><i class="icon fa fa-check text-success fa-fw " title="Đúng" role="img" aria-label="Đúng"></i></td>
+<td class="cell c1"  id="yui_3_18_1_1_1731411036799_158"><pre class="tablecell" id="yui_3_18_1_1_1731411036799_157">void hashDemo1() {
+    int keys[] = {2, 12, 42, 72, 3, 45, 76, 30};
+    int values[] = {35, 67, 100, 23, 68, 68, 72, 45};
+    xmap&lt;int, int&gt; hash(&amp;xmap&lt;int, int&gt;::simpleHash);
+    for (int idx = 0; idx &lt; 8; idx++) {
+        hash.put(keys[idx], values[idx]);
+    }
+    hash.println();
+}</pre></td>
+<td class="cell c2" ><pre class="tablecell">==================================================
+capacity: 15
+size: 8
+0 : (30,45); (45,68)
+1 : (76,72)
+2 : (2,35)
+3 : (3,68)
+4 :
+5 :
+6 :
+7 :
+8 :
+9 :
+10 :
+11 :
+12 : (12,67); (42,100); (72,23)
+13 :
+14 :
+==================================================</pre></td>
+<td class="cell c3" ><pre class="tablecell">==================================================
+capacity: 15
+size: 8
+0 : (30,45); (45,68)
+1 : (76,72)
+2 : (2,35)
+3 : (3,68)
+4 :
+5 :
+6 :
+7 :
+8 :
+9 :
+10 :
+11 :
+12 : (12,67); (42,100); (72,23)
+13 :
+14 :
+==================================================</pre></td>
+<td class="cell c4 lastcol" ><i class="icon fa fa-check text-success fa-fw " title="Đúng" role="img" aria-label="Đúng"></i></td>
+</tr>
+    <tr class="r1 lastrow" id="yui_3_18_1_1_1731411036799_145">
+<td class="cell c0" ><i class="icon fa fa-check text-success fa-fw " title="Đúng" role="img" aria-label="Đúng"></i></td>
+<td class="cell c1"  id="yui_3_18_1_1_1731411036799_158"><pre class="tablecell" id="yui_3_18_1_1_1731411036799_157">void hashDemo2() {
+    int keys[] = {2, 12, 42, 72, 3, 45, 76, 30};
+    int values[] = {35, 67, 100, 23, 68, 68, 72, 45};
+
+    xmap&lt;int, int*&gt; hashMap(
+            &amp;xmap&lt;int, int*&gt;::simpleHash,
+            0.75,
+            &amp;valueEQ,
+            &amp;xmap&lt;int, int*&gt;::freeValue,
+            0, //keyEQ
+            0 //deleteKeys
+            );
+    for (int idx = 0; idx &lt; 8; idx++) {
+        hashMap.put(keys[idx], new int(values[idx]));
+    }
+    hashMap.println(0, &amp;value2str);
+}</pre></td>
+<td class="cell c2" ><pre class="tablecell">==================================================
+capacity: 15
+size: 8
+0 : (30,45); (45,68)
+1 : (76,72)
+2 : (2,35)
+3 : (3,68)
+4 :
+5 :
+6 :
+7 :
+8 :
+9 :
+10 :
+11 :
+12 : (12,67); (42,100); (72,23)
+13 :
+14 :
+==================================================</pre></td>
+<td class="cell c3" ><pre class="tablecell">==================================================
+capacity: 15
+size: 8
+0 : (30,45); (45,68)
+1 : (76,72)
+2 : (2,35)
+3 : (3,68)
+4 :
+5 :
+6 :
+7 :
+8 :
+9 :
+10 :
+11 :
+12 : (12,67); (42,100); (72,23)
+13 :
+14 :
+==================================================</pre></td>
+<td class="cell c4 lastcol" ><i class="icon fa fa-check text-success fa-fw " title="Đúng" role="img" aria-label="Đúng"></i></td>
+</tr>
+    <tr class="r1 lastrow" id="yui_3_18_1_1_1731411036799_145">
+<td class="cell c0" ><i class="icon fa fa-check text-success fa-fw " title="Đúng" role="img" aria-label="Đúng"></i></td>
+<td class="cell c1"  id="yui_3_18_1_1_1731411036799_158"><pre class="tablecell" id="yui_3_18_1_1_1731411036799_157">void hashDemo3() {
+    int keys[] = {2, 12, 42, 72, 3, 45, 76, 30};
+    int values[] = {35, 67, 100, 23, 68, 68, 72, 45};
+
+    xmap&lt;int*, int*&gt; hashMap(
+            &amp;hashFunc,
+            0.75,
+            &amp;valueEQ,
+            &amp;xmap&lt;int*, int*&gt;::freeValue,
+            &amp;keyEQ,
+            &amp;xmap&lt;int*, int*&gt;::freeKey
+            );
+    for (int idx = 0; idx &lt; 8; idx++) {
+        hashMap.put(new int(keys[idx]), new int(values[idx]));
+    }
+    hashMap.println(&amp;key2str, &amp;value2str);
+    int* pkey = new int(42);
+    hashMap.remove(pkey, &amp;deleteKey);
+    delete pkey;
+    hashMap.println(&amp;key2str, &amp;value2str);
+}</pre></td>
+<td class="cell c2" ><pre class="tablecell">==================================================
+capacity: 15
+size: 8
+0 : (30,45); (45,68)
+1 : (76,72)
+2 : (2,35)
+3 : (3,68)
+4 :
+5 :
+6 :
+7 :
+8 :
+9 :
+10 :
+11 :
+12 : (12,67); (42,100); (72,23)
+13 :
+14 :
+==================================================</pre></td>
+<td class="cell c3" ><pre class="tablecell">==================================================
+capacity: 15
+size: 8
+0 : (30,45); (45,68)
+1 : (76,72)
+2 : (2,35)
+3 : (3,68)
+4 :
+5 :
+6 :
+7 :
+8 :
+9 :
+10 :
+11 :
+12 : (12,67); (42,100); (72,23)
+13 :
+14 :
+==================================================</pre></td>
+<td class="cell c4 lastcol" ><i class="icon fa fa-check text-success fa-fw " title="Đúng" role="img" aria-label="Đúng"></i></td>
+</tr>
+    <tr class="r1 lastrow" id="yui_3_18_1_1_1731411036799_145">
+<td class="cell c0" ><i class="icon fa fa-check text-success fa-fw " title="Đúng" role="img" aria-label="Đúng"></i></td>
+<td class="cell c1"  id="yui_3_18_1_1_1731411036799_158"><pre class="tablecell" id="yui_3_18_1_1_1731411036799_157">void hashDemo4() {
+    int keys[] = {2, 12, 42, 72, 3, 45, 76, 30};
+    Point * values[] = {
+        new Point(2.3, 4.5), new Point(4.2, 6.7),
+        new Point(5.2, 7.2), new Point(9.1, 1.8),
+        new Point(8.9, 9.1), new Point(8.1, 3.1),
+        new Point(3.3, 5.4), new Point(7.3, 4.2)
+    };
+
+    xmap&lt;int*, Point*&gt; hashMap(
+            &amp;hashFunc,
+            0.75,
+            &amp;Point::pointEQ,
+            &amp;xmap&lt;int*, Point*&gt;::freeValue,
+            &amp;keyEQ,
+            &amp;xmap&lt;int*, Point*&gt;::freeKey
+            );
+    for (int idx = 0; idx &lt; 8; idx++) {
+        hashMap.put(new int(keys[idx]), values[idx]);
+    }
+    hashMap.println(&amp;key2str, &amp;point2str);
+}</pre></td>
+<td class="cell c2" ><pre class="tablecell">==================================================
+capacity: 15
+size: 7
+0 : (30,45); (45,68)
+1 : (76,72)
+2 : (2,35)
+3 : (3,68)
+4 :
+5 :
+6 :
+7 :
+8 :
+9 :
+10 :
+11 :
+12 : (12,67); (72,23)
+13 :
+14 :
+==================================================</pre></td>
+<td class="cell c3" ><pre class="tablecell">==================================================
+capacity: 15
+size: 7
+0 : (30,45); (45,68)
+1 : (76,72)
+2 : (2,35)
+3 : (3,68)
+4 :
+5 :
+6 :
+7 :
+8 :
+9 :
+10 :
+11 :
+12 : (12,67); (72,23)
+13 :
+14 :
+==================================================</pre></td>
+<td class="cell c4 lastcol" ><i class="icon fa fa-check text-success fa-fw " title="Đúng" role="img" aria-label="Đúng"></i></td>
+</tr>
+    <tr class="r1 lastrow" id="yui_3_18_1_1_1731411036799_145">
+<td class="cell c0" ><i class="icon fa fa-check text-success fa-fw " title="Đúng" role="img" aria-label="Đúng"></i></td>
+<td class="cell c1"  id="yui_3_18_1_1_1731411036799_158"><pre class="tablecell" id="yui_3_18_1_1_1731411036799_157">void hashDemo5() {
+    int keys[] = {2, 12, 42, 72, 3, 45, 76, 30};
+    int values[] = {35, 67, 100, 23, 68, 68, 72, 45};
+    xmap&lt;int, int&gt; hash(&amp;xmap&lt;int, int&gt;::simpleHash);
+    for (int idx = 0; idx &lt; 8; idx++) {
+        hash.put(keys[idx], values[idx]);
+    }
+
+    DLinkedList&lt;int&gt; keyset = hash.keys();
+    cout &lt;&lt; "Keys: " &lt;&lt; keyset.toString() &lt;&lt; endl;
+    DLinkedList&lt;int&gt; valueset = hash.values();
+    cout &lt;&lt; "Values: " &lt;&lt; valueset.toString() &lt;&lt; endl;
+}</pre></td>
+<td class="cell c2" ><pre class="tablecell">Keys: [30, 45, 76, 2, 3, 12, 42, 72]
+Values: [45, 68, 72, 35, 68, 67, 100, 23]</pre></td>
+<td class="cell c3" ><pre class="tablecell">Keys: [30, 45, 76, 2, 3, 12, 42, 72]
+Values: [45, 68, 72, 35, 68, 67, 100, 23]</pre></td>
+<td class="cell c4 lastcol" ><i class="icon fa fa-check text-success fa-fw " title="Đúng" role="img" aria-label="Đúng"></i></td>
+</tr>
+    <tr class="r1 lastrow" id="yui_3_18_1_1_1731411036799_145">
+<td class="cell c0" ><i class="icon fa fa-check text-success fa-fw " title="Đúng" role="img" aria-label="Đúng"></i></td>
+<td class="cell c1"  id="yui_3_18_1_1_1731411036799_158"><pre class="tablecell" id="yui_3_18_1_1_1731411036799_157">void hashDemo6() {
+    int count = 100;
+    int *keys = genIntArray(count, 0, 199999, true, 42);
+    xmap&lt;int, int*&gt; hash(&amp;xmap&lt;int, int*&gt;::simpleHash);
+    for (int idx = 0; idx &lt; count; idx++) {
+        hash.put(keys[idx], 0);
+    }
+    //hash.println();
+
+    DLinkedList&lt;int&gt; clashes = hash.clashes();
+    int max = -1;
+    for (DLinkedList&lt;int&gt;::Iterator it = clashes.begin(); it != clashes.end(); it++) {
+        int item = *it;
+        if (item &gt; max) max = item;
+    }
+
+    cout &lt;&lt; "table size: " &lt;&lt; hash.getCapacity() &lt;&lt; endl;
+    cout &lt;&lt; "current count: " &lt;&lt; hash.size() &lt;&lt; endl;
+    cout &lt;&lt; "real load factor: " &lt;&lt; (float) hash.size() / hash.getCapacity() &lt;&lt; endl;
+    cout &lt;&lt; "max #collisions: " &lt;&lt; max &lt;&lt; endl;
+    delete []keys;
+}</pre></td>
+<td class="cell c2" ><pre class="tablecell">table size: 163
+current count: 100
+real load factor: 0.613497
+max #collisions: 4</pre></td>
+<td class="cell c3" ><pre class="tablecell">table size: 163
+current count: 100
+real load factor: 0.613497
+max #collisions: 4</pre></td>
+<td class="cell c4 lastcol" ><i class="icon fa fa-check text-success fa-fw " title="Đúng" role="img" aria-label="Đúng"></i></td>
+</tr>
+    <tr class="r1 lastrow" id="yui_3_18_1_1_1731411036799_145">
+<td class="cell c0" ><i class="icon fa fa-check text-success fa-fw " title="Đúng" role="img" aria-label="Đúng"></i></td>
+<td class="cell c1"  id="yui_3_18_1_1_1731411036799_158"><pre class="tablecell" id="yui_3_18_1_1_1731411036799_157">void heapDemo1(){
+    int array[] = {50, 20, 15, 10, 8, 6, 7, 23}; 
+    //min heap: [6, 10, 7, 23, 15, 20, 8, 50]
+    //max heap: [50, 23, 15, 20, 8, 6, 7, 10]
+    Heap&lt;int&gt; minHeap1;
+    cout &lt;&lt; "Min Heap: ";
+    minHeap1.heapify(array, 8);
+    cout &lt;&lt; minHeap1.toString() &lt;&lt; endl;
+    
+    Heap&lt;int&gt; minHeap2(minHeapComparator);
+    cout &lt;&lt; "Min Heap: ";
+    minHeap2.heapify(array, 8);
+    cout &lt;&lt; minHeap2.toString() &lt;&lt; endl;
+    
+    Heap&lt;int&gt; maxHeap(maxHeapComparator);
+    cout &lt;&lt; "Max Heap: ";
+    maxHeap.heapify(array, 8);
+    cout &lt;&lt; maxHeap.toString() &lt;&lt; endl;
+}</pre></td>
+<td class="cell c2" ><pre class="tablecell">Min Heap: [6,10,7,23,15,20,8,50]
+Min Heap: [6,10,7,23,15,20,8,50]
+Max Heap: [50,23,15,20,8,6,7,10]</pre></td>
+<td class="cell c3" ><pre class="tablecell">Min Heap: [6,10,7,23,15,20,8,50]
+Min Heap: [6,10,7,23,15,20,8,50]
+Max Heap: [50,23,15,20,8,6,7,10]</pre></td>
+<td class="cell c4 lastcol" ><i class="icon fa fa-check text-success fa-fw " title="Đúng" role="img" aria-label="Đúng"></i></td>
+</tr>
+    <tr class="r1 lastrow" id="yui_3_18_1_1_1731411036799_145">
+<td class="cell c0" ><i class="icon fa fa-check text-success fa-fw " title="Đúng" role="img" aria-label="Đúng"></i></td>
+<td class="cell c1"  id="yui_3_18_1_1_1731411036799_158"><pre class="tablecell" id="yui_3_18_1_1_1731411036799_157">void heapDemo2(){
+    Point array[] = {
+        Point(13.1, 12.4), Point(5.5, 4.5), Point(15.5, 14.5),
+        Point(23.1, 12.4), Point(35.5, 14.5), Point(5.5, 34.5)
+    };
+    Heap&lt;Point&gt; minHeap1(minHeapComparator);
+    cout &lt;&lt; "Min Heap: ";
+    minHeap1.heapify(array, 6);
+    cout &lt;&lt; minHeap1.toString(&amp;point2str) &lt;&lt; endl;
+    
+    Heap&lt;Point&gt; maxHeap(maxHeapComparator);
+    cout &lt;&lt; "Max Heap: ";
+    maxHeap.heapify(array, 6);
+    cout &lt;&lt; maxHeap.toString(&amp;point2str) &lt;&lt; endl;
+}</pre></td>
+<td class="cell c2" ><pre class="tablecell">Min Heap: [(5.5, 4.5),(13.1, 12.4),(15.5, 14.5),(23.1, 12.4),(35.5, 14.5),(5.5, 34.5)]
+Max Heap: [(35.5, 14.5),(23.1, 12.4),(5.5, 34.5),(5.5, 4.5),(15.5, 14.5),(13.1, 12.4)]</pre></td>
+<td class="cell c3" ><pre class="tablecell">Min Heap: [(5.5, 4.5),(13.1, 12.4),(15.5, 14.5),(23.1, 12.4),(35.5, 14.5),(5.5, 34.5)]
+Max Heap: [(35.5, 14.5),(23.1, 12.4),(5.5, 34.5),(5.5, 4.5),(15.5, 14.5),(13.1, 12.4)]</pre></td>
+<td class="cell c4 lastcol" ><i class="icon fa fa-check text-success fa-fw " title="Đúng" role="img" aria-label="Đúng"></i></td>
+</tr>
+    <tr class="r1 lastrow" id="yui_3_18_1_1_1731411036799_145">
+<td class="cell c0" ><i class="icon fa fa-check text-success fa-fw " title="Đúng" role="img" aria-label="Đúng"></i></td>
+<td class="cell c1"  id="yui_3_18_1_1_1731411036799_158"><pre class="tablecell" id="yui_3_18_1_1_1731411036799_157">void heapDemo3(){
+    Point* array[] = {
+        new Point(13.1, 12.4), new Point(5.5, 4.5), new Point(15.5, 14.5),
+        new Point(23.1, 12.4), new Point(35.5, 14.5), new Point(5.5, 34.5)
+    };
+    Heap&lt;Point*&gt; heap(&amp;myPointComparatorMAX, &amp;Heap&lt;Point*&gt;::free);
+    for(int idx=0; idx &lt; 6; idx++) heap.push(array[idx]);
+    heap.println(&amp;myPoint2Str);
+    
+    for(Heap&lt;Point*&gt;::Iterator it = heap.begin(); it != heap.end(); it++){
+        Point* point = *it;
+        cout &lt;&lt; point-&gt;radius() &lt;&lt; ", ";
+    }
+    cout &lt;&lt; endl;
+}</pre></td>
+<td class="cell c2" ><pre class="tablecell">[[ 36, 14],[ 23, 12],[ 5.5, 34],[ 5.5, 4.5],[ 16, 14],[ 13, 12]]
+38.3471, 26.2177, 34.9357, 7.10634, 21.225, 18.038,</pre></td>
+<td class="cell c3" ><pre class="tablecell">[[ 36, 14],[ 23, 12],[ 5.5, 34],[ 5.5, 4.5],[ 16, 14],[ 13, 12]]
+38.3471, 26.2177, 34.9357, 7.10634, 21.225, 18.038,</pre></td>
+<td class="cell c4 lastcol" ><i class="icon fa fa-check text-success fa-fw " title="Đúng" role="img" aria-label="Đúng"></i></td>
+</tr>
+    <tr class="r1 lastrow" id="yui_3_18_1_1_1731411036799_145">
+<td class="cell c0" ><i class="icon fa fa-check text-success fa-fw " title="Đúng" role="img" aria-label="Đúng"></i></td>
+<td class="cell c1"  id="yui_3_18_1_1_1731411036799_158"><pre class="tablecell" id="yui_3_18_1_1_1731411036799_157">void mlpDemo1() {
+    xt::random::seed(42);
+    DSFactory factory("./config.txt");
+    xmap&lt;string, TensorDataset&lt;double, double&gt;*&gt;* pMap = factory.get_datasets_2cc();
+    TensorDataset&lt;double, double&gt;* train_ds = pMap-&gt;get("train_ds");
+    TensorDataset&lt;double, double&gt;* valid_ds = pMap-&gt;get("valid_ds");
+    TensorDataset&lt;double, double&gt;* test_ds = pMap-&gt;get("test_ds");
+    DataLoader&lt;double, double&gt; train_loader(train_ds, 50, true, false);
+    DataLoader&lt;double, double&gt; valid_loader(valid_ds, 50, false, false);
+    DataLoader&lt;double, double&gt; test_loader(test_ds, 50, false, false);
+
+    cout &lt;&lt; "Train dataset: " &lt;&lt; train_ds-&gt;len() &lt;&lt; endl;
+    cout &lt;&lt; "Valid dataset: " &lt;&lt; valid_ds-&gt;len() &lt;&lt; endl;
+    cout &lt;&lt; "Test dataset: " &lt;&lt; test_ds-&gt;len() &lt;&lt; endl;
+
+    int nClasses = 2;
+    ILayer* layers[] = {
+        new FCLayer(2, 50, true),
+        new ReLU(),
+        new FCLayer(50, nClasses, true),
+        new Softmax()
+    };
+
+    MLPClassifier model("./config.txt", "2c-classification", layers, sizeof(layers)/sizeof(ILayer*));
+
+    SGD optim(2e-3);
+    CrossEntropy loss;
+    ClassMetrics metrics(nClasses);
+
+    model.compile(&amp;optim, &amp;loss, &amp;metrics);
+    model.fit(&amp;train_loader, &amp;valid_loader, 10);
+    string base_path = "./models";
+    // model.save(base_path + "/" + "2c-classification-1");
+    double_tensor eval_rs = model.evaluate(&amp;test_loader);
+    cout &lt;&lt; "Evaluation result on the testing dataset: " &lt;&lt; endl;
+    cout &lt;&lt; eval_rs &lt;&lt; endl;
+}</pre></td>
+<td class="cell c2" ><pre class="tablecell">Train dataset: 200
+Valid dataset: 200
+Test dataset: 200
+Start the training ...
+1/ 10| 1| 6.25 6.25 | 0.26
+1/ 10| 2| 4.82 5.54 | 0.25
+1/ 10| 3| 4.45 5.18 | 0.25
+1/ 10| 4| 5.03 5.14 | 0.24
+Validation results:
+{ 0.245 , 0.239493, 0.241245, 0.243516, 0.245 , 0.240635,
+0.242253}
+2/ 10| 1| 4.83 4.83 | 0.26
+2/ 10| 2| 5.92 5.38 | 0.25
+2/ 10| 3| 4.16 4.97 | 0.25
+2/ 10| 4| 4.41 4.83 | 0.24
+Validation results:
+{ 0.255 , 0.251387, 0.252826, 0.25395 , 0.255 , 0.251967,
+0.253213}
+3/ 10| 1| 3.99 3.99 | 0.26
+3/ 10| 2| 5.59 4.79 | 0.28
+3/ 10| 3| 4.41 4.66 | 0.27
+3/ 10| 4| 4.11 4.53 | 0.26
+Validation results:
+{ 0.29 , 0.289145, 0.29012 , 0.289854, 0.29 , 0.288862,
+0.289423}
+4/ 10| 1| 4.63 4.63 | 0.24
+4/ 10| 2| 3.31 3.97 | 0.34
+4/ 10| 3| 5.28 4.41 | 0.28
+4/ 10| 4| 3.68 4.23 | 0.30
+Validation results:
+{ 0.305 , 0.303837, 0.305199, 0.304069, 0.305 , 0.303445,
+0.304592}
+5/ 10| 1| 4.35 4.35 | 0.28
+5/ 10| 2| 4.19 4.27 | 0.30
+5/ 10| 3| 3.52 4.02 | 0.31
+5/ 10| 4| 3.67 3.93 | 0.30
+Validation results:
+{ 0.32 , 0.318397, 0.319661, 0.319311, 0.32 , 0.317795,
+0.31877 }
+6/ 10| 1| 3.64 3.64 | 0.30
+6/ 10| 2| 3.20 3.42 | 0.34
+6/ 10| 3| 3.57 3.47 | 0.34
+6/ 10| 4| 4.20 3.65 | 0.32
+Validation results:
+{ 0.325 , 0.323221, 0.324484, 0.324311, 0.325 , 0.322296,
+0.323272}
+7/ 10| 1| 3.73 3.73 | 0.28
+7/ 10| 2| 3.58 3.65 | 0.29
+7/ 10| 3| 2.83 3.38 | 0.34
+7/ 10| 4| 3.36 3.38 | 0.33
+Validation results:
+{ 0.325 , 0.322353, 0.323616, 0.324311, 0.325 , 0.320862,
+0.321838}
+8/ 10| 1| 3.37 3.37 | 0.32
+8/ 10| 2| 2.60 2.99 | 0.34
+8/ 10| 3| 3.14 3.04 | 0.33
+8/ 10| 4| 3.35 3.12 | 0.33
+Validation results:
+{ 0.335 , 0.330998, 0.332348, 0.334572, 0.335 , 0.32882 ,
+0.329708}
+9/ 10| 1| 2.84 2.84 | 0.34
+9/ 10| 2| 3.04 2.94 | 0.35
+9/ 10| 3| 2.81 2.90 | 0.34
+9/ 10| 4| 2.77 2.87 | 0.33
+Validation results:
+{ 0.335 , 0.329108, 0.330535, 0.33438 , 0.335 , 0.327152,
+0.328174}
+10/ 10| 1| 2.96 2.96 | 0.26
+10/ 10| 2| 2.89 2.92 | 0.30
+10/ 10| 3| 2.91 2.92 | 0.29
+10/ 10| 4| 1.76 2.63 | 0.34
+Validation results:
+{ 0.345 , 0.338785, 0.340355, 0.343752, 0.345 , 0.33449 ,
+0.335898}
+End the training ...
+Evaluation result on the testing dataset:
+{ 0.345 , 0.338785, 0.340355, 0.343752, 0.345 , 0.33449 ,
+0.335898}</pre></td>
+<td class="cell c3" ><pre class="tablecell">Train dataset: 200
+Valid dataset: 200
+Test dataset: 200
+Start the training ...
+1/ 10| 1| 6.25 6.25 | 0.26
+1/ 10| 2| 4.82 5.54 | 0.25
+1/ 10| 3| 4.45 5.18 | 0.25
+1/ 10| 4| 5.03 5.14 | 0.24
+Validation results:
+{ 0.245 , 0.239493, 0.241245, 0.243516, 0.245 , 0.240635,
+0.242253}
+2/ 10| 1| 4.83 4.83 | 0.26
+2/ 10| 2| 5.92 5.38 | 0.25
+2/ 10| 3| 4.16 4.97 | 0.25
+2/ 10| 4| 4.41 4.83 | 0.24
+Validation results:
+{ 0.255 , 0.251387, 0.252826, 0.25395 , 0.255 , 0.251967,
+0.253213}
+3/ 10| 1| 3.99 3.99 | 0.26
+3/ 10| 2| 5.59 4.79 | 0.28
+3/ 10| 3| 4.41 4.66 | 0.27
+3/ 10| 4| 4.11 4.53 | 0.26
+Validation results:
+{ 0.29 , 0.289145, 0.29012 , 0.289854, 0.29 , 0.288862,
+0.289423}
+4/ 10| 1| 4.63 4.63 | 0.24
+4/ 10| 2| 3.31 3.97 | 0.34
+4/ 10| 3| 5.28 4.41 | 0.28
+4/ 10| 4| 3.68 4.23 | 0.30
+Validation results:
+{ 0.305 , 0.303837, 0.305199, 0.304069, 0.305 , 0.303445,
+0.304592}
+5/ 10| 1| 4.35 4.35 | 0.28
+5/ 10| 2| 4.19 4.27 | 0.30
+5/ 10| 3| 3.52 4.02 | 0.31
+5/ 10| 4| 3.67 3.93 | 0.30
+Validation results:
+{ 0.32 , 0.318397, 0.319661, 0.319311, 0.32 , 0.317795,
+0.31877 }
+6/ 10| 1| 3.64 3.64 | 0.30
+6/ 10| 2| 3.20 3.42 | 0.34
+6/ 10| 3| 3.57 3.47 | 0.34
+6/ 10| 4| 4.20 3.65 | 0.32
+Validation results:
+{ 0.325 , 0.323221, 0.324484, 0.324311, 0.325 , 0.322296,
+0.323272}
+7/ 10| 1| 3.73 3.73 | 0.28
+7/ 10| 2| 3.58 3.65 | 0.29
+7/ 10| 3| 2.83 3.38 | 0.34
+7/ 10| 4| 3.36 3.38 | 0.33
+Validation results:
+{ 0.325 , 0.322353, 0.323616, 0.324311, 0.325 , 0.320862,
+0.321838}
+8/ 10| 1| 3.37 3.37 | 0.32
+8/ 10| 2| 2.60 2.99 | 0.34
+8/ 10| 3| 3.14 3.04 | 0.33
+8/ 10| 4| 3.35 3.12 | 0.33
+Validation results:
+{ 0.335 , 0.330998, 0.332348, 0.334572, 0.335 , 0.32882 ,
+0.329708}
+9/ 10| 1| 2.84 2.84 | 0.34
+9/ 10| 2| 3.04 2.94 | 0.35
+9/ 10| 3| 2.81 2.90 | 0.34
+9/ 10| 4| 2.77 2.87 | 0.33
+Validation results:
+{ 0.335 , 0.329108, 0.330535, 0.33438 , 0.335 , 0.327152,
+0.328174}
+10/ 10| 1| 2.96 2.96 | 0.26
+10/ 10| 2| 2.89 2.92 | 0.30
+10/ 10| 3| 2.91 2.92 | 0.29
+10/ 10| 4| 1.76 2.63 | 0.34
+Validation results:
+{ 0.345 , 0.338785, 0.340355, 0.343752, 0.345 , 0.33449 ,
+0.335898}
+End the training ...
+Evaluation result on the testing dataset:
+{ 0.345 , 0.338785, 0.340355, 0.343752, 0.345 , 0.33449 ,
+0.335898}</pre></td>
+<td class="cell c4 lastcol" ><i class="icon fa fa-check text-success fa-fw " title="Đúng" role="img" aria-label="Đúng"></i></td>
+</tr>
+    <tr class="r1 lastrow" id="yui_3_18_1_1_1731411036799_145">
+<td class="cell c0" ><i class="icon fa fa-check text-success fa-fw " title="Đúng" role="img" aria-label="Đúng"></i></td>
+<td class="cell c1"  id="yui_3_18_1_1_1731411036799_158"><pre class="tablecell" id="yui_3_18_1_1_1731411036799_157">void mlpDemo2() {
+    xt::random::seed(42);
+    DSFactory factory("./config.txt");
+    xmap&lt;string, TensorDataset&lt;double, double&gt;*&gt;* pMap = factory.get_datasets_2cc();
+    TensorDataset&lt;double, double&gt;* train_ds = pMap-&gt;get("train_ds");
+    TensorDataset&lt;double, double&gt;* valid_ds = pMap-&gt;get("valid_ds");
+    TensorDataset&lt;double, double&gt;* test_ds = pMap-&gt;get("test_ds");
+    DataLoader&lt;double, double&gt; train_loader(train_ds, 50, true, false);
+    DataLoader&lt;double, double&gt; valid_loader(valid_ds, 50, false, false);
+    DataLoader&lt;double, double&gt; test_loader(test_ds, 50, false, false);
+
+    int nClasses = 2;
+    ILayer* layers[] = {
+        new FCLayer(2, 50, true),
+        new Sigmoid(),
+        new FCLayer(50, nClasses, true),
+        new Softmax()
+    };
+
+    MLPClassifier model("./config.txt", "2c-classification", layers, sizeof(layers)/sizeof(ILayer*));
+
+    SGD optim(2e-3);
+    CrossEntropy loss;
+    ClassMetrics metrics(nClasses);
+
+    model.compile(&amp;optim, &amp;loss, &amp;metrics);
+    model.fit(&amp;train_loader, &amp;valid_loader, 10);
+    string base_path = "./models";
+    // model.save(base_path + "/" + "2c-classification-1");
+    double_tensor eval_rs = model.evaluate(&amp;test_loader);
+    cout &lt;&lt; "Evaluation result on the testing dataset: " &lt;&lt; endl;
+    cout &lt;&lt; eval_rs &lt;&lt; endl;
+}
+</pre></td>
+<td class="cell c2" ><pre class="tablecell">Start the training ...
+1/ 10| 1| 1.89 1.89 | 0.24
+1/ 10| 2| 2.04 1.97 | 0.24
+1/ 10| 3| 1.99 1.97 | 0.24
+1/ 10| 4| 1.96 1.97 | 0.23
+Validation results:
+{ 0.23 , 0.222705, 0.224625, 0.228465, 0.23 , 0.224455,
+0.226179}
+2/ 10| 1| 1.81 1.81 | 0.24
+2/ 10| 2| 2.08 1.94 | 0.22
+2/ 10| 3| 1.88 1.92 | 0.23
+2/ 10| 4| 1.98 1.94 | 0.23
+Validation results:
+{ 0.23 , 0.222705, 0.224625, 0.228465, 0.23 , 0.224455,
+0.226179}
+3/ 10| 1| 1.90 1.90 | 0.22
+3/ 10| 2| 1.77 1.84 | 0.23
+3/ 10| 3| 1.88 1.85 | 0.23
+3/ 10| 4| 2.07 1.91 | 0.23
+Validation results:
+{ 0.23 , 0.222705, 0.224625, 0.228465, 0.23 , 0.224455,
+0.226179}
+4/ 10| 1| 1.98 1.98 | 0.22
+4/ 10| 2| 1.70 1.84 | 0.30
+4/ 10| 3| 1.96 1.88 | 0.25
+4/ 10| 4| 1.85 1.87 | 0.23
+Validation results:
+{ 0.23 , 0.222705, 0.224625, 0.228465, 0.23 , 0.224455,
+0.226179}
+5/ 10| 1| 1.92 1.92 | 0.18
+5/ 10| 2| 1.65 1.78 | 0.21
+5/ 10| 3| 2.05 1.87 | 0.22
+5/ 10| 4| 1.75 1.84 | 0.23
+Validation results:
+{ 0.23 , 0.222705, 0.224625, 0.228465, 0.23 , 0.224455,
+0.226179}
+6/ 10| 1| 2.08 2.08 | 0.20
+6/ 10| 2| 1.60 1.84 | 0.25
+6/ 10| 3| 1.74 1.81 | 0.25
+6/ 10| 4| 1.82 1.81 | 0.23
+Validation results:
+{ 0.23 , 0.222705, 0.224625, 0.228465, 0.23 , 0.224455,
+0.226179}
+7/ 10| 1| 2.01 2.01 | 0.12
+7/ 10| 2| 1.78 1.89 | 0.17
+7/ 10| 3| 1.58 1.79 | 0.23
+7/ 10| 4| 1.76 1.78 | 0.23
+Validation results:
+{ 0.23 , 0.222705, 0.224625, 0.228465, 0.23 , 0.224455,
+0.226179}
+8/ 10| 1| 1.65 1.65 | 0.28
+8/ 10| 2| 1.67 1.66 | 0.27
+8/ 10| 3| 1.95 1.76 | 0.24
+8/ 10| 4| 1.73 1.75 | 0.23
+Validation results:
+{ 0.23 , 0.222705, 0.224625, 0.228465, 0.23 , 0.224455,
+0.226179}
+9/ 10| 1| 1.80 1.80 | 0.20
+9/ 10| 2| 1.46 1.63 | 0.24
+9/ 10| 3| 1.63 1.63 | 0.25
+9/ 10| 4| 2.00 1.72 | 0.23
+Validation results:
+{ 0.23 , 0.222705, 0.224625, 0.228465, 0.23 , 0.224455,
+0.226179}
+10/ 10| 1| 1.54 1.54 | 0.24
+10/ 10| 2| 1.60 1.57 | 0.25
+10/ 10| 3| 1.79 1.64 | 0.23
+10/ 10| 4| 1.84 1.69 | 0.23
+Validation results:
+{ 0.235 , 0.227136, 0.229057, 0.233465, 0.235 , 0.228964,
+0.230688}
+End the training ...
+Evaluation result on the testing dataset:
+{ 0.235 , 0.227136, 0.229057, 0.233465, 0.235 , 0.228964,
+0.230688}</pre></td>
+<td class="cell c3" ><pre class="tablecell">Start the training ...
+1/ 10| 1| 1.89 1.89 | 0.24
+1/ 10| 2| 2.04 1.97 | 0.24
+1/ 10| 3| 1.99 1.97 | 0.24
+1/ 10| 4| 1.96 1.97 | 0.23
+Validation results:
+{ 0.23 , 0.222705, 0.224625, 0.228465, 0.23 , 0.224455,
+0.226179}
+2/ 10| 1| 1.81 1.81 | 0.24
+2/ 10| 2| 2.08 1.94 | 0.22
+2/ 10| 3| 1.88 1.92 | 0.23
+2/ 10| 4| 1.98 1.94 | 0.23
+Validation results:
+{ 0.23 , 0.222705, 0.224625, 0.228465, 0.23 , 0.224455,
+0.226179}
+3/ 10| 1| 1.90 1.90 | 0.22
+3/ 10| 2| 1.77 1.84 | 0.23
+3/ 10| 3| 1.88 1.85 | 0.23
+3/ 10| 4| 2.07 1.91 | 0.23
+Validation results:
+{ 0.23 , 0.222705, 0.224625, 0.228465, 0.23 , 0.224455,
+0.226179}
+4/ 10| 1| 1.98 1.98 | 0.22
+4/ 10| 2| 1.70 1.84 | 0.30
+4/ 10| 3| 1.96 1.88 | 0.25
+4/ 10| 4| 1.85 1.87 | 0.23
+Validation results:
+{ 0.23 , 0.222705, 0.224625, 0.228465, 0.23 , 0.224455,
+0.226179}
+5/ 10| 1| 1.92 1.92 | 0.18
+5/ 10| 2| 1.65 1.78 | 0.21
+5/ 10| 3| 2.05 1.87 | 0.22
+5/ 10| 4| 1.75 1.84 | 0.23
+Validation results:
+{ 0.23 , 0.222705, 0.224625, 0.228465, 0.23 , 0.224455,
+0.226179}
+6/ 10| 1| 2.08 2.08 | 0.20
+6/ 10| 2| 1.60 1.84 | 0.25
+6/ 10| 3| 1.74 1.81 | 0.25
+6/ 10| 4| 1.82 1.81 | 0.23
+Validation results:
+{ 0.23 , 0.222705, 0.224625, 0.228465, 0.23 , 0.224455,
+0.226179}
+7/ 10| 1| 2.01 2.01 | 0.12
+7/ 10| 2| 1.78 1.89 | 0.17
+7/ 10| 3| 1.58 1.79 | 0.23
+7/ 10| 4| 1.76 1.78 | 0.23
+Validation results:
+{ 0.23 , 0.222705, 0.224625, 0.228465, 0.23 , 0.224455,
+0.226179}
+8/ 10| 1| 1.65 1.65 | 0.28
+8/ 10| 2| 1.67 1.66 | 0.27
+8/ 10| 3| 1.95 1.76 | 0.24
+8/ 10| 4| 1.73 1.75 | 0.23
+Validation results:
+{ 0.23 , 0.222705, 0.224625, 0.228465, 0.23 , 0.224455,
+0.226179}
+9/ 10| 1| 1.80 1.80 | 0.20
+9/ 10| 2| 1.46 1.63 | 0.24
+9/ 10| 3| 1.63 1.63 | 0.25
+9/ 10| 4| 2.00 1.72 | 0.23
+Validation results:
+{ 0.23 , 0.222705, 0.224625, 0.228465, 0.23 , 0.224455,
+0.226179}
+10/ 10| 1| 1.54 1.54 | 0.24
+10/ 10| 2| 1.60 1.57 | 0.25
+10/ 10| 3| 1.79 1.64 | 0.23
+10/ 10| 4| 1.84 1.69 | 0.23
+Validation results:
+{ 0.235 , 0.227136, 0.229057, 0.233465, 0.235 , 0.228964,
+0.230688}
+End the training ...
+Evaluation result on the testing dataset:
+{ 0.235 , 0.227136, 0.229057, 0.233465, 0.235 , 0.228964,
+0.230688}</pre></td>
+<td class="cell c4 lastcol" ><i class="icon fa fa-check text-success fa-fw " title="Đúng" role="img" aria-label="Đúng"></i></td>
+</tr><tr class="r1 lastrow" id="yui_3_18_1_1_1731411036799_145">
+<td class="cell c0" ><i class="icon fa fa-check text-success fa-fw " title="Đúng" role="img" aria-label="Đúng"></i></td>
+<td class="cell c1"  id="yui_3_18_1_1_1731411036799_158"><pre class="tablecell" id="yui_3_18_1_1_1731411036799_157">void mlpDemo3() {
+    xt::random::seed(42);
+    DSFactory factory("./config.txt");
+    xmap&lt;string, TensorDataset&lt;double, double&gt;*&gt;* pMap = factory.get_datasets_2cc();
+    TensorDataset&lt;double, double&gt;* train_ds = pMap-&gt;get("train_ds");
+    TensorDataset&lt;double, double&gt;* valid_ds = pMap-&gt;get("valid_ds");
+    TensorDataset&lt;double, double&gt;* test_ds = pMap-&gt;get("test_ds");
+    DataLoader&lt;double, double&gt; train_loader(train_ds, 50, true, false);
+    DataLoader&lt;double, double&gt; valid_loader(valid_ds, 50, false, false);
+    DataLoader&lt;double, double&gt; test_loader(test_ds, 50, false, false);
+
+    int nClasses = 2;
+    ILayer* layers[] = {
+        new FCLayer(2, 50, true),
+        new Tanh(),
+        new FCLayer(50, nClasses, true),
+        new Softmax()
+    };
+
+    MLPClassifier model("./config.txt", "2c-classification", layers, sizeof(layers)/sizeof(ILayer*));
+
+    SGD optim(2e-3);
+    CrossEntropy loss;
+    ClassMetrics metrics(nClasses);
+
+    model.compile(&amp;optim, &amp;loss, &amp;metrics);
+    model.fit(&amp;train_loader, &amp;valid_loader, 10);
+    string base_path = "./models";
+    // model.save(base_path + "/" + "2c-classification-1");
+    double_tensor eval_rs = model.evaluate(&amp;test_loader);
+    cout &lt;&lt; "Evaluation result on the testing dataset: " &lt;&lt; endl;
+    cout &lt;&lt; eval_rs &lt;&lt; endl;
+}</pre></td>
+<td class="cell c2" ><pre class="tablecell">Start the training ...
+1/ 10| 1| 5.19 5.19 | 0.18
+1/ 10| 2| 4.81 5.00 | 0.22
+1/ 10| 3| 4.59 4.86 | 0.23
+1/ 10| 4| 4.70 4.82 | 0.23
+Validation results:
+{ 0.23 , 0.228757, 0.229668, 0.229725, 0.23 , 0.228766,
+0.229359}
+2/ 10| 1| 4.28 4.28 | 0.24
+2/ 10| 2| 5.01 4.65 | 0.22
+2/ 10| 3| 4.29 4.53 | 0.23
+2/ 10| 4| 4.36 4.48 | 0.23
+Validation results:
+{ 0.235 , 0.234128, 0.235038, 0.234725, 0.235 , 0.234009,
+0.234601}
+3/ 10| 1| 4.10 4.10 | 0.24
+3/ 10| 2| 4.34 4.22 | 0.24
+3/ 10| 3| 3.94 4.12 | 0.25
+3/ 10| 4| 4.22 4.15 | 0.23
+Validation results:
+{ 0.235 , 0.234128, 0.235038, 0.234725, 0.235 , 0.234009,
+0.234601}
+4/ 10| 1| 4.21 4.21 | 0.20
+4/ 10| 2| 3.36 3.79 | 0.28
+4/ 10| 3| 4.18 3.92 | 0.23
+4/ 10| 4| 3.50 3.81 | 0.24
+Validation results:
+{ 0.235 , 0.234128, 0.235038, 0.234725, 0.235 , 0.234009,
+0.234601}
+5/ 10| 1| 3.66 3.66 | 0.22
+5/ 10| 2| 3.35 3.51 | 0.24
+5/ 10| 3| 3.77 3.59 | 0.23
+5/ 10| 4| 3.14 3.48 | 0.24
+Validation results:
+{ 0.24 , 0.238616, 0.239751, 0.239355, 0.24 , 0.238624,
+0.239516}
+6/ 10| 1| 3.64 3.64 | 0.22
+6/ 10| 2| 2.80 3.22 | 0.26
+6/ 10| 3| 2.90 3.11 | 0.27
+6/ 10| 4| 3.29 3.16 | 0.24
+Validation results:
+{ 0.24 , 0.238616, 0.239751, 0.239355, 0.24 , 0.238624,
+0.239516}
+7/ 10| 1| 3.28 3.28 | 0.16
+7/ 10| 2| 2.88 3.08 | 0.17
+7/ 10| 3| 2.38 2.85 | 0.24
+7/ 10| 4| 2.80 2.84 | 0.24
+Validation results:
+{ 0.245 , 0.243728, 0.244863, 0.244355, 0.245 , 0.243703,
+0.244594}
+8/ 10| 1| 2.60 2.60 | 0.26
+8/ 10| 2| 2.22 2.41 | 0.29
+8/ 10| 3| 2.75 2.53 | 0.27
+8/ 10| 4| 2.52 2.52 | 0.25
+Validation results:
+{ 0.255 , 0.253744, 0.254847, 0.254419, 0.255 , 0.253739,
+0.254582}
+9/ 10| 1| 2.43 2.43 | 0.20
+9/ 10| 2| 2.00 2.22 | 0.27
+9/ 10| 3| 2.13 2.19 | 0.28
+9/ 10| 4| 2.33 2.22 | 0.26
+Validation results:
+{ 0.265 , 0.26326 , 0.264421, 0.264227, 0.265 , 0.263341,
+0.264309}
+10/ 10| 1| 1.95 1.95 | 0.30
+10/ 10| 2| 1.95 1.95 | 0.30
+10/ 10| 3| 2.02 1.97 | 0.27
+10/ 10| 4| 1.84 1.94 | 0.27
+Validation results:
+{ 0.28 , 0.279516, 0.280463, 0.279904, 0.28 , 0.279182,
+0.279703}
+End the training ...
+Evaluation result on the testing dataset:
+{ 0.28 , 0.279516, 0.280463, 0.279904, 0.28 , 0.279182,
+0.279703}</pre></td>
+<td class="cell c3" ><pre class="tablecell">Start the training ...
+1/ 10| 1| 5.19 5.19 | 0.18
+1/ 10| 2| 4.81 5.00 | 0.22
+1/ 10| 3| 4.59 4.86 | 0.23
+1/ 10| 4| 4.70 4.82 | 0.23
+Validation results:
+{ 0.23 , 0.228757, 0.229668, 0.229725, 0.23 , 0.228766,
+0.229359}
+2/ 10| 1| 4.28 4.28 | 0.24
+2/ 10| 2| 5.01 4.65 | 0.22
+2/ 10| 3| 4.29 4.53 | 0.23
+2/ 10| 4| 4.36 4.48 | 0.23
+Validation results:
+{ 0.235 , 0.234128, 0.235038, 0.234725, 0.235 , 0.234009,
+0.234601}
+3/ 10| 1| 4.10 4.10 | 0.24
+3/ 10| 2| 4.34 4.22 | 0.24
+3/ 10| 3| 3.94 4.12 | 0.25
+3/ 10| 4| 4.22 4.15 | 0.23
+Validation results:
+{ 0.235 , 0.234128, 0.235038, 0.234725, 0.235 , 0.234009,
+0.234601}
+4/ 10| 1| 4.21 4.21 | 0.20
+4/ 10| 2| 3.36 3.79 | 0.28
+4/ 10| 3| 4.18 3.92 | 0.23
+4/ 10| 4| 3.50 3.81 | 0.24
+Validation results:
+{ 0.235 , 0.234128, 0.235038, 0.234725, 0.235 , 0.234009,
+0.234601}
+5/ 10| 1| 3.66 3.66 | 0.22
+5/ 10| 2| 3.35 3.51 | 0.24
+5/ 10| 3| 3.77 3.59 | 0.23
+5/ 10| 4| 3.14 3.48 | 0.24
+Validation results:
+{ 0.24 , 0.238616, 0.239751, 0.239355, 0.24 , 0.238624,
+0.239516}
+6/ 10| 1| 3.64 3.64 | 0.22
+6/ 10| 2| 2.80 3.22 | 0.26
+6/ 10| 3| 2.90 3.11 | 0.27
+6/ 10| 4| 3.29 3.16 | 0.24
+Validation results:
+{ 0.24 , 0.238616, 0.239751, 0.239355, 0.24 , 0.238624,
+0.239516}
+7/ 10| 1| 3.28 3.28 | 0.16
+7/ 10| 2| 2.88 3.08 | 0.17
+7/ 10| 3| 2.38 2.85 | 0.24
+7/ 10| 4| 2.80 2.84 | 0.24
+Validation results:
+{ 0.245 , 0.243728, 0.244863, 0.244355, 0.245 , 0.243703,
+0.244594}
+8/ 10| 1| 2.60 2.60 | 0.26
+8/ 10| 2| 2.22 2.41 | 0.29
+8/ 10| 3| 2.75 2.53 | 0.27
+8/ 10| 4| 2.52 2.52 | 0.25
+Validation results:
+{ 0.255 , 0.253744, 0.254847, 0.254419, 0.255 , 0.253739,
+0.254582}
+9/ 10| 1| 2.43 2.43 | 0.20
+9/ 10| 2| 2.00 2.22 | 0.27
+9/ 10| 3| 2.13 2.19 | 0.28
+9/ 10| 4| 2.33 2.22 | 0.26
+Validation results:
+{ 0.265 , 0.26326 , 0.264421, 0.264227, 0.265 , 0.263341,
+0.264309}
+10/ 10| 1| 1.95 1.95 | 0.30
+10/ 10| 2| 1.95 1.95 | 0.30
+10/ 10| 3| 2.02 1.97 | 0.27
+10/ 10| 4| 1.84 1.94 | 0.27
+Validation results:
+{ 0.28 , 0.279516, 0.280463, 0.279904, 0.28 , 0.279182,
+0.279703}
+End the training ...
+Evaluation result on the testing dataset:
+{ 0.28 , 0.279516, 0.280463, 0.279904, 0.28 , 0.279182,
+0.279703}</pre></td>
+<td class="cell c4 lastcol" ><i class="icon fa fa-check text-success fa-fw " title="Đúng" role="img" aria-label="Đúng"></i></td>
+</tr>
+</tbody>
+</table>
+<!-- Results Box -->
+<div class="results-box">
+    Passed all tests! ✔
+</div>
+
+<!-- Status Label -->
+<div class="status-label">
+    Đúng
+</div>
+
+<!-- Marks Message -->
+<div>
+    Marks for this submission: 1.00/1.00.
+</div>
+</div></div></div></div><div class="im-feedback"></div></div>
+    
+    
+    
+        
+    
+
+</body></html>

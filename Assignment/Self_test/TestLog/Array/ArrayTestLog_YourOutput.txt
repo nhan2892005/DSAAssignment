@@ -126,7 +126,7 @@ Created list with int*
 []
 
 Added 10 items
-[0x5555555c8430, 0x5555555c8450, 0x5555555c8470, 0x5555555c8490, 0x5555555c84b0, 0x5555555c84d0, 0x5555555d8270, 0x5555555d8290, 0x5555555d82b0, 0x5555555d82d0]
+[0x5555555c5830, 0x5555555c5850, 0x5555555c5870, 0x5555555c5890, 0x5555555c58b0, 0x5555555c58d0, 0x5555555d5670, 0x5555555d5690, 0x5555555d56b0, 0x5555555d56d0]
 
 Item at index 5: 5
 Item at index 0: 0
@@ -293,6 +293,6 @@ Task 17---------------------------------------------------
 Test 17: Test with int*
 List 1: [6, 2, 5, 4]
 Copy Constructor
-Clear List 1
-List 2: [6, 2, 5, 4]
-Clear List 2: []
+Clear List 2
+List 1: [6, 2, 5, 4]
+Clear List 1: []

@@ -24,7 +24,7 @@ public:
     IOptimizer(const IOptimizer& orig);
     virtual ~IOptimizer();
 
-    virtual int num_group(){return m_pGroupMap->size(); }
+    virtual int num_group(){return m_pGroupMap->size();}
     virtual void zero_grad();
     virtual void step();
     virtual IParamGroup* create_group(string name)=0;

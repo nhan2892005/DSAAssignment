@@ -31,7 +31,7 @@ void SGDParamGroup::register_sample_count(unsigned long long* pCounter){
     m_pCounter = pCounter;
 }
 void SGDParamGroup::zero_grad(){
-    DLinkedList<string> keys = m_pGrads->keys();
+    DLinkedList<string> keys = m_pGrads->keys();   
     for(auto key: keys){
         xt::xarray<double>* pGrad = m_pGrads->get(key);
         xt::xarray<double>* pParam = m_pParams->get(key);

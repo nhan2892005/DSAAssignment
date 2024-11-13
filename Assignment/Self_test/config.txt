@@ -12,7 +12,7 @@ test_file: 2c_test.npy
 model_root: ./models
 
 # Model checkpoint name
-ckpt_name: 2c-classification
+ckpt_name : checkpoint
 
 # Training settings
 batch_size: 50

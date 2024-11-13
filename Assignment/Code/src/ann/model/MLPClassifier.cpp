@@ -44,7 +44,13 @@ MLPClassifier::MLPClassifier(
 MLPClassifier::MLPClassifier(const MLPClassifier& orig):
     IModel(orig.m_cfg_filename, orig.m_sModelName){
     //copy list (in the assignment operator of DLinkedList)
-    m_layers = orig.m_layers; 
+    DLinkedList<ILayer*>& non_const_layers = const_cast<DLinkedList<ILayer*>&>(orig.m_layers);
+
+    int size = non_const_layers.size();
+    for (int idx = 0; idx < size; idx++) {
+        ILayer* pLayer = non_const_layers.get(idx);
+        m_layers.add(pLayer);
+    }
 }
 
 MLPClassifier::~MLPClassifier() {
@@ -61,7 +67,7 @@ double_tensor MLPClassifier::predict(double_tensor X, bool make_decision){
     
     //YOUR CODE IS HERE
     xt::xarray<double> Y = forward(X);
-        
+    
     //RESTORE the previous mode
     this->set_working_mode(old_mode);
     
@@ -137,7 +143,7 @@ double_tensor MLPClassifier::evaluate(DataLoader<double, double>* pLoader){
     }
 
     double_tensor metrics = meter.get_metrics();
-    
+    //
     this->set_working_mode(old_mode);
     return metrics;
 }
@@ -172,7 +178,6 @@ void MLPClassifier::set_working_mode(bool trainable){
 
 //protected: for the training mode: begin
 double_tensor MLPClassifier::forward(double_tensor X){
-    //YOUR CODE IS HERE
     xt::xarray<double> Y = X;
     for(auto pLayer: m_layers){
         Y = pLayer->forward(Y);
@@ -180,9 +185,8 @@ double_tensor MLPClassifier::forward(double_tensor X){
     return Y;
 }
 void MLPClassifier::backward(){
-    //YOUR CODE IS HERE
     xt::xarray<double> DY = m_pLossLayer->backward();
-    for (DLinkedList<ILayer*>::BWDIterator it = m_layers.bbegin(); it != m_layers.bend(); --it){
+    for (auto it = m_layers.bbegin(); it != m_layers.bend(); ++it){
         DY = (*it)->backward(DY);
     }
 }

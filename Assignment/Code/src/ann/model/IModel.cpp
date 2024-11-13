@@ -18,7 +18,6 @@ void IModel::fit(DataLoader<double, double>* pTrainLoader,
          DataLoader<double, double>* pValidLoader,
          unsigned int nepoch,
          unsigned int verbose){
-    //
     on_begin_training(pTrainLoader, pValidLoader, nepoch, verbose);
 
     for(int epoch=1; epoch <= nepoch; epoch++){
@@ -32,24 +31,21 @@ void IModel::fit(DataLoader<double, double>* pTrainLoader,
             on_begin_step(X.shape()[0]);
             
             //(0) Set gradient buffer to zeros
-            //YOUR CODE IS HERE
             m_pOptimizer->zero_grad();
             //(1) FORWARD-Pass
-            //YOUR CODE IS HERE
             xt::xarray<double> Y = forward(X);
             double batch_loss = m_pLossLayer->forward(Y, t);
             //(2) BACKWARD-Pass
-            //YOUR CODE IS HERE
             backward();
+
             //(3) UPDATE learnable parameters
-            //YOUR CODE IS HERE
             m_pOptimizer->step();
 
             //Record the performance for each batch
             ulong_tensor y_true = xt::argmax(t, 1);
             ulong_tensor y_pred = xt::argmax(Y, 1);
             m_pMetricLayer->accumulate(y_true, y_pred);
-                
+            
             on_end_step(batch_loss);
         }//for-each batch: end
         on_end_epoch();
@@ -84,7 +80,7 @@ void IModel::on_begin_epoch(){
 }
 void IModel::on_end_epoch(){
     cout << "Validation results: " << endl;
-    cout << m_pMetricLayer->get_metrics() << endl;
+    cout << this->evaluate(m_pValidLoader) << endl;
 }
 void IModel::on_begin_step(int batch_size){
     this->m_current_batch += 1; //the first batch: 1

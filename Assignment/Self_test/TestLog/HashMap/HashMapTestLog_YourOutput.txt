@@ -406,7 +406,7 @@ Task 8---------------------------------------------------
 table size: 14053
 current count: 9100
 real load factor: 0.647549
-max #collisions: 6
+max #collisions: 5
 Data was generated randomly => #collisions may be different
 Task 9---------------------------------------------------
 Created hash 1

@@ -1,0 +1,12 @@
+Cross entropy: 0.144621
+Test with CrossEntropy class
+Loss value: 0.144621
+dY: {{-0.      , -0.37037 },
+ {-0.37037 , -0.      },
+ {-0.416667, -0.      }}
+Test with ClassMetrics class
+Metrics value: { 0.333333,      -nan,      -nan,  0.5     ,  0.333333,  0.25    ,
+  0.166667}
+Test with Class IMetrics class
+Metrics value: 0.333333
+Get counts: 3

@@ -173,6 +173,12 @@ public:
     int get_total_batch(){
         return this->n_batches;
     }
+    int get_sample_count(){
+        return this->n_samples;
+    }
+    int get_batch_size(){
+        return this->batch_size;
+    }
     /////////////////////////////////////////////////////////////////////////
     // The section for supporting the iteration and for-each to DataLoader //
     /// START: Section                                                     //

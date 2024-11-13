@@ -28,7 +28,7 @@ public:
     
     virtual double forward(xt::xarray<double> X, xt::xarray<double> t)=0;
     virtual xt::xarray<double> backward()=0;
-private:
+protected:
     LossReduction m_eReduction;
 };
 

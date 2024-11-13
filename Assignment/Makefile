@@ -14,7 +14,7 @@ LAYER_SRC := $(wildcard $(LAYERS_DIR)/*.cpp)
 xt_lib := $(SRC)/tensor/xtensor_lib.cpp
 
 # Define the build directory
-OBJ_DIR := Self_Cache_Build
+OBJ_DIR := Cache_Build
 MKDIR := mkdir -p
 RM := rm -rf
 

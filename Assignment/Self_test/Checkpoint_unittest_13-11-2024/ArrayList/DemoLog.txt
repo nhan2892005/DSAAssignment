@@ -1,0 +1,27 @@
+0, found at: 0
+1, found at: 1
+4, found at: 2
+9, found at: 3
+16, found at: 4
+25, found at: 5
+36, found at: 6
+49, found at: 7
+64, found at: 8
+81, found at: 9
+
+lookup for 120 found at: -1
+[P( 23.20, 25.40,  0.00), P( 24.60, 23.10,  0.00)]
+result 1 : 1
+result 2 : -1
+P( 23.20, 25.40,  0.00)
+P( 24.60, 23.10,  0.00)
+P( 12.50, 22.30,  0.00)
+P( 24.60, 23.10,  0.00)=> found;  indexOf returns: 1
+P(124.60, 23.10,  0.00)=> not found;  indexOf returns: -1
+
+
+P( 23.20, 25.40,  0.00)
+P( 24.60, 23.10,  0.00)
+P( 12.50, 22.30,  0.00)
+P( 24.60, 23.10,  0.00)=> not found;  indexOf returns: -1
+P(124.60, 23.10,  0.00)=> not found;  indexOf returns: -1

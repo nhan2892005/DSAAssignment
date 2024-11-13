@@ -131,14 +131,15 @@ void printUsage() {
     std::cout << "  !test [start_task] [end_task] : run test from start_task to end_task" << std::endl;
     std::cout << "This test has 15 tasks" << std::endl;
 }
-
 void runDemo() {
-    cout << "Two Class" << endl;
-    twoclasses_classification();
-    cout << endl << endl << endl;
+    cout << "Two Class With RelU" << endl;
+    twoclasses_classification_relu();
+    
+    cout << "Two Class With Sigmoid" << endl;
+    twoclasses_classification_sigmoid();
 
-    cout << "Three Class" << endl;
-    threeclasses_classification();
+    cout << "Two Class With Tanh" << endl;
+    twoclasses_classification_tanh();
 }
 
 // pointer function to store 15 test

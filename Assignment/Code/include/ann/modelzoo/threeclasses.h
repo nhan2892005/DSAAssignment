@@ -56,7 +56,7 @@ void threeclasses_classification(){
     
     //train + eval
     model.compile(&optim, &loss, &metrics);
-    model.fit(&train_loader, &valid_loader, 1000);
+    model.fit(&train_loader, &valid_loader, 10);
     string base_path = "./models";
     model.save(base_path + "/" + "3c-classification-1");
     double_tensor eval_rs = model.evaluate(&test_loader);
