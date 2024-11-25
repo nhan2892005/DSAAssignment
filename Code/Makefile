@@ -1,40 +1,19 @@
-#####################################################################################
-# Specify:
-# (1) The folder containing the source files + name of the compiled program
-# (2) Name of the program
-#####################################################################################
-SRC := src
-BIN := program
+project(assignment)
 
-OBJ := obj
-MKDIR := mkdir -p
-RM := rm -rf
-SRCs := $(shell find $(SRC) -name "*.cpp")
-OBJs := $(subst $(SRC), $(OBJ), $(SRCs:.cpp=.o))
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=address -std=c++17 -DTEST_LAYER")
 
-CXX := g++ -std=c++17
-CPPFLAGS := -ICode/include -ICode/include/ann -ICode/include/tensor -ICode/include/sformat -ICode/demo -ICode/src
-CFLAGS := -pthread #-Wall
-LDLIBS := -lm -lpthread 
-#############################################################################################
-# Note: 
-# (1) Use -Iinclude/tensor: because put xtensor and its headers inside of folder tensor
-# (2) Use -Iinclude/sformat: because put sformat and its headers inside of folder sformat
-# (3) Use -Iinclude/ann: because put header files of ann inside of folder ann
-# (4) Use -Idemo: because put header files of demos inside of this folder
-#############################################################################################
+include_directories(${PROJECT_SOURCE_DIR})
+include_directories(${PROJECT_SOURCE_DIR}/include)
+include_directories(${PROJECT_SOURCE_DIR}/include/tensor)
+include_directories(${PROJECT_SOURCE_DIR}/include/sformat)
+include_directories(${PROJECT_SOURCE_DIR}/include/ann)
+include_directories(${PROJECT_SOURCE_DIR}/src)
+include_directories(${PROJECT_SOURCE_DIR}/test)
 
-all: $(BIN)
+FILE(GLOB_RECURSE SRC ./src/*.cpp)
 
-$(BIN): $(OBJs)
-	$(CXX) $(CFLAGS) $(CPPFLAGS) $(OBJs) -o $@ $(LDLIBS)
-
-$(OBJs): $(SRCs)
-	$(MKDIR) $(dir $@)
-	$(CXX) $(CFLAGS) $(CPPFLAGS) -c $(subst $(OBJ), $(SRC), $(@:.o=.cpp)) -o $@
-# Here: repeat here for other other source codes
-
-# Clean rule to remove generated files
-clean:
-	$(RM) $(BIN)
-	$(RM) $(OBJ)
+add_executable(main
+    ${SRC}
+    /home/kdm/Documents/UNI/241/DSA/TEMPATE_27_10/test/unit_test/layer/unit_test_softmax.cpp
+    main.cpp
+)

@@ -23,15 +23,34 @@ Softmax::~Softmax() {
 }
 
 xt::xarray<double> Softmax::forward(xt::xarray<double> X) {
+    bool one_data = false;
+    if (X.shape().size() == 1) {
+        X.reshape({1, X.shape()[0]});
+        one_data = true;
+    }
     // * Softmax function is defined as f(x) = exp(x) / sum(exp(x))
-    m_aCached_Y = softmax(X, m_nAxis);
-    return m_aCached_Y;
+    xt::xarray<double> Y = softmax(X, m_nAxis);
+    m_aCached_Y = Y;
+    if(one_data){
+        X.reshape({X.size()});
+        Y.reshape({Y.size()});
+    }
+    return Y;
 }
 xt::xarray<double> Softmax::backward(xt::xarray<double> DY) {
-    //YOUR CODE IS HERE
+    bool one_data = false;
+    if (DY.shape().size() == 1) {
+        DY.reshape({1, DY.shape()[0]});
+        one_data = true;
+    }
     auto diag_Y = diag_stack(m_aCached_Y);
     auto outer_Y = outer_stack(m_aCached_Y, m_aCached_Y);
-    return matmul_on_stack(diag_Y - outer_Y, DY);
+    xt::xarray<double> DX = matmul_on_stack(diag_Y - outer_Y, DY);
+    if(one_data){
+        DY.reshape({DX.size()});
+        DX.reshape({DX.size()});
+    }
+    return DX;
 }
 
 string Softmax::get_desc(){

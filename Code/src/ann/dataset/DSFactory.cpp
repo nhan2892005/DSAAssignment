@@ -24,7 +24,6 @@ DSFactory::~DSFactory() {
 }
 
 xmap<string, TensorDataset<double, double>*>* DSFactory::get_datasets_3cc(){
-    //YOUR CODE IS HERE
     string ds_name = "3c-classification";
     string ds_root = m_pConfig->get("dataset_root", "datasets");
     fs::path ds_path = fs::path(ds_root) / fs::path(ds_name);

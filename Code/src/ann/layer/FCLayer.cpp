@@ -138,6 +138,11 @@ FCLayer::~FCLayer() {
 }
 
 xt::xarray<double> FCLayer::forward(xt::xarray<double> X) {
+    bool one_data = false;
+    if (X.shape().size() == 1) {
+        X.reshape({1, X.shape()[0]});
+        one_data = true;
+    }
     if (this->m_trainable) {
         // * Store the input X for backpropagation
         m_aCached_X = X;
@@ -153,9 +158,18 @@ xt::xarray<double> FCLayer::forward(xt::xarray<double> X) {
         // broadcast the bias to the shape of Z
         Z = Z + m_aBias;
     }
+    if(one_data){
+        X.reshape({X.size()});
+        Z.reshape({Z.size()});
+    }
     return Z;
 }
 xt::xarray<double> FCLayer::backward(xt::xarray<double> DY) {
+    bool one_data = false;
+    if (DY.shape().size() == 1) {
+        DY.reshape({1, DY.shape()[0]});
+        one_data = true;
+    }
     // * Update sample counter
     m_unSample_Counter += DY.shape()[0];
     
@@ -171,6 +185,10 @@ xt::xarray<double> FCLayer::backward(xt::xarray<double> DY) {
     // * Calculate the gradient of the input
     // * dX = W.T*DY
     xt::xarray<double> dX = xt::linalg::dot(DY, m_aWeights);
+    if(one_data){
+        DY.reshape({DY.size()});
+        dX.reshape({dX.size()});
+    }
     return dX;
 }
 

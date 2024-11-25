@@ -1,15 +1,9 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/* 
- * File:   IGraph.h
- * Author: LTSACH
- *
- * Created on 23 August 2020, 17:28
- */
+    ! NGUYEN PHUC NHAN
+    * Last update: 2024-25-11
+    * Version 1.0
+    * This file defines a graph data structure and its APIs
+*/
 
 #ifndef IGRAPH_H
 #define IGRAPH_H

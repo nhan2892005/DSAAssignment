@@ -95,7 +95,6 @@ double_tensor MLPClassifier::predict(
     int batch_idx = 1;
     unsigned long long nsamples = 0;
     for(auto batch: *pLoader){
-        //YOUR CODE IS HERE
         xt::xarray<double> X = batch.getData();
         xt::xarray<double> Y = forward(X);
 
@@ -112,7 +111,6 @@ double_tensor MLPClassifier::predict(
                     batch_idx, total_batch, nsamples);
         cout << info;
         batch_idx += 1;
-        
     }
     cout << "Prediction: End" << endl;
     

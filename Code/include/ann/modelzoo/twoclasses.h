@@ -68,6 +68,7 @@ void twoclasses_classification_relu(){
     double_tensor eval_rs1 = pretrained1.evaluate(&test_loader);
     cout << "Load + Eval a pretrained model : " << endl;
     cout << eval_rs1 << endl;
+    delete pMap;
 }
 
 void twoclasses_classification_sigmoid(){
@@ -110,6 +111,7 @@ void twoclasses_classification_sigmoid(){
     double_tensor eval_rs1 = pretrained1.evaluate(&test_loader);
     cout << "Load + Eval a pretrained model : " << endl;
     cout << eval_rs1 << endl;
+    delete pMap;
 }
 
 void twoclasses_classification_tanh(){
@@ -152,6 +154,7 @@ void twoclasses_classification_tanh(){
     double_tensor eval_rs1 = pretrained1.evaluate(&test_loader);
     cout << "Load + Eval a pretrained model : " << endl;
     cout << eval_rs1 << endl;
+    delete pMap;
 }
 
 void twoclasses_classification(){

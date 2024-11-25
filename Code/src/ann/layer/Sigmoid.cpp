@@ -25,11 +25,31 @@ Sigmoid::Sigmoid(const Sigmoid& orig) {
 Sigmoid::~Sigmoid() {
 }
 xt::xarray<double> Sigmoid::forward(xt::xarray<double> X) {
-    m_aCached_Y = sigmoid(X);
-    return m_aCached_Y;
+    bool one_data = false;
+    if (X.shape().size() == 1) {
+        X.reshape({1, X.shape()[0]});
+        one_data = true;
+    }
+    xt::xarray<double> Y = sigmoid(X);
+    m_aCached_Y = Y;
+    if(one_data){
+        X.reshape({X.size()});
+        Y.reshape({Y.size()});
+    }
+    return Y;
 }
 xt::xarray<double> Sigmoid::backward(xt::xarray<double> DY) {
-    return DY * m_aCached_Y * (1 - m_aCached_Y);
+    bool one_data = false;
+    if (DY.shape().size() == 1) {
+        DY.reshape({1, DY.shape()[0]});
+        one_data = true;
+    }
+    xt::xarray<double> DX = DY * m_aCached_Y * (1 - m_aCached_Y);
+    if(one_data){
+        DY.reshape({DX.size()});
+        DX.reshape({DX.size()});
+    }
+    return DX;
 }
 
 string Sigmoid::get_desc(){

@@ -26,13 +26,33 @@ Tanh::~Tanh() {
 }
 
 xt::xarray<double> Tanh::forward(xt::xarray<double> X) {
-    m_aCached_Y = tanh(X);
-    return m_aCached_Y;
+    bool one_data = false;
+    if (X.shape().size() == 1) {
+        X.reshape({1, X.shape()[0]});
+        one_data = true;
+    }
+    xt::xarray<double> Y = tanh(X);
+    m_aCached_Y = Y;
+    if(one_data){
+        X.reshape({X.size()});
+        Y.reshape({Y.size()});
+    }
+    return Y;
 }
 xt::xarray<double> Tanh::backward(xt::xarray<double> DY) {
+    bool one_data = false;
+    if (DY.shape().size() == 1) {
+        DY.reshape({1, DY.shape()[0]});
+        one_data = true;
+    }
     auto Y_square = m_aCached_Y * m_aCached_Y;
     auto complement_Y_square = 1 - Y_square;
-    return DY * complement_Y_square;
+    xt::xarray<double> DX = DY * complement_Y_square;
+    if(one_data){
+        DY.reshape({DX.size()});
+        DX.reshape({DX.size()});
+    }
+    return DX;
 }
 
 string Tanh::get_desc(){

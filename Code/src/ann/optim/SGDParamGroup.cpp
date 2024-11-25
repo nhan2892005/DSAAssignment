@@ -21,6 +21,8 @@ SGDParamGroup::SGDParamGroup(const SGDParamGroup& orig) {
 }
 
 SGDParamGroup::~SGDParamGroup() {
+    delete m_pParams;
+    delete m_pGrads;
 }
 
 void SGDParamGroup::register_param(string param_name, xt::xarray<double>* ptr_param, xt::xarray<double>* ptr_grad){
