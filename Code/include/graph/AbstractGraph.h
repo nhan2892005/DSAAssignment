@@ -93,45 +93,188 @@ public:
     
     /* The following are common methods for UGraphModel and DGraphModel
      */
-    virtual void add(T vertex) {
-        //TODO
-    }
+
+    /*
+    ! contains: check if a vertex is in the graph
+    ? Parameters:
+        * T vertex: the vertex to check
+    ? Return:
+        * true if the vertex is in the graph, and false otherwise.
+    */
     virtual bool contains(T vertex){
-        //TODO
+        VertexNode* node = getVertexNode(vertex);
+        return node != nullptr;
     }
+
+    /*
+    ! connected(T from, T to)
+    ? Functionality: 
+        * Checks whether there is an edge between vertices from and to.
+    ? Exceptions: 
+        * Throws VertexNotFoundException if a vertex is not found.
+    */
+    virtual bool connected(T from, T to){
+        VertexNode* fromNode = getVertexNode(from);
+        VertexNode* toNode = getVertexNode(to);
+        if (fromNode == nullptr) {
+            throw VertexNotFoundException(vertex2Str(from));
+        }
+        if (toNode == nullptr) {
+            throw VertexNotFoundException(vertex2Str(to));
+        }
+        return fromNode->getEdge(toNode) != nullptr;
+    }
+
+    /*
+    ! add: add a vertex to the graph
+    */
+    virtual void add(T vertex) {
+        // Check if the vertex is already in the graph
+        if (contains(vertex)) {
+            return;
+        }
+        // If not, create a new VertexNode and add to nodeList
+        VertexNode* newNode = new VertexNode(vertex, vertexEQ, vertex2str);
+        nodeList.add(newNode);
+    }
+    
     virtual float weight(T from, T to){
-        //TODO
+        if (!contains(from)) {
+            throw VertexNotFoundException(vertex2Str(from));
+        }
+        if (!contains(to)) {
+            throw VertexNotFoundException(vertex2Str(to));
+        }
+        if (!connected(from, to)) {
+            stringstream edge_os;
+            edge_os << "E("
+                << vertex2str(from)
+                << ","
+                << vertex2str(to)
+                << ")";
+            throw EdgeNotFoundException(edge_os.str());
+        }
+        Edge* edge = getVertexNode(from)->getEdge(getVertexNode(to));
+        return edge->weight;
     }
+
+    /*
+    ! getOutwardEdges, getInwardEdges
+    ? Functionality: 
+        * Returns a list of outward edges from the vertex from.
+        * Returns a list of inward edges to the vertex to.
+        * The list of edges is represented by a list of vertices.
+        * The list of vertices is represented by a DLinkedList<T>.
+    ? Exceptions:
+        * Throws VertexNotFoundException if the vertex from or to is not found.
+    */
     virtual DLinkedList<T> getOutwardEdges(T from){
-        //TODO
+        VertexNode* node = getVertexNode(from);
+        if (node == nullptr) {
+            throw VertexNotFoundException(vertex2Str(from));
+        }
+        return node->getOutwardEdges();
     }
     
     virtual DLinkedList<T>  getInwardEdges(T to){
-        //TODO
+        VertexNode* node = getVertexNode(to);
+        if (node == nullptr) {
+            throw VertexNotFoundException(vertex2Str(to));
+        }
+        return node->getInwardEdges();
     }
     
+    /*
+    ! size
+    ? Functionality: 
+        * Returns the number of vertices in the graph.
+    ? Exceptions:
+        * None.
+    */
     virtual int size() {
-        //TODO
+        return nodeList.size();
     }
+
+    /*
+    ! empty
+    ? Functionality: 
+        * Checks whether the graph is empty.
+    ? Exceptions:
+        * None.
+    */
     virtual bool empty(){
-        //TODO
-    };
+        return nodeList.size() == 0;
+    }
+
+    /*
+    ! clear
+    ? Functionality: 
+        * Clears the graph by removing all vertices and edges.
+    ? Exceptions:
+        * None.
+    */
     virtual void clear(){
-        //TODO
+        typename DLinkedList<VertexNode*>::Iterator it = nodeList.begin();
+        while(it != nodeList.end()){
+            VertexNode* node = *it;
+            auto next_it = it++;
+            while (next_it != nodeList.end()) {
+                VertexNode* nextNode = *next_it;
+                Edge* edge = node->getEdge(nextNode);
+                delete edge;
+                next_it++;
+            }
+            delete node;
+            it++;
+        }
+        return 0;
     }
+
+    /*
+    ! inDegree(T vertex)
+    ? Functionality: 
+        * Returns the in-degree (number of incoming edges) of the vertex vertex.
+    ? Exceptions:
+        * Throws VertexNotFoundException if the vertex vertex is not found.
+    */
     virtual int inDegree(T vertex){
-        //TODO
+        VertexNode* node = getVertexNode(vertex);
+        if (node == nullptr) {
+            throw VertexNotFoundException(vertex2Str(vertex));
+        }
+        return node->inDegree();
     }
+
+    /*
+    ! outDegree(T vertex)
+    ? Functionality: 
+        * Returns the out-degree (number of outgoing edges) of the vertex vertex.
+    ? Exceptions: 
+        * Throws VertexNotFoundException if the vertex vertex is not found.
+    */
     virtual int outDegree(T vertex){
-        //TODO
+        VertexNode* node = getVertexNode(vertex);
+        if (node == nullptr) {
+            throw VertexNotFoundException(vertex2Str(vertex));
+        }
+        return node->outDegree();
     }
     
+    /*
+    ! vertices()
+    ? Functionality: 
+        * Returns a list of all vertices in the graph.
+    ? Exceptions: 
+        * None.
+    */
     virtual DLinkedList<T> vertices(){
-        //TODO
+        DLinkedList<T> vertices;
+        for (auto node : nodeList) {
+            vertices.add(node->vertex);
+        }
+        return vertices;
     }
-    virtual bool connected(T from, T to){
-        //TODO
-    }
+
     void println(){
         cout << this->toString() << endl;
     }
@@ -213,31 +356,146 @@ public:
             this->vertex2str = vertex2str;
             this->outDegree_ = this->inDegree_ = 0;
         }
+
+        static void free(VertexNode* node){
+            delete node;
+        }
+
         T& getVertex(){
             return vertex;
         }
-        void connect(VertexNode* to, float weight=0){
-            //TODO
-        }
-        DLinkedList<T> getOutwardEdges(){
-            //TODO
+
+        /*
+        ! equals
+        ? Functionality: 
+            * Compares this vertex with another node for equality using the vertexEQ function.
+        ? Exceptions: 
+            * None.
+        */
+        bool equals(VertexNode* node){
+            if (vertexEQ != 0) return vertexEQ(this->vertex, node->vertex);
+            else return this->vertex == node->vertex;
         }
 
-        Edge* getEdge(VertexNode* to){
-            //TODO
+        /*
+        ! connect
+        ? Parameters:
+            * VertexNode* to: the destination vertex
+            * float weight: the weight of the edge
+        ? Functionality: 
+            * Connects this vertex to another vertex to by creating an edge
+            * with the specified weight (default is 0).
+        ? Exceptions: None.
+        */
+        void connect(VertexNode* to, float weight=0){
+            // Check if the edge already exists
+            for (auto edge : adList) {
+                if (edge->to.equals(to)) {
+                    return;
+                }
+            }
+
+            // Create a new edge and add it to the adjacency list
+            Edge* newEdge = new Edge(this, to, weight);
+            adList.add(newEdge);
+
+            // Update the inDegree and outDegree of the vertices
+            to->inDegree_++;
+            this->outDegree_++;
         }
-        bool equals(VertexNode* node){
-            //TODO
+
+        /*
+        ! getOutwardEdges
+        ? Functionality: 
+            * Returns a list of outward edges from this vertex.
+        ? Exceptions: 
+            * None.
+        */
+        DLinkedList<T> getOutwardEdges(){
+            DLinkedList<T> outList;
+            for (auto edge : adList) {
+                outList.add(edge->to->vertex);
+            }
+            return outList;
+        }
+
+        /*
+        ! getInwardEdges
+        ? Functionality: 
+            * Returns a list of inward edges to this vertex.
+        ? Exceptions:
+            * None.
+        */
+        DLinkedList<T> getInwardEdges(){
+            DLinkedList<T> inList;
+            for (auto vertex : nodeList) {
+                if (vertex->getEdge(this) != nullptr) {
+                    inList.add(vertex->vertex);
+                }
+            }
+            return inList;
+        }
+
+        /*
+        ! getEdge
+        ? Functionality: 
+            * Retrieves the edge connecting this vertex to the specified vertex
+            * to. Returns nullptr if no such edge exists.
+        ? Exceptions: None
+        */
+        Edge* getEdge(VertexNode* to){
+            for (auto edge : adList) {
+                if (edge->to.equals(to)) {
+                    return edge;
+                }
+            }
+            return nullptr;
         }
         
+        /*
+        ! removeTo
+        ? Functionality: 
+            * Removes the edge connecting this vertex to the specified vertex to.
+        ? Exceptions: 
+            * None
+        */
         void removeTo(VertexNode* to){
-            //TODO
+            // Find the edge connecting this vertex to the specified vertex
+            typename DLinkedList<Edge*>::Iterator it = adList.begin();
+            while (it != adList.end()) {
+                Edge* edge = *it;
+                if (edge->to.equals(to)) {
+                    delete edge;
+                    break;
+                }
+                it++;
+            }
+
+            // Update the inDegree and outDegree of the vertices
+            to->inDegree_--;
+            this->outDegree_--;
         }
+
+        /*
+        ! inDegree
+        ? Functionality: 
+            * Returns the in-degree of this vertex.
+        ? Exceptions: 
+            * None.
+        */
         int inDegree(){
-            //TODO
+            return this->inDegree_;
         }
+
+        /*
+        ! outDegree
+        ? Functionality: 
+            * Returns the out-degree of this vertex.
+        ? Exceptions:
+            * None.
+        */
         int outDegree(){
-            //TODO
+            return this->outDegree_;
         }
         string toString(){
             stringstream os;
@@ -267,13 +525,27 @@ public:
             this->weight = weight;
         }
         
+        /*
+        ! bool equals(Edge* edge)
+        ? Functionality: 
+            * Compares the current edge with another edge. 
+            * Returns true if both edges have the same source and destination vertices, 
+            * and false otherwise.
+        ? Exceptions: 
+            * None.
+        */
         bool equals(Edge* edge){
-            //TODO
+            return (this->from->equals(edge->from) && this->to->equals(edge->to));
         }
 
         static bool edgeEQ(Edge*& edge1, Edge*& edge2){
             return edge1->equals(edge2);
         }
+
+        static void free(Edge* edge){
+            delete edge;
+        }
+
         string toString(){
             stringstream os;
             os << "E("
