@@ -16,7 +16,7 @@ using namespace std;
 
 using namespace std;
 namespace fs = std::filesystem;
-int num_task = 16;
+int num_task = 17;
 
 
 vector<vector<string>> expected_task (num_task, vector<string>(1000, ""));
@@ -650,7 +650,112 @@ void test16() {
     model->connect('B', 'C', 3.0);
     model->connect('C', 'D', 4.2);
     cout << "After update weight: " << model->toString() << endl;
+    delete model;
 }
+
+class Animal {
+public:
+    string name;
+    int age;
+    Animal(string name, int age) {
+        this->name = name;
+        this->age = age;
+    }
+    virtual ~Animal() {}
+    virtual string toString() = 0;
+};
+
+class Dog : public Animal {
+public:
+    Dog(string name, int age) : Animal(name, age) {}
+    string bark() {
+        return "Gâu gâu";
+    }
+    string toString() {
+        return "Dog: " + name + " - " + to_string(age);
+    }
+    bool operator==(const Dog& other) {
+        return this->name == other.name && this->age == other.age;
+    }
+};
+
+class Cat : public Animal {
+public:
+    Cat(string name, int age) : Animal(name, age) {}
+    string meow() {
+        return "Meo meo";
+    }
+    string toString() {
+        return "Cat: " + name + " - " + to_string(age);
+    }
+    bool operator==(const Cat& other) {
+        return this->name == other.name && this->age == other.age;
+    }
+};
+
+class Mouse : public Animal {
+public:
+    Mouse(string name, int age) : Animal(name, age) {}
+    string squeak() {
+        return "Chit chit";
+    }
+    string toString() {
+        return "Mouse: " + name + " - " + to_string(age);
+    }
+    bool operator==(const Mouse& other) {
+        return this->name == other.name && this->age == other.age;
+    }
+};
+
+string animal2str(Animal*& animal) {
+    return animal->toString();
+}
+
+bool animalComparator(Animal*& animal1, Animal*& animal2) {
+    return animal1->name == animal2->name && animal1->age == animal2->age;
+}
+
+void test17() {
+    // test with custom class
+    Dog* dog1 = new Dog("Dog1", 1);
+    Dog* dog2 = new Dog("Dog2", 2);
+    Dog* dog3 = new Dog("Dog3", 3);
+    Cat* cat1 = new Cat("Cat1", 1);
+    Cat* cat2 = new Cat("Cat2", 2);
+    Cat* cat3 = new Cat("Cat3", 3);
+    Mouse* mouse1 = new Mouse("Mouse1", 1);
+    Mouse* mouse2 = new Mouse("Mouse2", 2);
+    Mouse* mouse3 = new Mouse("Mouse3", 3);
+
+    Animal* vertices[] = {dog1, dog2, dog3, cat1, cat2, cat3, mouse1, mouse2, mouse3};
+
+    Edge<Animal*> edges[9] = {
+        Edge<Animal*>(dog1, dog2, 1.5),
+        Edge<Animal*>(dog2, dog3, 2.0),
+        Edge<Animal*>(dog3, cat1, 3.2),
+        Edge<Animal*>(cat1, cat2, 1.5),
+        Edge<Animal*>(cat2, cat3, 2.0),
+        Edge<Animal*>(cat3, mouse1, 3.2),
+        Edge<Animal*>(mouse1, mouse2, 1.5),
+        Edge<Animal*>(mouse2, mouse3, 2.0),
+        Edge<Animal*>(mouse3, dog1, 3.2)
+    };
+
+    UGraphModel<Animal*> *model = UGraphModel<Animal*>::create(vertices, 9, edges, 9, &animalComparator, &animal2str);
+    cout << model->toString();
+
+    delete model;
+    delete dog1;
+    delete dog2;
+    delete dog3;
+    delete cat1;
+    delete cat2;
+    delete cat3;
+    delete mouse1;
+    delete mouse2;
+    delete mouse3;
+}
+
 void runDemo() {
     std::cout << "Direct Graph Demo 1" << std::endl;
     DGraphDemo1();
@@ -672,7 +777,7 @@ void runDemo() {
 // pointer function to store 15 test
 void (*testFuncs[])() = {
     test1, test2, test03, test04, test05, test06, test07, test08, test09, test10, test11, test12, test13, test14, test15,
-    test16
+    test16, test17
 };
 
 int main(int argc, char* argv[]) {

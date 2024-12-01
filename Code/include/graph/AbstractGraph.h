@@ -535,10 +535,17 @@ public:
             this->inDegree_ = this->cache_inDegree_;
         }
 
+        string getVertexStr(){
+            stringstream os;
+            if (vertex2str != 0) os << vertex2str(vertex);
+            else os << vertex;
+            return os.str();
+        }
+
         string toString(){
             stringstream os;
             os << "V("
-                    << this->vertex << ", "
+                    << this->getVertexStr() << ", "
                     << "in: " << this->inDegree_ << ", "
                     << "out: " << this->outDegree_ << ")";
             return os.str();
@@ -591,9 +598,9 @@ public:
         string toString(){
             stringstream os;
             os << "E("
-                    << this->from->vertex
+                    << this->from->getVertexStr()
                     << ","
-                    << this->to->vertex
+                    << this->to->getVertexStr()
                     << ","
                     << this->weight
                     << ")";

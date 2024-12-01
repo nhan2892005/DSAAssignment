@@ -284,3 +284,63 @@ Vertices:
 ------------------------------
 Edges:      
 ==================================================
+Task 16---------------------------------------------------
+Before update weight: ==================================================
+Vertices:   
+V(A, in: 0, out: 1)
+V(B, in: 1, out: 1)
+V(C, in: 1, out: 1)
+V(D, in: 1, out: 0)
+------------------------------
+Edges:      
+E(A,B,1.5)
+E(B,C,2)
+E(C,D,3.2)
+==================================================
+
+After update weight: ==================================================
+Vertices:   
+V(A, in: 0, out: 1)
+V(B, in: 1, out: 1)
+V(C, in: 1, out: 1)
+V(D, in: 1, out: 0)
+------------------------------
+Edges:      
+E(A,B,2.5)
+E(B,C,3)
+E(C,D,4.2)
+==================================================
+
+Task 17---------------------------------------------------
+==================================================
+Vertices:   
+V(Dog: Dog1 - 1, in: 2, out: 2)
+V(Dog: Dog2 - 2, in: 2, out: 2)
+V(Dog: Dog3 - 3, in: 2, out: 2)
+V(Cat: Cat1 - 1, in: 2, out: 2)
+V(Cat: Cat2 - 2, in: 2, out: 2)
+V(Cat: Cat3 - 3, in: 2, out: 2)
+V(Mouse: Mouse1 - 1, in: 2, out: 2)
+V(Mouse: Mouse2 - 2, in: 2, out: 2)
+V(Mouse: Mouse3 - 3, in: 2, out: 2)
+------------------------------
+Edges:      
+E(Dog: Dog1 - 1,Dog: Dog2 - 2,1.5)
+E(Dog: Dog1 - 1,Mouse: Mouse3 - 3,3.2)
+E(Dog: Dog2 - 2,Dog: Dog1 - 1,1.5)
+E(Dog: Dog2 - 2,Dog: Dog3 - 3,2)
+E(Dog: Dog3 - 3,Dog: Dog2 - 2,2)
+E(Dog: Dog3 - 3,Cat: Cat1 - 1,3.2)
+E(Cat: Cat1 - 1,Dog: Dog3 - 3,3.2)
+E(Cat: Cat1 - 1,Cat: Cat2 - 2,1.5)
+E(Cat: Cat2 - 2,Cat: Cat1 - 1,1.5)
+E(Cat: Cat2 - 2,Cat: Cat3 - 3,2)
+E(Cat: Cat3 - 3,Cat: Cat2 - 2,2)
+E(Cat: Cat3 - 3,Mouse: Mouse1 - 1,3.2)
+E(Mouse: Mouse1 - 1,Cat: Cat3 - 3,3.2)
+E(Mouse: Mouse1 - 1,Mouse: Mouse2 - 2,1.5)
+E(Mouse: Mouse2 - 2,Mouse: Mouse1 - 1,1.5)
+E(Mouse: Mouse2 - 2,Mouse: Mouse3 - 3,2)
+E(Mouse: Mouse3 - 3,Mouse: Mouse2 - 2,2)
+E(Mouse: Mouse3 - 3,Dog: Dog1 - 1,3.2)
+==================================================

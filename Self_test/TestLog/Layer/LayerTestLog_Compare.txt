@@ -1,54 +1,65 @@
-Task 16 - Line 0:
-Expected: Output: Task 16---------------------------------------------------
-Task 16 - Line 1:
-Expected: Output: Before update weight: ==================================================
-Task 16 - Line 2:
-Expected: Output: Vertices:   
-Task 16 - Line 3:
-Expected: Output: V(A, in: 0, out: 1)
-Task 16 - Line 4:
-Expected: Output: V(B, in: 1, out: 1)
-Task 16 - Line 5:
-Expected: Output: V(C, in: 1, out: 1)
-Task 16 - Line 6:
-Expected: Output: V(D, in: 1, out: 0)
-Task 16 - Line 7:
-Expected: Output: ------------------------------
-Task 16 - Line 8:
-Expected: Output: Edges:      
-Task 16 - Line 9:
-Expected: Output: E(A,B,1.5)
-Task 16 - Line 10:
-Expected: Output: E(B,C,2)
-Task 16 - Line 11:
-Expected: Output: E(C,D,3.2)
-Task 16 - Line 12:
-Expected: Output: ==================================================
-Task 16 - Line 13:
-Expected: Output: 
-Task 16 - Line 14:
-Expected: Output: After update weight: ==================================================
-Task 16 - Line 15:
-Expected: Output: Vertices:   
-Task 16 - Line 16:
-Expected: Output: V(A, in: 0, out: 1)
-Task 16 - Line 17:
-Expected: Output: V(B, in: 1, out: 1)
-Task 16 - Line 18:
-Expected: Output: V(C, in: 1, out: 1)
-Task 16 - Line 19:
-Expected: Output: V(D, in: 1, out: 0)
-Task 16 - Line 20:
-Expected: Output: ------------------------------
-Task 16 - Line 21:
-Expected: Output: Edges:      
-Task 16 - Line 22:
-Expected: Output: E(A,B,2.5)
-Task 16 - Line 23:
-Expected: Output: E(B,C,3)
-Task 16 - Line 24:
-Expected: Output: E(C,D,4.2)
-Task 16 - Line 25:
-Expected: Output: ==================================================
-Task 16 - Line 26:
-Expected: Output: 
+Task 17 - Line 1:
+Expected: ==================================================
+Output: Task 17 - Line 2:
+Expected: Vertices:   
+Output: Task 17 - Line 3:
+Expected: V(Dog: Dog1 - 1, in: 2, out: 2)
+Output: Task 17 - Line 4:
+Expected: V(Dog: Dog2 - 2, in: 2, out: 2)
+Output: Task 17 - Line 5:
+Expected: V(Dog: Dog3 - 3, in: 2, out: 2)
+Output: Task 17 - Line 6:
+Expected: V(Cat: Cat1 - 1, in: 2, out: 2)
+Output: Task 17 - Line 7:
+Expected: V(Cat: Cat2 - 2, in: 2, out: 2)
+Output: Task 17 - Line 8:
+Expected: V(Cat: Cat3 - 3, in: 2, out: 2)
+Output: Task 17 - Line 9:
+Expected: V(Mouse: Mouse1 - 1, in: 2, out: 2)
+Output: Task 17 - Line 10:
+Expected: V(Mouse: Mouse2 - 2, in: 2, out: 2)
+Output: Task 17 - Line 11:
+Expected: V(Mouse: Mouse3 - 3, in: 2, out: 2)
+Output: Task 17 - Line 12:
+Expected: ------------------------------
+Output: Task 17 - Line 13:
+Expected: Edges:      
+Output: Task 17 - Line 14:
+Expected: E(Dog: Dog1 - 1,Dog: Dog2 - 2,1.5)
+Output: Task 17 - Line 15:
+Expected: E(Dog: Dog1 - 1,Mouse: Mouse3 - 3,3.2)
+Output: Task 17 - Line 16:
+Expected: E(Dog: Dog2 - 2,Dog: Dog1 - 1,1.5)
+Output: Task 17 - Line 17:
+Expected: E(Dog: Dog2 - 2,Dog: Dog3 - 3,2)
+Output: Task 17 - Line 18:
+Expected: E(Dog: Dog3 - 3,Dog: Dog2 - 2,2)
+Output: Task 17 - Line 19:
+Expected: E(Dog: Dog3 - 3,Cat: Cat1 - 1,3.2)
+Output: Task 17 - Line 20:
+Expected: E(Cat: Cat1 - 1,Dog: Dog3 - 3,3.2)
+Output: Task 17 - Line 21:
+Expected: E(Cat: Cat1 - 1,Cat: Cat2 - 2,1.5)
+Output: Task 17 - Line 22:
+Expected: E(Cat: Cat2 - 2,Cat: Cat1 - 1,1.5)
+Output: Task 17 - Line 23:
+Expected: E(Cat: Cat2 - 2,Cat: Cat3 - 3,2)
+Output: Task 17 - Line 24:
+Expected: E(Cat: Cat3 - 3,Cat: Cat2 - 2,2)
+Output: Task 17 - Line 25:
+Expected: E(Cat: Cat3 - 3,Mouse: Mouse1 - 1,3.2)
+Output: Task 17 - Line 26:
+Expected: E(Mouse: Mouse1 - 1,Cat: Cat3 - 3,3.2)
+Output: Task 17 - Line 27:
+Expected: E(Mouse: Mouse1 - 1,Mouse: Mouse2 - 2,1.5)
+Output: Task 17 - Line 28:
+Expected: E(Mouse: Mouse2 - 2,Mouse: Mouse1 - 1,1.5)
+Output: Task 17 - Line 29:
+Expected: E(Mouse: Mouse2 - 2,Mouse: Mouse3 - 3,2)
+Output: Task 17 - Line 30:
+Expected: E(Mouse: Mouse3 - 3,Mouse: Mouse2 - 2,2)
+Output: Task 17 - Line 31:
+Expected: E(Mouse: Mouse3 - 3,Dog: Dog1 - 1,3.2)
+Output: Task 17 - Line 32:
+Expected: ==================================================
+Output: 
