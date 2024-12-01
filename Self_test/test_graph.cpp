@@ -16,7 +16,7 @@ using namespace std;
 
 using namespace std;
 namespace fs = std::filesystem;
-int num_task = 15;
+int num_task = 16;
 
 
 vector<vector<string>> expected_task (num_task, vector<string>(1000, ""));
@@ -636,6 +636,21 @@ void test15()
     cout << model->toString();
     delete model;
 }
+
+void test16() {
+    // test update weight
+    char vertices[] = {'A', 'B', 'C', 'D'};
+    Edge<char> edges[3] = {
+        Edge<char>('A', 'B', 1.5),
+        Edge<char>('B', 'C', 2.0),
+        Edge<char>('C', 'D', 3.2)};
+    DGraphModel<char> *model = DGraphModel<char>::create(vertices, 4, edges, 3, &charComparator, &vertex2str);
+    cout << "Before update weight: " << model->toString() << endl;
+    model->connect('A', 'B', 2.5);
+    model->connect('B', 'C', 3.0);
+    model->connect('C', 'D', 4.2);
+    cout << "After update weight: " << model->toString() << endl;
+}
 void runDemo() {
     std::cout << "Direct Graph Demo 1" << std::endl;
     DGraphDemo1();
@@ -656,7 +671,8 @@ void runDemo() {
 
 // pointer function to store 15 test
 void (*testFuncs[])() = {
-    test1, test2, test03, test04, test05, test06, test07, test08, test09, test10, test11, test12, test13, test14, test15
+    test1, test2, test03, test04, test05, test06, test07, test08, test09, test10, test11, test12, test13, test14, test15,
+    test16
 };
 
 int main(int argc, char* argv[]) {

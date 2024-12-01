@@ -1,0 +1,12 @@
+Task 9 - Line 5:
+Expected: [0x4debff0, 0x4dec040, 0x4dec090, 0x4dec0e0, 0x4dec130, 0x4dec180, 0x4dec1d0, 0x4dec220, 0x4dec270, 0x4dec2c0]
+Output: [0x5555555c5830, 0x5555555c5850, 0x5555555c5870, 0x5555555c5890, 0x5555555c58b0, 0x5555555c58d0, 0x5555555d5670, 0x5555555d5690, 0x5555555d56b0, 0x5555555d56d0]
+Task 16 - Line 4:
+Expected: Clear List 1
+Output: Clear List 2
+Task 16 - Line 5:
+Expected: List 2: [6, 2, 5, 4]
+Output: List 1: [6, 2, 5, 4]
+Task 16 - Line 6:
+Expected: Clear List 2: []
+Output: Clear List 1: []

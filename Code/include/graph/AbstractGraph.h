@@ -409,6 +409,7 @@ public:
             // Check if the edge already exists
             for (auto edge : adList) {
                 if ((edge->to)->equals(to)) {
+                    edge->updateWeight(weight);
                     return;
                 }
             }
@@ -581,6 +582,10 @@ public:
 
         static void free(Edge* edge){
             delete edge;
+        }
+
+        void updateWeight(float weight){
+            this->weight = weight;
         }
 
         string toString(){
