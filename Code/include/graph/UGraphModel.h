@@ -25,6 +25,10 @@ template <class T>
 class UGraphModel : public AbstractGraph<T>
 {
 private:
+    // Add typedef to make code cleaner
+    typedef typename AbstractGraph<T>::VertexNode VertexNode;
+    // typedef typename AbstractGraph<T>::Edge Edge;
+    typedef typename AbstractGraph<T>::Iterator Iterator;
 public:
     // class UGraphAlgorithm;
     // friend class UGraphAlgorithm;
@@ -52,11 +56,11 @@ public:
         // If any vertex does not exist, throw a VertexNotFoundException.
         if (fromNode == nullptr)
         {
-            throw VertexNotFoundException(this->vertex2Str(from));
+            throw VertexNotFoundException(this->vertex2str(from));
         }
         if (toNode == nullptr)
         {
-            throw VertexNotFoundException(this->vertex2Str(to));
+            throw VertexNotFoundException(this->vertex2str(to));
         }
 
         // Connect from-to
@@ -89,22 +93,22 @@ public:
         // If any vertex does not exist, throw a VertexNotFoundException.
         if (fromNode == nullptr)
         {
-            throw VertexNotFoundException(this->vertex2Str(from));
+            throw VertexNotFoundException(this->vertex2str(from));
         }
         if (toNode == nullptr)
         {
-            throw VertexNotFoundException(this->vertex2Str(to));
+            throw VertexNotFoundException(this->vertex2str(to));
         }
 
         // Check if the edge exists
-        Edge *edge = fromNode->getEdge(toNode);
+        typename AbstractGraph<T>::Edge *edge = fromNode->getEdge(toNode);
         if (edge == nullptr)
         {
             stringstream edge_os;
             edge_os << "E("
-                    << this->vertex2Str(from)
+                    << this->vertex2str(from)
                     << ","
-                    << this->vertex2Str(to)
+                    << this->vertex2str(to)
                     << ")";
             throw EdgeNotFoundException(edge_os.str());
         }
@@ -138,7 +142,7 @@ public:
         // If the vertex does not exist, throw a VertexNotFoundException.
         if (node == nullptr)
         {
-            throw VertexNotFoundException(this->vertex2Str(vertex));
+            throw VertexNotFoundException(this->vertex2str(vertex));
         }
 
         // Iterate through the graph’s vertices, removing all edges connected to or from the vertex to be removed.
@@ -146,11 +150,11 @@ public:
         while (it != this->nodeList.end())
         {
             VertexNode *vertexNode = *it;
-            if (this->connected(vertexNode->vertex, vertex))
+            if (this->connected(vertexNode->getVertex(), vertex))
             {
                 vertexNode->removeTo(node);
             }
-            if (this->connected(vertex, vertexNode->vertex))
+            if (this->connected(vertex, vertexNode->getVertex()))
             {
                 node->removeTo(vertexNode);
             }
@@ -190,6 +194,17 @@ public:
 
         // Return a pointer to the created graph
         return graph;
+    }
+};
+
+template <class T>
+class UGraphAlgorithm {
+    private:
+    protected:
+    public:
+    UGraphModel<T> minSpanningTree(UGraphModel<T>* graph){
+        UGraphModel<T> mst(0, 0);
+        return mst;
     }
 };
 

@@ -1,0 +1,518 @@
+Task 1 - Line 0:
+Expected: Output: Task 1---------------------------------------------------
+Task 1 - Line 1:
+Expected: Output: ==================================================
+Task 1 - Line 2:
+Expected: Output: Vertices:   
+Task 1 - Line 3:
+Expected: Output: V(A, in: 0, out: 1)
+Task 1 - Line 4:
+Expected: Output: V(B, in: 2, out: 1)
+Task 1 - Line 5:
+Expected: Output: V(C, in: 0, out: 2)
+Task 1 - Line 6:
+Expected: Output: V(D, in: 2, out: 0)
+Task 1 - Line 7:
+Expected: Output: ------------------------------
+Task 1 - Line 8:
+Expected: Output: Edges:      
+Task 1 - Line 9:
+Expected: Output: E(A,B,0)
+Task 1 - Line 10:
+Expected: Output: E(B,D,0)
+Task 1 - Line 11:
+Expected: Output: E(C,B,0)
+Task 1 - Line 12:
+Expected: Output: E(C,D,0)
+Task 1 - Line 13:
+Expected: Output: ==================================================
+Task 2 - Line 0:
+Expected: Output: Task 2---------------------------------------------------
+Task 2 - Line 1:
+Expected: Output: ==================================================
+Task 2 - Line 2:
+Expected: Output: Vertices:   
+Task 2 - Line 3:
+Expected: Output: V(A, in: 1, out: 1)
+Task 2 - Line 4:
+Expected: Output: V(B, in: 3, out: 3)
+Task 2 - Line 5:
+Expected: Output: V(C, in: 2, out: 2)
+Task 2 - Line 6:
+Expected: Output: V(D, in: 2, out: 2)
+Task 2 - Line 7:
+Expected: Output: ------------------------------
+Task 2 - Line 8:
+Expected: Output: Edges:      
+Task 2 - Line 9:
+Expected: Output: E(A,B,0)
+Task 2 - Line 10:
+Expected: Output: E(B,A,0)
+Task 2 - Line 11:
+Expected: Output: E(B,D,0)
+Task 2 - Line 12:
+Expected: Output: E(B,C,0)
+Task 2 - Line 13:
+Expected: Output: E(C,B,0)
+Task 2 - Line 14:
+Expected: Output: E(C,D,0)
+Task 2 - Line 15:
+Expected: Output: E(D,B,0)
+Task 2 - Line 16:
+Expected: Output: E(D,C,0)
+Task 2 - Line 17:
+Expected: Output: ==================================================
+Task 3 - Line 0:
+Expected: Output: Task 3---------------------------------------------------
+Task 3 - Line 1:
+Expected: Output: getOutwardEdges : E: A-> B-> C-> NULL
+Task 3 - Line 2:
+Expected: Output: getInwardEdges : B: A-> C-> E-> NULL
+Task 3 - Line 3:
+Expected: Output: ==================================================
+Task 3 - Line 4:
+Expected: Output: Vertices:   
+Task 3 - Line 5:
+Expected: Output: V(A, in: 1, out: 1)
+Task 3 - Line 6:
+Expected: Output: V(B, in: 3, out: 1)
+Task 3 - Line 7:
+Expected: Output: V(C, in: 1, out: 2)
+Task 3 - Line 8:
+Expected: Output: V(D, in: 2, out: 0)
+Task 3 - Line 9:
+Expected: Output: V(E, in: 0, out: 3)
+Task 3 - Line 10:
+Expected: Output: ------------------------------
+Task 3 - Line 11:
+Expected: Output: Edges:      
+Task 3 - Line 12:
+Expected: Output: E(A,B,8)
+Task 3 - Line 13:
+Expected: Output: E(B,D,6)
+Task 3 - Line 14:
+Expected: Output: E(C,B,1)
+Task 3 - Line 15:
+Expected: Output: E(C,D,2)
+Task 3 - Line 16:
+Expected: Output: E(E,A,3)
+Task 3 - Line 17:
+Expected: Output: E(E,B,4)
+Task 3 - Line 18:
+Expected: Output: E(E,C,5)
+Task 3 - Line 19:
+Expected: Output: ==================================================
+Task 4 - Line 0:
+Expected: Output: Task 4---------------------------------------------------
+Task 4 - Line 1:
+Expected: Output: getOutwardEdges : E: A-> B-> C-> E-> NULL
+Task 4 - Line 2:
+Expected: Output: getInwardEdges : B: A-> C-> D-> E-> NULL
+Task 4 - Line 3:
+Expected: Output: ==================================================
+Task 4 - Line 4:
+Expected: Output: Vertices:   
+Task 4 - Line 5:
+Expected: Output: V(A, in: 2, out: 2)
+Task 4 - Line 6:
+Expected: Output: V(B, in: 4, out: 4)
+Task 4 - Line 7:
+Expected: Output: V(C, in: 3, out: 3)
+Task 4 - Line 8:
+Expected: Output: V(D, in: 2, out: 2)
+Task 4 - Line 9:
+Expected: Output: V(E, in: 4, out: 4)
+Task 4 - Line 10:
+Expected: Output: ------------------------------
+Task 4 - Line 11:
+Expected: Output: Edges:      
+Task 4 - Line 12:
+Expected: Output: E(A,B,8)
+Task 4 - Line 13:
+Expected: Output: E(A,E,3)
+Task 4 - Line 14:
+Expected: Output: E(B,A,8)
+Task 4 - Line 15:
+Expected: Output: E(B,D,6)
+Task 4 - Line 16:
+Expected: Output: E(B,C,1)
+Task 4 - Line 17:
+Expected: Output: E(B,E,4)
+Task 4 - Line 18:
+Expected: Output: E(C,B,1)
+Task 4 - Line 19:
+Expected: Output: E(C,D,2)
+Task 4 - Line 20:
+Expected: Output: E(C,E,5)
+Task 4 - Line 21:
+Expected: Output: E(D,B,6)
+Task 4 - Line 22:
+Expected: Output: E(D,C,2)
+Task 4 - Line 23:
+Expected: Output: E(E,A,3)
+Task 4 - Line 24:
+Expected: Output: E(E,B,4)
+Task 4 - Line 25:
+Expected: Output: E(E,C,5)
+Task 4 - Line 26:
+Expected: Output: E(E,E,5)
+Task 4 - Line 27:
+Expected: Output: ==================================================
+Task 5 - Line 0:
+Expected: Output: Task 5---------------------------------------------------
+Task 5 - Line 1:
+Expected: Output: Error: getOutwardEdges :E khong ton tai
+Task 5 - Line 2:
+Expected: Output: getInwardEdges : B: A-> NULL
+Task 5 - Line 3:
+Expected: Output: ==================================================
+Task 5 - Line 4:
+Expected: Output: Vertices:   
+Task 5 - Line 5:
+Expected: Output: V(A, in: 0, out: 1)
+Task 5 - Line 6:
+Expected: Output: V(B, in: 1, out: 1)
+Task 5 - Line 7:
+Expected: Output: V(C, in: 1, out: 1)
+Task 5 - Line 8:
+Expected: Output: V(D, in: 1, out: 0)
+Task 5 - Line 9:
+Expected: Output: ------------------------------
+Task 5 - Line 10:
+Expected: Output: Edges:      
+Task 5 - Line 11:
+Expected: Output: E(A,B,1.5)
+Task 5 - Line 12:
+Expected: Output: E(B,C,2)
+Task 5 - Line 13:
+Expected: Output: E(C,D,3.2)
+Task 5 - Line 14:
+Expected: Output: ==================================================
+Task 6 - Line 0:
+Expected: Output: Task 6---------------------------------------------------
+Task 6 - Line 1:
+Expected: Output: Error: getOutwardEdges :E khong ton tai
+Task 6 - Line 2:
+Expected: Output: getInwardEdges : B: A-> C-> NULL
+Task 6 - Line 3:
+Expected: Output: ==================================================
+Task 6 - Line 4:
+Expected: Output: Vertices:   
+Task 6 - Line 5:
+Expected: Output: V(A, in: 1, out: 1)
+Task 6 - Line 6:
+Expected: Output: V(B, in: 2, out: 2)
+Task 6 - Line 7:
+Expected: Output: V(C, in: 2, out: 2)
+Task 6 - Line 8:
+Expected: Output: V(D, in: 1, out: 1)
+Task 6 - Line 9:
+Expected: Output: ------------------------------
+Task 6 - Line 10:
+Expected: Output: Edges:      
+Task 6 - Line 11:
+Expected: Output: E(A,B,1.5)
+Task 6 - Line 12:
+Expected: Output: E(B,A,1.5)
+Task 6 - Line 13:
+Expected: Output: E(B,C,2)
+Task 6 - Line 14:
+Expected: Output: E(C,B,2)
+Task 6 - Line 15:
+Expected: Output: E(C,D,3.2)
+Task 6 - Line 16:
+Expected: Output: E(D,C,3.2)
+Task 6 - Line 17:
+Expected: Output: ==================================================
+Task 7 - Line 0:
+Expected: Output: Task 7---------------------------------------------------
+Task 7 - Line 1:
+Expected: Output: Error: AB khong ton tai
+Task 7 - Line 2:
+Expected: Output: Error: E khong ton tai
+Task 7 - Line 3:
+Expected: Output: Error: F khong ton tai
+Task 7 - Line 4:
+Expected: Output: AB : 1.5
+Task 7 - Line 5:
+Expected: Output: CD : 3.2
+Task 7 - Line 6:
+Expected: Output: getInwardEdges : D: C-> D-> NULL
+Task 7 - Line 7:
+Expected: Output: ==================================================
+Task 7 - Line 8:
+Expected: Output: Vertices:   
+Task 7 - Line 9:
+Expected: Output: V(A, in: 1, out: 1)
+Task 7 - Line 10:
+Expected: Output: V(B, in: 2, out: 2)
+Task 7 - Line 11:
+Expected: Output: V(C, in: 2, out: 2)
+Task 7 - Line 12:
+Expected: Output: V(D, in: 2, out: 2)
+Task 7 - Line 13:
+Expected: Output: ------------------------------
+Task 7 - Line 14:
+Expected: Output: Edges:      
+Task 7 - Line 15:
+Expected: Output: E(A,B,1.5)
+Task 7 - Line 16:
+Expected: Output: E(B,A,1.5)
+Task 7 - Line 17:
+Expected: Output: E(B,C,2)
+Task 7 - Line 18:
+Expected: Output: E(C,B,2)
+Task 7 - Line 19:
+Expected: Output: E(C,D,3.2)
+Task 7 - Line 20:
+Expected: Output: E(D,C,3.2)
+Task 7 - Line 21:
+Expected: Output: E(D,D,3.2)
+Task 7 - Line 22:
+Expected: Output: ==================================================
+Task 8 - Line 0:
+Expected: Output: Task 8---------------------------------------------------
+Task 8 - Line 1:
+Expected: Output: Error: AB khong ton tai
+Task 8 - Line 2:
+Expected: Output: Error: E khong ton tai
+Task 8 - Line 3:
+Expected: Output: Error: F khong ton tai
+Task 8 - Line 4:
+Expected: Output: AA : 10
+Task 8 - Line 5:
+Expected: Output: CD : 3.2
+Task 8 - Line 6:
+Expected: Output: getInwardEdges : D: C-> D-> NULL
+Task 8 - Line 7:
+Expected: Output: ==================================================
+Task 8 - Line 8:
+Expected: Output: Vertices:   
+Task 8 - Line 9:
+Expected: Output: V(A, in: 1, out: 2)
+Task 8 - Line 10:
+Expected: Output: V(B, in: 1, out: 1)
+Task 8 - Line 11:
+Expected: Output: V(C, in: 1, out: 1)
+Task 8 - Line 12:
+Expected: Output: V(D, in: 2, out: 1)
+Task 8 - Line 13:
+Expected: Output: ------------------------------
+Task 8 - Line 14:
+Expected: Output: Edges:      
+Task 8 - Line 15:
+Expected: Output: E(A,B,1.5)
+Task 8 - Line 16:
+Expected: Output: E(A,A,10)
+Task 8 - Line 17:
+Expected: Output: E(B,C,2)
+Task 8 - Line 18:
+Expected: Output: E(C,D,3.2)
+Task 8 - Line 19:
+Expected: Output: E(D,D,3.2)
+Task 8 - Line 20:
+Expected: Output: ==================================================
+Task 9 - Line 0:
+Expected: Output: Task 9---------------------------------------------------
+Task 9 - Line 1:
+Expected: Output: getInwardEdges : D: C-> D-> NULL
+Task 9 - Line 2:
+Expected: Output: ==================================================
+Task 9 - Line 3:
+Expected: Output: Vertices:   
+Task 9 - Line 4:
+Expected: Output: V(C, in: 0, out: 1)
+Task 9 - Line 5:
+Expected: Output: V(D, in: 2, out: 1)
+Task 9 - Line 6:
+Expected: Output: ------------------------------
+Task 9 - Line 7:
+Expected: Output: Edges:      
+Task 9 - Line 8:
+Expected: Output: E(C,D,3.2)
+Task 9 - Line 9:
+Expected: Output: E(D,D,3.2)
+Task 9 - Line 10:
+Expected: Output: ==================================================
+Task 10 - Line 0:
+Expected: Output: Task 10---------------------------------------------------
+Task 10 - Line 1:
+Expected: Output: ==================================================
+Task 10 - Line 2:
+Expected: Output: Vertices:   
+Task 10 - Line 3:
+Expected: Output: V(A, in: 1, out: 1)
+Task 10 - Line 4:
+Expected: Output: V(C, in: 0, out: 0)
+Task 10 - Line 5:
+Expected: Output: ------------------------------
+Task 10 - Line 6:
+Expected: Output: Edges:      
+Task 10 - Line 7:
+Expected: Output: E(A,A,10)
+Task 10 - Line 8:
+Expected: Output: ==================================================
+Task 11 - Line 0:
+Expected: Output: Task 11---------------------------------------------------
+Task 11 - Line 1:
+Expected: Output: Size: 4
+Task 11 - Line 2:
+Expected: Output: Indegree: 2
+Task 11 - Line 3:
+Expected: Output: Outdegree: 2
+Task 11 - Line 4:
+Expected: Output: Size: 0
+Task 11 - Line 5:
+Expected: Output: Error: F khong ton tai
+Task 11 - Line 6:
+Expected: Output: Error: F khong ton tai
+Task 11 - Line 7:
+Expected: Output: ==================================================
+Task 11 - Line 8:
+Expected: Output: Vertices:   
+Task 11 - Line 9:
+Expected: Output: ------------------------------
+Task 11 - Line 10:
+Expected: Output: Edges:      
+Task 11 - Line 11:
+Expected: Output: ==================================================
+Task 12 - Line 0:
+Expected: Output: Task 12---------------------------------------------------
+Task 12 - Line 1:
+Expected: Output: Size: 4
+Task 12 - Line 2:
+Expected: Output: vertices: A B C D 
+Task 12 - Line 3:
+Expected: Output: Indegree: 1
+Task 12 - Line 4:
+Expected: Output: Outdegree: 2
+Task 12 - Line 5:
+Expected: Output: Size: 0
+Task 12 - Line 6:
+Expected: Output: Error: F khong ton tai
+Task 12 - Line 7:
+Expected: Output: Error: F khong ton tai
+Task 12 - Line 8:
+Expected: Output: ==================================================
+Task 12 - Line 9:
+Expected: Output: Vertices:   
+Task 12 - Line 10:
+Expected: Output: ------------------------------
+Task 12 - Line 11:
+Expected: Output: Edges:      
+Task 12 - Line 12:
+Expected: Output: ==================================================
+Task 13 - Line 0:
+Expected: Output: Task 13---------------------------------------------------
+Task 13 - Line 1:
+Expected: Output: Size: 8
+Task 13 - Line 2:
+Expected: Output: vertices: A B C D E F H G 
+Task 13 - Line 3:
+Expected: Output: Indegree H: 0
+Task 13 - Line 4:
+Expected: Output: Outdegree C: 1
+Task 13 - Line 5:
+Expected: Output: Size: 4
+Task 13 - Line 6:
+Expected: Output: ==================================================
+Task 13 - Line 7:
+Expected: Output: Vertices:   
+Task 13 - Line 8:
+Expected: Output: V(A, in: 1, out: 1)
+Task 13 - Line 9:
+Expected: Output: V(C, in: 0, out: 1)
+Task 13 - Line 10:
+Expected: Output: V(D, in: 2, out: 1)
+Task 13 - Line 11:
+Expected: Output: V(E, in: 0, out: 0)
+Task 13 - Line 12:
+Expected: Output: ------------------------------
+Task 13 - Line 13:
+Expected: Output: Edges:      
+Task 13 - Line 14:
+Expected: Output: E(A,A,10)
+Task 13 - Line 15:
+Expected: Output: E(C,D,3.2)
+Task 13 - Line 16:
+Expected: Output: E(D,D,3.2)
+Task 13 - Line 17:
+Expected: Output: ==================================================
+Task 14 - Line 0:
+Expected: Output: Task 14---------------------------------------------------
+Task 14 - Line 1:
+Expected: Output: Size: 8
+Task 14 - Line 2:
+Expected: Output: vertices: A B C D E F H G 
+Task 14 - Line 3:
+Expected: Output: Indegree H: 0
+Task 14 - Line 4:
+Expected: Output: Outdegree C: 2
+Task 14 - Line 5:
+Expected: Output: connected AA : 1
+Task 14 - Line 6:
+Expected: Output: connected AH : 0
+Task 14 - Line 7:
+Expected: Output: Error: X khong ton tai
+Task 14 - Line 8:
+Expected: Output: Error: V khong ton tai
+Task 14 - Line 9:
+Expected: Output: Size: 8
+Task 14 - Line 10:
+Expected: Output: ==================================================
+Task 14 - Line 11:
+Expected: Output: Vertices:   
+Task 14 - Line 12:
+Expected: Output: V(A, in: 2, out: 2)
+Task 14 - Line 13:
+Expected: Output: V(B, in: 3, out: 3)
+Task 14 - Line 14:
+Expected: Output: V(C, in: 2, out: 2)
+Task 14 - Line 15:
+Expected: Output: V(D, in: 2, out: 2)
+Task 14 - Line 16:
+Expected: Output: V(E, in: 0, out: 0)
+Task 14 - Line 17:
+Expected: Output: V(F, in: 0, out: 0)
+Task 14 - Line 18:
+Expected: Output: V(H, in: 0, out: 0)
+Task 14 - Line 19:
+Expected: Output: V(G, in: 0, out: 0)
+Task 14 - Line 20:
+Expected: Output: ------------------------------
+Task 14 - Line 21:
+Expected: Output: Edges:      
+Task 14 - Line 22:
+Expected: Output: E(A,B,1.5)
+Task 14 - Line 23:
+Expected: Output: E(A,A,10)
+Task 14 - Line 24:
+Expected: Output: E(B,A,1.5)
+Task 14 - Line 25:
+Expected: Output: E(B,C,2)
+Task 14 - Line 26:
+Expected: Output: E(B,B,2)
+Task 14 - Line 27:
+Expected: Output: E(C,B,2)
+Task 14 - Line 28:
+Expected: Output: E(C,D,3.2)
+Task 14 - Line 29:
+Expected: Output: E(D,C,3.2)
+Task 14 - Line 30:
+Expected: Output: E(D,D,3.2)
+Task 14 - Line 31:
+Expected: Output: ==================================================
+Task 15 - Line 0:
+Expected: Output: Task 15---------------------------------------------------
+Task 15 - Line 1:
+Expected: Output: Size: 8
+Task 15 - Line 2:
+Expected: Output: Indegree H: 0
+Task 15 - Line 3:
+Expected: Output: Outdegree C: 2
+Task 15 - Line 4:
+Expected: Output: contains C : 1
+Task 15 - Line 5:
+Expected: Output: contains J : 0
+Task 15 - Line 6:
+Expected: Output: Size: 8

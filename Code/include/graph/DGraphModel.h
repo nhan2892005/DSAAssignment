@@ -29,6 +29,9 @@
 template<class T>
 class DGraphModel: public AbstractGraph<T>{
 private:
+    typedef typename AbstractGraph<T>::VertexNode VertexNode;
+    // typedef typename AbstractGraph<T>::Edge Edge;
+    typedef typename AbstractGraph<T>::Iterator Iterator;
 public:
     DGraphModel(
             bool (*vertexEQ)(T&, T&), 
@@ -51,10 +54,10 @@ public:
 
         // If any vertex does not exist, throw a VertexNotFoundException.
         if (fromNode == nullptr) {
-            throw VertexNotFoundException(this->vertex2Str(from));
+            throw VertexNotFoundException(this->vertex2str(from));
         }
         if (toNode == nullptr) {
-            throw VertexNotFoundException(this->vertex2Str(to));
+            throw VertexNotFoundException(this->vertex2str(to));
         }
 
         // Connect from-to
@@ -75,20 +78,20 @@ public:
 
         // If any vertex does not exist, throw a VertexNotFoundException.
         if (fromNode == nullptr) {
-            throw VertexNotFoundException(this->vertex2Str(from));
+            throw VertexNotFoundException(this->vertex2str(from));
         }
         if (toNode == nullptr) {
-            throw VertexNotFoundException(this->vertex2Str(to));
+            throw VertexNotFoundException(this->vertex2str(to));
         }
 
         // Check if the edge exists
-        Edge* edge = fromNode->getEdge(toNode);
+        typename AbstractGraph<T>::Edge* edge = fromNode->getEdge(toNode);
         if (edge == nullptr) {
             stringstream edge_os;
             edge_os << "E("
-                << this->vertex2Str(from)
+                << this->vertex2str(from)
                 << ","
-                << this->vertex2Str(to)
+                << this->vertex2str(to)
                 << ")";
             throw EdgeNotFoundException(edge_os.str());
         }
@@ -111,17 +114,17 @@ public:
 
         // If the vertex does not exist, throw a VertexNotFoundException.
         if (node == nullptr) {
-            throw VertexNotFoundException(this->vertex2Str(vertex));
+            throw VertexNotFoundException(this->vertex2str(vertex));
         }
 
         // Iterate through the graph’s vertices, removing all edges connected to or from the vertex to be removed.
         typename DLinkedList<VertexNode*>::Iterator it = this->nodeList.begin();
         while (it != this->nodeList.end()) {
             VertexNode* vertexNode = *it;
-            if (this->connected(vertexNode->vertex, vertex)) {
+            if (this->connected(vertexNode->getVertex(), vertex)) {
                 vertexNode->removeTo(node);
             }
-            if (this->connected(vertex, vertexNode->vertex)) {
+            if (this->connected(vertex, vertexNode->getVertex())) {
                 node->removeTo(vertexNode);
             }
             it++;
@@ -158,7 +161,231 @@ public:
         // Return a pointer to the created graph
         return graph;
     }
+
+    void cacheInDegree(){
+        for (auto vertex : this->nodeList) {
+            vertex->cacheInDegree();
+        }
+    }
+
+    void restoreInDegree(){
+        for (auto vertex : this->nodeList) {
+            vertex->restoreInDegree();
+        }
+    }
+};
+
+template<class T>
+class DGraphAlgorithm {
+private:
+protected:
+public:
+    DLinkedList<Path<T>*> dijkstra(DGraphModel<T>* graph, T start_vertex) {
+        DLinkedList<Path<T>*> list;
+    //     xMap<T, float> distances;
+    //     xMap<T, T> previous;
+    //     PriorityQueue<T, float> pq;
+
+    //     // Initialize distances and priority queue
+    //     for (auto vertex : graph->vertices()) {
+    //         if (vertex == start_vertex) {
+    //             distances.put(vertex, 0);
+    //             pq.push(vertex, 0);
+    //         } else {
+    //             distances.put(vertex, numeric_limits<float>::infinity());
+    //             pq.push(vertex, numeric_limits<float>::infinity());
+    //         }
+    //         previous.put(vertex, T());
+    //     }
+
+    //     // Process the priority queue
+    //     while (!pq.empty()) {
+    //         T current = pq.pop();
+    //         float current_distance = distances.get(current);
+
+    //         for (auto neighbor : graph->getOutwardEdges(current)) {
+    //             float weight = graph->weight(current, neighbor);
+    //             float distance = current_distance + weight;
+
+    //             if (distance < distances.get(neighbor)) {
+    //                 distances.put(neighbor, distance);
+    //                 previous.put(neighbor, current);
+    //                 pq.update(neighbor, distance);
+    //             }
+    //         }
+    //     }
+
+    //     // Build the paths
+    //     for (auto vertex : graph->vertices()) {
+    //         if (vertex == start_vertex) continue;
+
+    //         Path<T>* path = new Path<T>();
+    //         path->setCost(distances.get(vertex));
+
+    //         T current = vertex;
+    //         while (current != T()) {
+    //             path->getPath().add(0, current);
+    //             current = previous.get(current);
+    //         }
+
+    //         if (!path->getPath().empty()) {
+    //             list.add(path);
+    //         } else {
+    //             delete path;
+    //         }
+    //     }
+
+        return list;
+    }
+
+    DLinkedList<Path<T>*> bellman_ford(DGraphModel<T>* graph, T start_vertex) {
+        DLinkedList<Path<T>*> list;
+    //     xMap<T, float> distances;
+    //     xMap<T, T> previous;
+
+    //     // Initialize distances
+    //     for (auto vertex : graph->vertices()) {
+    //         if (vertex == start_vertex) {
+    //             distances.put(vertex, 0);
+    //         } else {
+    //             distances.put(vertex, numeric_limits<float>::infinity());
+    //         }
+    //         previous.put(vertex, T());
+    //     }
+
+    //     // Relax edges repeatedly
+    //     int V = graph->size();
+    //     for (int i = 1; i <= V - 1; i++) {
+    //         for (auto u : graph->vertices()) {
+    //             for (auto v : graph->getOutwardEdges(u)) {
+    //                 float weight = graph->weight(u, v);
+    //                 if (distances.get(u) + weight < distances.get(v)) {
+    //                     distances.put(v, distances.get(u) + weight);
+    //                     previous.put(v, u);
+    //                 }
+    //             }
+    //         }
+    //     }
+
+    //     // Check for negative-weight cycles
+    //     for (auto u : graph->vertices()) {
+    //         for (auto v : graph->getOutwardEdges(u)) {
+    //             float weight = graph->weight(u, v);
+    //             if (distances.get(u) + weight < distances.get(v)) {
+    //                 throw runtime_error("Graph contains a negative-weight cycle");
+    //             }
+    //         }
+    //     }
+
+    //     // Build the paths
+    //     for (auto vertex : graph->vertices()) {
+    //         if (vertex == start_vertex) continue;
+
+    //         Path<T>* path = new Path<T>();
+    //         path->setCost(distances.get(vertex));
+
+    //         T current = vertex;
+    //         while (current != T()) {
+    //             path->getPath().add(0, current);
+    //             current = previous.get(current);
+    //         }
+
+    //         if (!path->getPath().empty()) {
+    //             list.add(path);
+    //         } else {
+    //             delete path;
+    //         }
+    //     }
+
+        return list;
+    }
+};
+
+template<class T>
+class TopoSorter {
+private:
+    typedef typename AbstractGraph<T>::VertexNode VertexNode;
+    typedef typename AbstractGraph<T>::Edge Edge;
+    typedef typename AbstractGraph<T>::Iterator Iterator;
+protected:
+    DGraphModel<T>* graph;
+
+    void dfs(VertexNode* node, DLinkedList<T>& list) {
+        node->visited();
+
+        for (auto edge : node->getOutwardEdges()) {
+            VertexNode* neighbor = edge->getTo();
+            if (!neighbor->isVisited()) {
+                dfs(neighbor, list);
+            }
+        }
+
+        list.add(0, node->getVertex());
+    }
+
+    DLinkedList<T> dfsTopoSort() {
+        // Create a list to store the sorted vertices
+        DLinkedList<T> list;
+
+
+        // for (auto vertex : this->graph) {
+        //     if (!vertex->isVisited()) {
+        //         dfs(vertex, list);
+        //     }
+        // }
+
+        // // Reset the visited flags
+        // for (auto vertex : this->graph) {
+        //     vertex->visit(true);
+        // }
+
+        return list;
+    }
+
+    DLinkedList<T> bfsTopoSort() {
+        // Create a list to store the sorted vertices
+        // graph->cacheInDegree();
+        DLinkedList<T> list;
+        // DLinkedList<VertexNode*> queue;
+
+        // for (auto vertex : this->graph) {
+        //     if (!vertex->inDegree()) {
+        //         queue.add(vertex);
+        //     }
+        // }
+
+        // while (!queue.empty()) {
+        //     VertexNode* node = queue.removeAt(0);
+        //     list.add(node->getVertex());
+
+        //     for (auto nb : node->getOutwardEdges()) {
+        //         VertexNode* neighbor = outEdge->getTo();
+        //         neighbor->descreaseInDegree();
+        //         if (!neighbor->inDegree()) {
+        //             queue.add(neighbor);
+        //         }
+        //     }
+        // }
+
+        // if (list.size() != graph->size()) {
+        //     throw runtime_error("Graph contains a cycle");
+        // }
+
+        // graph->restoreInDegree();
+        return list;
+    }
+public:
+    enum SortType { BFS, DFS };
+
+    TopoSorter(DGraphModel<T>* graph) : graph(graph) {}
+
+    DLinkedList<T> sort(SortType type) {
+        if (type == BFS) {
+            return bfsTopoSort();
+        } else {
+            return dfsTopoSort();
+        }
+    }
 };
 
 #endif /* DGRAPHMODEL_H */
-

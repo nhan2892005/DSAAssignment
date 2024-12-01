@@ -66,7 +66,9 @@ public:
         this->vertexEQ = vertexEQ;
         this->vertex2str = vertex2str;
     }
-    virtual ~AbstractGraph(){}
+    virtual ~AbstractGraph(){
+        this->clear();
+    }
     
     typedef bool (*vertexEQFunc)(T&, T&);
     typedef string (*vertex2strFunc)(T&);
@@ -117,10 +119,10 @@ public:
         VertexNode* fromNode = getVertexNode(from);
         VertexNode* toNode = getVertexNode(to);
         if (fromNode == nullptr) {
-            throw VertexNotFoundException(vertex2Str(from));
+            throw VertexNotFoundException(this->vertex2str(from));
         }
         if (toNode == nullptr) {
-            throw VertexNotFoundException(vertex2Str(to));
+            throw VertexNotFoundException(this->vertex2str(to));
         }
         return fromNode->getEdge(toNode) != nullptr;
     }
@@ -140,10 +142,10 @@ public:
     
     virtual float weight(T from, T to){
         if (!contains(from)) {
-            throw VertexNotFoundException(vertex2Str(from));
+            throw VertexNotFoundException(this->vertex2str(from));
         }
         if (!contains(to)) {
-            throw VertexNotFoundException(vertex2Str(to));
+            throw VertexNotFoundException(this->vertex2str(to));
         }
         if (!connected(from, to)) {
             stringstream edge_os;
@@ -171,7 +173,7 @@ public:
     virtual DLinkedList<T> getOutwardEdges(T from){
         VertexNode* node = getVertexNode(from);
         if (node == nullptr) {
-            throw VertexNotFoundException(vertex2Str(from));
+            throw VertexNotFoundException(this->vertex2str(from));
         }
         return node->getOutwardEdges();
     }
@@ -179,9 +181,15 @@ public:
     virtual DLinkedList<T>  getInwardEdges(T to){
         VertexNode* node = getVertexNode(to);
         if (node == nullptr) {
-            throw VertexNotFoundException(vertex2Str(to));
+            throw VertexNotFoundException(this->vertex2str(to));
         }
-        return node->getInwardEdges();
+        DLinkedList<T> inList;
+        for (auto vertex : nodeList) {
+            if (vertex->getEdge(node) != nullptr) {
+                inList.add(vertex->vertex);
+            }
+        }
+        return inList;
     }
     
     /*
@@ -215,19 +223,27 @@ public:
     */
     virtual void clear(){
         typename DLinkedList<VertexNode*>::Iterator it = nodeList.begin();
+        typename DLinkedList<VertexNode*>::Iterator next_it;
         while(it != nodeList.end()){
             VertexNode* node = *it;
-            auto next_it = it++;
+            next_it = it;
+            next_it++;
             while (next_it != nodeList.end()) {
                 VertexNode* nextNode = *next_it;
-                Edge* edge = node->getEdge(nextNode);
-                delete edge;
+                if (node->getEdge(nextNode) != nullptr) {
+                    node->removeTo(nextNode);
+                }
                 next_it++;
             }
-            delete node;
             it++;
         }
-        return 0;
+        
+        it = nodeList.begin();
+        while (it != nodeList.end()) {
+            VertexNode* node = *it;
+            it.remove(VertexNode::free);
+            it++;
+        }
     }
 
     /*
@@ -240,7 +256,7 @@ public:
     virtual int inDegree(T vertex){
         VertexNode* node = getVertexNode(vertex);
         if (node == nullptr) {
-            throw VertexNotFoundException(vertex2Str(vertex));
+            throw VertexNotFoundException(this->vertex2str(vertex));
         }
         return node->inDegree();
     }
@@ -255,7 +271,7 @@ public:
     virtual int outDegree(T vertex){
         VertexNode* node = getVertexNode(vertex);
         if (node == nullptr) {
-            throw VertexNotFoundException(vertex2Str(vertex));
+            throw VertexNotFoundException(this->vertex2str(vertex));
         }
         return node->outDegree();
     }
@@ -336,10 +352,11 @@ public:
 //BEGIN of VertexNode    
     class VertexNode{
     private:
+        bool visited;
         template<class U>
         friend class UGraphModel; //UPDATED: added
         T vertex;
-        int inDegree_, outDegree_;
+        int inDegree_, outDegree_, cache_inDegree_;
         DLinkedList<Edge*> adList; 
         friend class Edge;
         friend class AbstractGraph;
@@ -373,7 +390,8 @@ public:
             * None.
         */
         bool equals(VertexNode* node){
-            if (vertexEQ != 0) return vertexEQ(this->vertex, node->vertex);
+            if (vertexEQ != 0) 
+                return vertexEQ(this->vertex, node->vertex);
             else return this->vertex == node->vertex;
         }
 
@@ -390,7 +408,7 @@ public:
         void connect(VertexNode* to, float weight=0){
             // Check if the edge already exists
             for (auto edge : adList) {
-                if (edge->to.equals(to)) {
+                if ((edge->to)->equals(to)) {
                     return;
                 }
             }
@@ -420,23 +438,6 @@ public:
         }
 
         /*
-        ! getInwardEdges
-        ? Functionality: 
-            * Returns a list of inward edges to this vertex.
-        ? Exceptions:
-            * None.
-        */
-        DLinkedList<T> getInwardEdges(){
-            DLinkedList<T> inList;
-            for (auto vertex : nodeList) {
-                if (vertex->getEdge(this) != nullptr) {
-                    inList.add(vertex->vertex);
-                }
-            }
-            return inList;
-        }
-
-        /*
         ! getEdge
         ? Functionality: 
             * Retrieves the edge connecting this vertex to the specified vertex
@@ -445,7 +446,7 @@ public:
         */
         Edge* getEdge(VertexNode* to){
             for (auto edge : adList) {
-                if (edge->to.equals(to)) {
+                if ((edge->to)->equals(to)) {
                     return edge;
                 }
             }
@@ -464,8 +465,8 @@ public:
             typename DLinkedList<Edge*>::Iterator it = adList.begin();
             while (it != adList.end()) {
                 Edge* edge = *it;
-                if (edge->to.equals(to)) {
-                    delete edge;
+                if ((edge->to)->equals(to)) {
+                    it.remove(Edge::free);
                     break;
                 }
                 it++;
@@ -497,6 +498,42 @@ public:
         int outDegree(){
             return this->outDegree_;
         }
+
+        /*
+        ! checkVisited
+        ? Functionality: 
+            * Checks whether this vertex has been visited.
+        ? Exceptions:
+            * None.
+        */
+        bool isVisited(){
+            return this->visited;
+        }
+
+        /*
+        ! visit
+        ? Functionality: 
+            * Marks this vertex as visited.
+        ? Exceptions:
+            * None.
+        */
+        void visit(bool reset = true){
+            if (reset) this->visited = true;
+            else this->visited = false;
+        }
+
+        void cacheInDegree(){
+            this->cache_inDegree_ = inDegree_;
+        }
+
+        void descreaseInDegree(){
+            this->inDegree_--;
+        }
+
+        void restoreInDegree(){
+            this->inDegree_ = this->cache_inDegree_;
+        }
+
         string toString(){
             stringstream os;
             os << "V("

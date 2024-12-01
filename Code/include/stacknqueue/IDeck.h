@@ -14,6 +14,7 @@
 #ifndef IDECK_H
 #define IDECK_H
 #include <sstream>
+using namespace std;
 
 class Underflow: public std::exception{
 private:
