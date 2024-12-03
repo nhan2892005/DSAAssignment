@@ -66,7 +66,7 @@ public:
     DLinkedList<T> bfsSort(bool sorted=true){ 
         DLinkedList<T> result;
         Queue<T> zeroInDegreeQueue;
-        xMap<T, int> inDegreeMap;
+        xMap<T, int> inDegreeMap(*hash_code);
 
         // Initialize in-degree map
         for (auto vertex : graph->vertices()) {
@@ -111,7 +111,7 @@ public:
     */
     DLinkedList<T> dfsSort(bool sorted=true){
         DLinkedList<T> result;
-        xMap<T, bool> visited;
+        xMap<T, bool> visited(*hash_code);
 
         // Initialize visited map
         for (auto vertex : graph->vertices()) {
@@ -137,8 +137,8 @@ public:
 protected:
 
     //Helper functions
-    XHashMap<T, int> vertex2inDegree(int (*hash)(T&, int));
-    XHashMap<T, int> vertex2outDegree(int (*hash)(T&, int));
+    xMap<T, int> vertex2inDegree(int (*hash)(T&, int));
+    xMap<T, int> vertex2outDegree(int (*hash)(T&, int));
     DLinkedList<T> listOfZeroInDegrees();
     void dfsVisit(T vertex, xMap<T, bool>& visited, DLinkedList<T>& result) {
         visited.put(vertex, true);

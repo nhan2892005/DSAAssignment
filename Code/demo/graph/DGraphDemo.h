@@ -37,6 +37,19 @@ void DGraphDemo1(){
     model.println();
 }
 
+int charAlphaHash(char& key, int capacity){
+    int k = key - 'A';
+    if(k < 0) k = 0;
+    return k % capacity;
+}
+
+int charNumericHash(char& key, int capacity){
+    int k = key - '0';
+    if(k < 0) k = 0;
+    return k % capacity;
+}
+
+
 void DGraphDemo2(){
     DGraphModel<char> model(&charComparator, &vertex2str);
     char vertices[] = {'A', 'B', 'C', 'D'};
@@ -49,7 +62,7 @@ void DGraphDemo2(){
     model.connect('C', 'D');
     model.println();
     
-    TopoSorter<char> sorter(&model);
+    TopoSorter<char> sorter(&model, &charAlphaHash);
     DLinkedList<char> topo = sorter.sort(TopoSorter<char>::BFS);
     cout << left << setw(15) << "Topo-order: " << topo.toString() << endl;
 }
@@ -77,7 +90,7 @@ void DGraphDemo3(){
     model.connect('9', '4');
     model.println();
     
-    TopoSorter<char> sorter(&model);
+    TopoSorter<char> sorter(&model, &charNumericHash);
     DLinkedList<char> bfs = sorter.sort(TopoSorter<char>::BFS);
     cout << left << setw(15) << "Topo-order (BFS): " << bfs.toString() << endl;
     
