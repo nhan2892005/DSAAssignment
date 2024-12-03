@@ -14,6 +14,7 @@
 #ifndef DGRAPHDEMO_H
 #define DGRAPHDEMO_H
 #include "graph/DGraphModel.h"
+#include "graph/TopoSorter.h"
 
 bool charComparator(char& lhs, char& rhs){
     return lhs==rhs;

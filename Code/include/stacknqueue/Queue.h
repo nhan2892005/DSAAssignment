@@ -56,33 +56,37 @@ public:
             bool (*itemEqual)(T&, T&)=0){
         this->itemEqual = itemEqual;
         this->deleteUserData = deleteUserData;
+        list = DLinkedList<T>(deleteUserData, itemEqual);
+        list.setDeleteUserDataPtr(deleteUserData);
     }
     void push(T item){
         //TODO: add item to the rear
+        list.add(item);
     }
     T pop(){
         //TODO: remove and return the front item
-        return T{}; //Placeholder
+        return list.removeAt(0);
     }
     T& peek(){
         //TODO: return the front item
-        return T{}; //Placeholder
+        return list.get(0);
     }
     bool empty(){
         //TODO: check if the queue is empty
-        return false;
+        return list.empty();
     }
     int size(){
         //TODO: return the number of items in the queue
-        return 0;       
+        return list.size();      
     }
     void clear(){
         //TODO: remove all items in the queue
+        list.clear();
     }
     bool remove(T item){
         //TODO: remove the item from the queue
         //     return true if the item is removed successfully
-        return false;
+        return list.removeItem(item);
     }
     bool contains(T item){
         //TODO: check if the item is in the queue

@@ -30,10 +30,61 @@ public:
     DLinkedListSE(const DLinkedList<T>& list){
         this->copyFrom(list);
     }
+
+    void merge(DLinkedListSE<T>& list1, DLinkedListSE<T>& list2, int (*comparator)(T&,T&)=0){
+        this->clear(); // Clear the current list
+
+        typename DLinkedList<T>::Iterator it1 = list1.begin();
+        typename DLinkedList<T>::Iterator it2 = list2.begin();
+
+        while (it1 != list1.end() && it2 != list2.end()) {
+            if (compare(*it1, *it2, comparator) <= 0) {
+                this->add(*it1);
+                ++it1;
+            } else {
+                this->add(*it2);
+                ++it2;
+            }
+        }
+
+        // Add remaining elements
+        while (it1 != list1.end()) {
+            this->add(*it1);
+            ++it1;
+        }
+
+        while (it2 != list2.end()) {
+            this->add(*it2);
+            ++it2;
+        }
+    }
     
     void sort(int (*comparator)(T&,T&)=0){
         //TODO: implement this function
         //     - You should implement the merge sort algorithm
+        //     - You should use the merge function above
+        if (this->size() <= 1) return; // Base case: already sorted
+
+        DLinkedListSE<T> leftList;
+        DLinkedListSE<T> rightList;
+
+        int middle = this->size() / 2;
+        typename DLinkedList<T>::Iterator it = this->begin();
+
+        for (int i = 0; i < middle; ++i) {
+            leftList.add(*it);
+            ++it;
+        }
+
+        for (int i = middle; i < this->size(); ++i) {
+            rightList.add(*it);
+            ++it;
+        }
+
+        leftList.sort(comparator);
+        rightList.sort(comparator);
+
+        this->merge(leftList, rightList, comparator);
     };
     
 protected:
