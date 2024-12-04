@@ -13,10 +13,11 @@ using namespace std;
 #include "graph/UGraphModel.h"
 #include "graph/DGraphDemo.h"
 #include "graph/UGraphDemo.h"
+#include "graph/TopoSorter.h"
 
 using namespace std;
 namespace fs = std::filesystem;
-int num_task = 17;
+int num_task = 18;
 
 
 vector<vector<string>> expected_task (num_task, vector<string>(1000, ""));
@@ -756,6 +757,38 @@ void test17() {
     delete mouse3;
 }
 
+bool intComparator(int& a, int& b) {
+    return a == b;
+}
+
+string vertexInt2str(int& vertex) {
+    return to_string(vertex);
+}
+
+void testTopo1() {
+    DGraphModel<char> model(&charComparator, &vertex2str);
+    for(int idx=0; idx<8; idx++){
+        model.add((char)('0' + idx));
+    }
+    model.connect('0', '1');
+    model.connect('0', '2');
+    model.connect('0', '4');
+    model.connect('1', '3');
+    model.connect('1', '6');
+    model.connect('2', '6');
+    model.connect('4', '7');
+    model.connect('6', '7');
+    model.connect('5', '6');
+    model.println();
+    
+    TopoSorter<char> sorter(&model, &charNumericHash);
+    DLinkedList<char> bfs = sorter.sort(TopoSorter<char>::BFS);
+    cout << left << setw(15) << "Topo-order (BFS): " << bfs.toString() << endl;
+    
+    DLinkedList<char> dfs = sorter.sort(TopoSorter<char>::DFS);
+    cout << left << setw(15) << "Topo-order (DFS): " << dfs.toString() << endl;
+}
+
 void runDemo() {
     std::cout << "Direct Graph Demo 1" << std::endl;
     DGraphDemo1();
@@ -777,7 +810,7 @@ void runDemo() {
 // pointer function to store 15 test
 void (*testFuncs[])() = {
     test1, test2, test03, test04, test05, test06, test07, test08, test09, test10, test11, test12, test13, test14, test15,
-    test16, test17
+    test16, test17, testTopo1
 };
 
 int main(int argc, char* argv[]) {

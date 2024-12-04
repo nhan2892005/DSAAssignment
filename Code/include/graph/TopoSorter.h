@@ -90,12 +90,6 @@ public:
             }
         }
 
-        if (sorted) {
-            DLinkedListSE<T> sortedResult(result);
-            sortedResult.sort();
-            return sortedResult;
-        }
-
         return result;
     }
 
@@ -123,12 +117,6 @@ public:
             if (!visited.get(vertex)) {
                 dfsVisit(vertex, visited, result);
             }
-        }
-
-        if (sorted) {
-            DLinkedListSE<T> sortedResult(result);
-            sortedResult.sort();
-            return sortedResult;
         }
 
         return result;
