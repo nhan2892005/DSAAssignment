@@ -3,46 +3,6 @@
 #include "list/DLinkedList.h"
 #include "stacknqueue/IDeck.h"
 
-// template<class T>
-// class Stack {
-// protected:
-//     DLinkedList<T> list;
-
-//     bool (*itemEqual)(T &lhs, T &rhs);        // function pointer: test if two items (type: T&) are equal or not
-//     void (*deleteUserData)(DLinkedList<T> *); // function pointer: be called to remove items (if they are pointer type)
-
-// public:
-//     Stack(  void (*deleteUserData)(DLinkedList<T> *) = 0,
-//             bool (*itemEqual)(T &, T &) = 0)
-//         :list(deleteUserData, itemEqual){}
-
-//     void push(T item) {
-//         this->list.add(0, item);
-//     }
-
-//     T pop() {
-//         if (this->list.empty()) throw Underflow("Stack");
-//         return this->list.removeAt(0);
-//     }
-
-//     T top() {
-//         if (this->list.empty()) throw Underflow("Stack");
-//         return this->list.get(0);
-//     }
-
-//     bool empty() {
-//         return this->list.empty();
-//     }
-
-//     int size() {
-//         return this->list.size();
-//     }
-
-//     void clear() {
-//         this->list.clear();
-//     }
-// };
-
 template<class T>
 class Stack: public IDeck<T>{
 public:
@@ -61,39 +21,120 @@ public:
         list = DLinkedList<T>(deleteUserData, itemEqual);
         list.setDeleteUserDataPtr(deleteUserData);
     }
+
+    /*
+    ! push(item: T)
+    ? Functional:
+        * Add item to the top of the stack
+    ? Parameters:
+        * item: T - The item to be added
+    ? Return:
+        * void
+    */
     void push(T item){
-        //TODO: add item to the top
         list.add(item, 0);
     }
+
+    /*
+    ! pop()
+    ? Functional:
+        * Remove and return the top item
+    ? Parameters:
+        * None
+    ? Return:
+        * T - The top item
+    */
     T pop(){
-        //TODO: remove and return the top item
         return list.removeAt(0);
     }
+
+    /*
+    ! peek()
+    ? Functional:
+        * Return the top item
+    ? Parameters:
+        * None
+    ? Return:
+        * T - The top item
+    */
     T& peek(){
-        //TODO: return the top item
         return list.get(0);
     }    
+
+    /*
+    ! empty()
+    ? Functional:
+        * Check if the stack is empty
+    ? Parameters:
+        * None
+    ? Return:
+        * bool - True if the stack is empty, False otherwise
+    */
     bool empty(){
-        //TODO: check if the stack is empty
         return list.empty();
     }
+
+    /*
+    ! size()
+    ? Functional:
+        * Return the number of items in the stack
+    ? Parameters:
+        * None
+    ? Return:
+        * int - The number of items in the stack
+    */
     int size(){
-        //TODO: return the number of items in the stack
         return list.size();
     }
+
+    /*
+    ! clear()
+    ? Functional:
+        * Remove all items in the stack
+    ? Parameters:
+        * None
+    ? Return:
+        * void
+    */
     void clear(){
-        //TODO: remove all items in the stack
         list.clear();
     }
+
+    /*
+    ! remove(item: T)
+    ? Functional:
+        * Remove the first occurrence of the item
+    ? Parameters:
+        * item: T - The item to be removed
+    ? Return:
+        * bool - True if the item is removed successfully, False otherwise
+    */
     bool remove(T item){
-        //TODO: remove the first occurrence of the item
-        //     return true if the item is removed successfully
         return list.remove(item);
     }
+
+    /*
+    ! contains(item: T)
+    ? Functional:
+        * Check if the item is in the stack
+    ? Parameters:
+        * item: T - The item to be checked
+    ? Return:
+        * bool - True if the item is in the stack, False otherwise
+    */
     bool contains(T item){
-        //TODO: check if the item is in the stack
         return list.contains(item);
     }
+
+    /*
+    ! toString(item2str: string (*item2str)(T&)=0)
+    ? Functional:
+        * Convert the stack to a string
+    ? Parameters:
+        * item2str: string (*item2str)(T&) - The function pointer to convert an item to a string
+    ? Return:
+        * string - The string representation of the stack
+    */
     string  toString(string (*item2str)(T&)=0 ){
         stringstream os;
         os << "FROM TOP: " << list.toString(item2str);
