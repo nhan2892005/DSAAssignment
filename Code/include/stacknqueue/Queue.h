@@ -2,41 +2,6 @@
 #define QUEUE_H
 #include "list/DLinkedList.h"
 #include "stacknqueue/IDeck.h"
-// template<class T>
-// class Queue {
-// protected:
-//     DLinkedList<T> list;
-// public:
-//     Queue(  void (*deleteUserData)(DLinkedList<T> *) = 0,
-//             bool (*itemEqual)(T &, T &) = 0)
-//         :list(deleteUserData, itemEqual){}
-        
-//     void push(T item) {
-//         this->list.add(item);
-//     }
-
-//     T pop() {
-//         if (this->empty()) throw std::out_of_range("Empty Queue");
-//         return this->list.removeAt(0);
-//     }
-
-//     T top() {
-//         if (this->empty()) throw std::out_of_range("Empty Queue");
-//         return this->list.get(0);
-//     }
-
-//     bool empty() {
-//         return this->list.empty();
-//     }
-
-//     int size() {
-//         return this->list.size();
-//     }
-
-//     void clear() {
-//         return this->list.clear();
-//     }
-// };
 #include "list/DLinkedList.h"
 #include "stacknqueue/IDeck.h"
 
@@ -59,39 +24,109 @@ public:
         list = DLinkedList<T>(deleteUserData, itemEqual);
         list.setDeleteUserDataPtr(deleteUserData);
     }
+    /*
+    ! push(T item)
+    ? Functional:
+        * Add an item to the rear of the queue
+    ? Parameters:
+        * T item: The item to be added
+    ? Return:
+        * void: add the item to the rear of the list
+    */
     void push(T item){
-        //TODO: add item to the rear
         list.add(item);
     }
+
+    /*
+    ! pop()
+    ? Functional:
+        * Remove the front item from the queue
+    ? Return:
+        * T: the front item
+    */
     T pop(){
-        //TODO: remove and return the front item
         return list.removeAt(0);
     }
+
+    /*
+    ! peek()
+    ? Functional:
+        * Return the front item of the queue
+    ? Return:
+        * T: the front item
+    */
     T& peek(){
-        //TODO: return the front item
         return list.get(0);
     }
+
+    /*
+    ! empty()
+    ? Functional:
+        * Check if the queue is empty
+    ? Return:
+        * bool: true if the queue is empty, false otherwise
+    */
     bool empty(){
-        //TODO: check if the queue is empty
         return list.empty();
     }
+
+    /*
+    ! size()
+    ? Functional:
+        * Return the number of items in the queue
+    ? Return:
+        * int: the number of items in the queue
+    */
     int size(){
-        //TODO: return the number of items in the queue
         return list.size();      
     }
+
+    /*
+    ! clear()
+    ? Functional:
+        * Remove all items in the queue
+    ? Return:
+        * void: remove all items in the queue
+    */
     void clear(){
-        //TODO: remove all items in the queue
         list.clear();
     }
+
+    /*
+    ! remove(T item)
+    ? Functional:
+        * Remove an item from the queue
+    ? Parameters:
+        * T item: the item to be removed
+    ? Return:
+        * bool: true if the item is removed successfully, false otherwise
+    */
     bool remove(T item){
-        //TODO: remove the item from the queue
-        //     return true if the item is removed successfully
         return list.removeItem(item);
     }
+
+    /*
+    ! contains(T item)
+    ? Functional:
+        * Check if the item is in the queue
+    ? Parameters:
+        * T item: the item to be checked
+    ? Return:
+        * bool: true if the item is in the queue, false otherwise
+    */
     bool contains(T item){
-        //TODO: check if the item is in the queue
         return false;
     }
+
+    /*
+    ! toString(string (*item2str)(T&)=0)
+    ? Functional:
+        * Convert the queue to a string
+    ? Parameters:
+        * string (*item2str)(T&): a function to convert an item to a string
+    ? Return:
+        * string: the string representation of the queue
+    */
     string  toString(string (*item2str)(T&)=0 ){
         stringstream os;
         os << "FRONT-TO-REAR: " << list.toString(item2str);
