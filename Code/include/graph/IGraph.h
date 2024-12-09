@@ -23,7 +23,6 @@ public:
         this->vertex = vertex;
     }
     const char * what () const throw (){
-        cerr << "Vertex (" << this->vertex << "): is not found";
         stringstream os;
         os << "Vertex (" << this->vertex << "): is not found";
         return os.str().c_str();

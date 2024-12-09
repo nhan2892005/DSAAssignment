@@ -17,7 +17,7 @@ using namespace std;
 
 using namespace std;
 namespace fs = std::filesystem;
-int num_task = 52;
+int num_task = 77;
 
 
 vector<vector<string>> expected_task (num_task, vector<string>(1000, ""));
@@ -26,7 +26,7 @@ vector<int> diffTasks(0);
 vector<int> doTasks(0);
 
 void compareFile(const string& filename1, const string& filename2) {
-    string log_file = "TestLog/Layer/LayerTestLog_Compare.txt";
+    string log_file = "TestLog/Graph/GraphTestLog_Compare.txt";
     fstream file(log_file, ios::out);
     if (!file.is_open()) {
         std::cout << "Cannot open file" << std::endl;
@@ -1784,6 +1784,667 @@ void new_testgraph34() {
     model.clear();
 }
 
+int intKeyHash(char& key, int capacity) {
+  return (key - '0') % capacity;
+}
+
+void sort_topo01() {
+  string name = "sort_topo01";
+  
+  Queue<char> queue;
+  queue.push('A');
+  queue.push('B');
+  queue.push('C');
+
+  cout << queue.empty() << " " << queue.pop() << " ";
+  queue.push('D');
+  cout << queue.pop() << " ";
+  cout << queue.pop() << " ";
+  cout << queue.pop() << " " << queue.empty();
+  cout << endl;
+}
+
+
+void sort_topo02() {
+  string name = "sort_topo02";
+  
+  Stack<char> stack;
+  stack.push('A');
+  stack.push('B');
+  stack.push('C');
+
+  cout << stack.peek() << " " << stack.empty() << " " << stack.pop() << " ";
+  stack.push('D');
+  cout << stack.pop() << " ";
+  cout << stack.pop() << " " << stack.peek() << " ";
+  cout << stack.pop() << " " << stack.empty();
+  cout << endl;
+}
+
+
+void sort_topo03() {
+  string name = "sort_topo03";
+  
+  DGraphModel<char> model(&charComparator, &vertex2str);
+  char vertices[] = {'1', '2', '3', '4', '5', '6', '7', '8'};
+  for (int idx = 0; idx < 8; idx++) {
+    model.add(vertices[idx]);
+  }
+  model.connect('1', '6');
+  model.connect('1', '5');
+  model.connect('1', '3');
+  model.connect('4', '3');
+  model.connect('3', '5');
+  model.connect('5', '6');
+  model.connect('5', '2');
+  model.connect('8', '7');
+  model.connect('6', '2');
+  TopoSorter<char> topoSorter(&model, &intKeyHash);
+  DLinkedList<char> result = topoSorter.sort(TopoSorter<char>::DFS);
+
+  cout << "DFS Topological Sort: ";
+  for (auto it = result.begin(); it != result.end(); it++) {
+    cout << *it << "->";
+  }
+  cout << "NULL";
+
+  model.clear();cout << endl;
+}
+
+
+void sort_topo04() {
+  string name = "sort_topo04";
+  
+  DGraphModel<char> model(&charComparator, &vertex2str);
+  char vertices[] = {'1', '2', '3', '4', '5', '6', '7', '8'};
+  for (int idx = 0; idx < 8; idx++) {
+    model.add(vertices[idx]);
+  }
+  model.connect('1', '6');
+  model.connect('1', '5');
+  model.connect('1', '3');
+  model.connect('4', '3');
+  model.connect('3', '5');
+  model.connect('5', '6');
+  model.connect('5', '2');
+  model.connect('8', '7');
+  model.connect('6', '2');
+  TopoSorter<char> topoSorter(&model, &intKeyHash);
+  DLinkedList<char> result = topoSorter.sort(TopoSorter<char>::BFS);
+
+  cout << "BFS Topological Sort: ";
+  for (auto it = result.begin(); it != result.end(); it++) {
+    cout << *it << "->";
+  }
+  cout << "NULL";
+
+  model.clear();cout << endl;
+}
+
+void sort_topo05() {
+    string name = "sort_topo05";
+  
+    DLinkedListSE<int> data;
+    data.add(1);
+    data.add(2);
+    data.add(0);
+    data.add(3);
+    data.add(3);
+    data.add(8);
+    data.add(9);
+    data.sort();
+
+
+    cout << data.toString();
+
+    cout << "\nduyet nguoc : [";
+    for (auto it = data.bbegin(); it != data.bend(); it--) {
+       
+        if (it != data.bbegin()) cout << ", "; // Thêm dấu phẩy
+         cout << *it;
+    }
+    cout << "]";cout << endl;
+}
+
+int compare(int& lhs, int& rhs) {
+    if (lhs > rhs) return -1; // lhs lớn hơn rhs -> giữ nguyên thứ tự
+    else if (lhs < rhs) return 1; // lhs nhỏ hơn rhs -> đảo thứ tự
+    else return 0; // Bằng nhau
+}
+void sort_topo06() {
+    string name = "sort_topo06";
+  
+    DLinkedListSE<int> data;
+    data.add(1);
+    data.add(2);
+    data.add(0);
+    data.add(3);
+    data.add(3);
+    data.add(8);
+    data.add(9);
+    data.sort(&compare);
+
+    cout << data.toString();
+    cout << "\nduyet nguoc : [";
+    for (auto it = data.bbegin(); it != data.bend(); it--) {
+    if (it != data.bbegin()) cout << ", "; // Thêm dấu phẩy
+        cout << *it;
+    }
+    cout << "]";cout << endl;
+}
+
+void sort_topo07() {
+  string name = "sort_topo07";
+  
+  DGraphModel<char> model(&charComparator, &vertex2str);
+  char vertices[] = {'A','B','C','D','E'};
+  for (int idx = 0; idx < 5; idx++) {
+    model.add(vertices[idx]);
+  }
+  model.connect('A', 'B');
+  model.connect('B', 'D');
+  model.connect('B', 'C');
+  model.connect('B', 'E');
+
+  TopoSorter<char> topoSorter(&model, &intKeyHash);
+  DLinkedList<char> result = topoSorter.sort(TopoSorter<char>::BFS);
+
+  cout << "BFS Topological Sort: ";
+  for (auto it = result.begin(); it != result.end(); it++) {
+    cout << *it << "->";
+  }
+  cout << "NULL";
+
+
+  model.clear();cout << endl;
+}
+void sort_topo08() {
+  string name = "sort_topo08";
+  
+  DGraphModel<char> model(&charComparator, &vertex2str);
+  char vertices[] = {'A','B','C','D','E'};
+  for (int idx = 0; idx < 5; idx++) {
+    model.add(vertices[idx]);
+  }
+  model.connect('A', 'B');
+  model.connect('B', 'D');
+  model.connect('B', 'C');
+  model.connect('B', 'E');
+
+  TopoSorter<char> topoSorter(&model, &intKeyHash);
+  DLinkedList<char> result = topoSorter.sort(TopoSorter<char>::DFS);
+
+  cout << "DFS Topological Sort: ";
+  for (auto it = result.begin(); it != result.end(); it++) {
+    cout << *it << "->";
+  }
+  cout << "NULL";
+
+
+  model.clear();cout << endl;
+}
+
+void sort_topo09()
+{
+    string name = "sort_topo09";
+    DGraphModel<char> model(&charComparator, &vertex2str);
+    char vertices[] = {'F','G','B', 'C', 'D', 'E', 'A'};
+    for (int idx = 0; idx < 7; idx++)
+    {
+        model.add(vertices[idx]);
+    }
+    model.connect('A', 'B');
+    model.connect('B', 'D');
+    model.connect('B', 'C');
+    model.connect('B', 'E');
+    model.connect('C', 'G');
+    model.connect('G', 'F');
+    model.connect('E', 'F');
+    TopoSorter<char> topoSorter(&model, &intKeyHash);
+    DLinkedList<char> result = topoSorter.sort(TopoSorter<char>::BFS);
+  
+    cout << "BFS Topological Sort: ";
+    for (auto it = result.begin(); it != result.end(); it++)
+    {
+        cout << *it << "->";
+    }
+    cout << "NULL";
+
+  
+    model.clear();cout << endl;
+}
+
+void sort_topo10()
+{
+    string name = "sort_topo10";
+    DGraphModel<char> model(&charComparator, &vertex2str);
+    char vertices[] = {'F','G','B', 'C', 'D', 'E', 'A'};
+    for (int idx = 0; idx < 7; idx++)
+    {
+        model.add(vertices[idx]);
+    }
+    model.connect('A', 'B');
+    model.connect('B', 'D');
+    model.connect('B', 'C');
+    model.connect('B', 'E');
+    model.connect('C', 'G');
+    model.connect('G', 'F');
+    model.connect('E', 'F');
+
+    TopoSorter<char> topoSorter(&model, &intKeyHash);
+    DLinkedList<char> result = topoSorter.sort(TopoSorter<char>::DFS);
+  
+    cout << "DFS Topological Sort: ";
+    for (auto it = result.begin(); it != result.end(); it++)
+    {
+        cout << *it << "->";
+    }
+    cout << "NULL";
+
+    model.clear();cout << endl;
+}
+
+void sort_topo11()
+{
+    string name = "sort_topo11";
+    DGraphModel<char> model(&charComparator, &vertex2str);
+    char vertices[] = {'F', 'G', 'B', 'C', 'D', 'E', 'A', 'X', 'Y', 'V'};
+    for (int idx = 0; idx < 10; idx++)
+    {
+        model.add(vertices[idx]);
+    }
+    model.connect('A', 'B');
+    model.connect('B', 'D');
+    model.connect('B', 'C');
+    model.connect('B', 'E');
+    model.connect('C', 'G');
+    model.connect('G', 'F');
+    model.connect('E', 'F');
+    model.connect('F', 'Y');
+    model.connect('F', 'V');
+    model.connect('D', 'X');
+    model.connect('X', 'Y');
+    model.connect('Y', 'V');
+    TopoSorter<char> topoSorter(&model, &intKeyHash);
+    DLinkedList<char> result = topoSorter.sort(TopoSorter<char>::BFS);
+  
+    cout << "BFS Topological Sort: ";
+    for (auto it = result.begin(); it != result.end(); it++)
+    {
+        cout << *it << "->";
+    }
+    cout << "NULL";
+
+  
+    model.clear();cout << endl;
+}
+
+void sort_topo12()
+{
+    string name = "sort_topo12";
+    DGraphModel<char> model(&charComparator, &vertex2str);
+     char vertices[] = {'F', 'G', 'B', 'C', 'D', 'E', 'A', 'X', 'Y', 'V'};
+    for (int idx = 0; idx < 10; idx++)
+    {
+        model.add(vertices[idx]);
+    }
+    model.connect('A', 'B');
+    model.connect('B', 'D');
+    model.connect('B', 'C');
+    model.connect('B', 'E');
+    model.connect('C', 'G');
+    model.connect('G', 'F');
+    model.connect('E', 'F');
+    model.connect('F', 'Y');
+    model.connect('D', 'X');
+    model.connect('X', 'Y');
+    model.connect('Y', 'V');
+
+    TopoSorter<char> topoSorter(&model, &intKeyHash);
+    DLinkedList<char> result = topoSorter.sort(TopoSorter<char>::DFS);
+  
+    cout << "DFS Topological Sort: ";
+    for (auto it = result.begin(); it != result.end(); it++)
+    {
+        cout << *it << "->";
+    }
+    cout << "NULL";
+
+    model.clear();cout << endl;
+}
+
+void sort_topo13()
+{
+    string name = "sort_topo13";
+    DGraphModel<char> model(&charComparator, &vertex2str);
+     char vertices[] = {'F', 'G', 'B', 'C', 'D', 'E', 'A', 'X', 'Y', 'V'};
+    for (int idx = 0; idx < 10; idx++)
+    {
+        model.add(vertices[idx]);
+    }
+    model.connect('A', 'B');
+    model.connect('C', 'G');
+    model.connect('G', 'F');
+    model.connect('E', 'F');
+    model.connect('F', 'Y');
+    model.connect('D', 'X');
+    model.connect('X', 'Y');
+    model.connect('Y', 'V');
+
+    TopoSorter<char> topoSorter(&model, &intKeyHash);
+    DLinkedList<char> result = topoSorter.sort(TopoSorter<char>::DFS);
+  
+    cout << "DFS Topological Sort: ";
+    for (auto it = result.begin(); it != result.end(); it++)
+    {
+        cout << *it << "->";
+    }
+    cout << "NULL";
+
+  
+    model.clear();cout << endl;
+}
+
+void sort_topo14()
+{
+    string name = "sort_topo14";
+    DGraphModel<char> model(&charComparator, &vertex2str);
+     char vertices[] = {'F', 'G', 'B', 'C', 'D', 'E', 'A', 'X', 'Y', 'V'};
+    for (int idx = 0; idx < 10; idx++)
+    {
+        model.add(vertices[idx]);
+    }
+    model.connect('A', 'B');
+    model.connect('C', 'G');
+    model.connect('G', 'F');
+    model.connect('E', 'F');
+    model.connect('F', 'Y');
+    model.connect('D', 'X');
+    model.connect('X', 'Y');
+    model.connect('Y', 'V');
+
+    TopoSorter<char> topoSorter(&model, &intKeyHash);
+    DLinkedList<char> result = topoSorter.bfsSort(false);
+  
+    cout << "BFS Topological Sort: ";
+    for (auto it = result.begin(); it != result.end(); it++)
+    {
+        cout << *it << "->";
+    }
+    cout << "NULL";
+
+  
+    model.clear();cout << endl;
+}
+
+void sort_topo15()
+{
+    string name = "sort_topo15";
+    DGraphModel<char> model(&charComparator, &vertex2str);
+     char vertices[] = {'F', 'G', 'B', 'C', 'D', 'E', 'A', 'X', 'Y', 'V'};
+    for (int idx = 0; idx < 10; idx++)
+    {
+        model.add(vertices[idx]);
+    }
+    model.connect('F', 'Y');
+    model.connect('D', 'X');
+    model.connect('X', 'Y');
+    model.connect('Y', 'V');
+
+    TopoSorter<char> topoSorter(&model, &intKeyHash);
+    DLinkedList<char> result = topoSorter.dfsSort(false);
+  
+    cout << "DFS Topological Sort: ";
+    for (auto it = result.begin(); it != result.end(); it++)
+    {
+        cout << *it << "->";
+    }
+    cout << "NULL";
+
+  
+    model.clear();cout << endl;
+}
+
+void sort_topo16() {
+  string name = "sort_topo16";
+  DGraphModel<char> model(&charComparator, &vertex2str);
+  char vertices[] = {'A', 'B', 'C', 'D'};
+  for (int idx = 0; idx < 4; idx++) {
+    model.add(vertices[idx]);
+  }
+  TopoSorter<char> topoSorter(&model, &intKeyHash);
+  DLinkedList<char> result = topoSorter.sort(TopoSorter<char>::DFS);
+
+  cout << "DFS Topological Sort: ";
+  for (auto it = result.begin(); it != result.end(); it++) {
+    cout << *it << "->";
+  }
+  cout << "NULL";
+
+
+  model.clear();cout << endl;
+}
+
+
+void sort_topo17() {
+  string name = "sort_topo17";
+  DGraphModel<char> model(&charComparator, &vertex2str);
+  char vertices[] = {'A', 'B', 'C', 'D'};
+  for (int idx = 0; idx < 4; idx++) {
+    model.add(vertices[idx]);
+  }
+  TopoSorter<char> topoSorter(&model, &intKeyHash);
+  DLinkedList<char> result = topoSorter.sort(TopoSorter<char>::BFS);
+
+  cout << "BFS Topological Sort: ";
+  for (auto it = result.begin(); it != result.end(); it++) {
+    cout << *it << "->";
+  }
+  cout << "NULL";
+
+
+  model.clear();cout << endl;
+}
+
+
+void sort_topo18() {
+  string name = "sort_topo18";
+  
+  DGraphModel<char> model(&charComparator, &vertex2str);
+
+  TopoSorter<char> topoSorter(&model, &intKeyHash);
+  DLinkedList<char> result = topoSorter.sort(TopoSorter<char>::BFS);
+
+  cout << "BFS Topological Sort: ";
+  for (auto it = result.begin(); it != result.end(); it++) {
+    cout << *it << "->";
+  }
+  cout << "NULL";
+
+
+  model.clear();cout << endl;
+}
+
+
+void sort_topo19() {
+  string name = "sort_topo19";
+  DGraphModel<char> model(&charComparator, &vertex2str);
+
+  TopoSorter<char> topoSorter(&model, &intKeyHash);
+  DLinkedList<char> result = topoSorter.sort(TopoSorter<char>::DFS);
+
+  string expect = "DFS Topological Sort: NULL";
+
+
+  cout << "DFS Topological Sort: ";
+  for (auto it = result.begin(); it != result.end(); it++) {
+    cout << *it << "->";
+  }
+  cout << "NULL";
+  model.clear();cout << endl;
+}
+
+
+void sort_topo20() {
+  string name = "sort_topo20";
+  DGraphModel<char> model(&charComparator, &vertex2str);
+  char vertices[] = {'1', '2', '3', '4', '5', '6', '7', '8'};
+  for (int idx = 0; idx < 8; idx++) {
+    model.add(vertices[idx]);
+  }
+  model.connect('1', '6');
+  model.connect('1', '5');
+  model.connect('1', '3');
+  model.connect('1', '2');
+  model.connect('1', '4');
+  model.connect('1', '7');
+  model.connect('1', '8');
+  TopoSorter<char> topoSorter(&model, &intKeyHash);
+  DLinkedList<char> result = topoSorter.sort(TopoSorter<char>::DFS);
+
+  cout << "DFS Topological Sort: ";
+  for (auto it = result.begin(); it != result.end(); it++) {
+    cout << *it << "->";
+  }
+  cout << "NULL";
+  model.clear();cout << endl;
+}
+
+
+void sort_topo21() {
+  string name = "sort_topo21";
+  DGraphModel<char> model(&charComparator, &vertex2str);
+  char vertices[] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
+  for (int idx = 0; idx < 10; idx++) {
+    model.add(vertices[idx]);
+  }
+  model.connect('0', '1');
+  model.connect('0', '5');
+  model.connect('1', '7');
+  model.connect('3', '2');
+  model.connect('3', '4');
+  model.connect('3', '7');
+  model.connect('3', '8');
+  model.connect('4', '8');
+  model.connect('6', '0');
+  model.connect('6', '1');
+  model.connect('6', '2');
+  model.connect('8', '2');
+  model.connect('8', '7');
+  model.connect('9', '4');
+  TopoSorter<char> topoSorter(&model, &intKeyHash);
+  DLinkedList<char> result = topoSorter.sort(TopoSorter<char>::DFS);
+
+  cout << "DFS Topological Sort: ";
+  for (auto it = result.begin(); it != result.end(); it++) {
+    cout << *it << "->";
+  }
+  cout << "NULL";
+
+  model.clear();cout << endl;
+}
+
+
+void sort_topo22() {
+  string name = "sort_topo22";
+  DGraphModel<char> model(&charComparator, &vertex2str);
+  char vertices[] = {'1', '2', '3', '7', '8', '6', '4', '5'};
+  for (int idx = 0; idx < 8; idx++) {
+    model.add(vertices[idx]);
+  }
+  TopoSorter<char> topoSorter(&model, &intKeyHash);
+  DLinkedList<char> result = topoSorter.sort(TopoSorter<char>::BFS);
+
+  cout << "BFS Topological Sort: ";
+  for (auto it = result.begin(); it != result.end(); it++) {
+    cout << *it << "->";
+  }
+  cout << "NULL";
+
+
+  model.clear();cout << endl;
+}
+
+
+void sort_topo23() {
+  string name = "sort_topo23";
+  DGraphModel<char> model(&charComparator, &vertex2str);
+  char vertices[] = {'1', '2', '3', '7', '8', '6', '4', '5'};
+  for (int idx = 0; idx < 8; idx++) {
+    model.add(vertices[idx]);
+  }
+  TopoSorter<char> topoSorter(&model, &intKeyHash);
+  DLinkedList<char> result = topoSorter.sort(TopoSorter<char>::DFS);
+
+  cout << "DFS Topological Sort: ";
+  for (auto it = result.begin(); it != result.end(); it++) {
+    cout << *it << "->";
+  }
+  cout << "NULL";
+
+  model.clear();cout << endl;
+}
+
+
+void sort_topo24() {
+  string name = "sort_topo24";
+  DGraphModel<char> model(&charComparator, &vertex2str);
+  char vertices[] = {'1', '2', '3', '7', '8', '6', '4', '5'};
+  for (int idx = 0; idx < 8; idx++) {
+    model.add(vertices[idx]);
+  }
+  model.connect('1', '2');
+  model.connect('1', '3');
+  model.connect('1', '2');
+  model.connect('1', '7');
+  model.connect('1', '8');
+  model.connect('1', '6');
+  model.connect('1', '4');
+  model.connect('1', '5');
+
+  TopoSorter<char> topoSorter(&model, &intKeyHash);
+  DLinkedList<char> result = topoSorter.sort(TopoSorter<char>::DFS);
+
+  cout << "DFS Topological Sort: ";
+  for (auto it = result.begin(); it != result.end(); it++) {
+    cout << *it << "->";
+  }
+  cout << "NULL";
+
+
+  model.clear();cout << endl;
+}
+
+
+void sort_topo25() {
+  string name = "sort_topo25";
+  DGraphModel<char> model(&charComparator, &vertex2str);
+  char vertices[] = {'1', '2', '3', '7', '8', '6', '4', '5'};
+  for (int idx = 0; idx < 8; idx++) {
+    model.add(vertices[idx]);
+  }
+  model.connect('1', '2');
+  model.connect('1', '3');
+  model.connect('1', '2');
+  model.connect('1', '7');
+  model.connect('1', '8');
+  model.connect('1', '6');
+  model.connect('1', '4');
+  model.connect('1', '5');
+
+  TopoSorter<char> topoSorter(&model, &intKeyHash);
+  DLinkedList<char> result = topoSorter.sort(TopoSorter<char>::BFS);
+
+  cout << "BFS Topological Sort: ";
+  for (auto it = result.begin(); it != result.end(); it++) {
+    cout << *it << "->";
+  }
+  cout << "NULL";
+
+
+  model.clear();cout << endl;
+}
+
 
 void runDemo() {
     std::cout << "Direct Graph Demo 1" << std::endl;
@@ -1841,6 +2502,11 @@ void (*testFuncs[])() = {
     new_testgraph32,
     new_testgraph33,
     new_testgraph34,
+    sort_topo01, sort_topo02, sort_topo03, sort_topo04, sort_topo05, 
+    sort_topo06, sort_topo07, sort_topo08, sort_topo09, sort_topo10, 
+    sort_topo11, sort_topo12, sort_topo13, sort_topo14, sort_topo15, 
+    sort_topo16, sort_topo17, sort_topo18, sort_topo19, sort_topo20, 
+    sort_topo21, sort_topo22, sort_topo23, sort_topo24, sort_topo25 
 };
 
 int main(int argc, char* argv[]) {

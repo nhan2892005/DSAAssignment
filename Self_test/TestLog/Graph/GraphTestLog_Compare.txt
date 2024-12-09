@@ -1,0 +1,566 @@
+Task 41 - Line 2:
+Expected: Error: Vertex (X): is not found
+Output: Error: @5
+Task 41 - Line 3:
+Expected: 
+Output: Error: @5
+Task 41 - Line 4:
+Expected: Error: Vertex (Y): is not found
+Output: Error: @5
+Task 41 - Line 5:
+Expected: 
+Output: ==================================================
+Task 41 - Line 6:
+Expected: Error: Edge (E(A,C)): is not found
+Output: Vertices:   
+Task 41 - Line 7:
+Expected: 
+Output: V(A, in: 1, out: 1)
+Task 41 - Line 8:
+Expected: ==================================================
+Output: V(B, in: 1, out: 1)
+Task 41 - Line 9:
+Expected: Vertices:   
+Output: V(C, in: 0, out: 0)
+Task 41 - Line 10:
+Expected: V(A, in: 1, out: 1)
+Output: V(D, in: 0, out: 0)
+Task 41 - Line 11:
+Expected: V(B, in: 1, out: 1)
+Output: ------------------------------
+Task 41 - Line 12:
+Expected: V(C, in: 0, out: 0)
+Output: Edges:      
+Task 41 - Line 13:
+Expected: V(D, in: 0, out: 0)
+Output: E(A,B,5)
+Task 41 - Line 14:
+Expected: ------------------------------
+Output: E(B,A,5)
+Task 41 - Line 15:
+Expected: Edges:      
+Output: ==================================================
+Task 41 - Line 16:
+Expected: E(A,B,5)
+Output: Task 41 - Line 17:
+Expected: E(B,A,5)
+Output: Task 41 - Line 18:
+Expected: ==================================================
+Output: Task 42 - Line 3:
+Expected: Error: Vertex (X): is not found
+Output: Error: @5
+Task 42 - Line 4:
+Expected: 
+Output: ==================================================
+Task 42 - Line 5:
+Expected: ==================================================
+Output: Vertices:   
+Task 42 - Line 6:
+Expected: Vertices:   
+Output: V(A, in: 0, out: 2)
+Task 42 - Line 7:
+Expected: V(A, in: 0, out: 2)
+Output: V(B, in: 1, out: 0)
+Task 42 - Line 8:
+Expected: V(B, in: 1, out: 0)
+Output: V(C, in: 1, out: 0)
+Task 42 - Line 9:
+Expected: V(C, in: 1, out: 0)
+Output: V(D, in: 0, out: 0)
+Task 42 - Line 10:
+Expected: V(D, in: 0, out: 0)
+Output: ------------------------------
+Task 42 - Line 11:
+Expected: ------------------------------
+Output: Edges:      
+Task 42 - Line 12:
+Expected: Edges:      
+Output: E(A,B,5)
+Task 42 - Line 13:
+Expected: E(A,B,5)
+Output: E(A,C,1)
+Task 42 - Line 14:
+Expected: E(A,C,1)
+Output: ==================================================
+Task 42 - Line 15:
+Expected: ==================================================
+Output: Task 43 - Line 3:
+Expected: Error: Vertex (X): is not found
+Output: Error: @5
+Task 43 - Line 4:
+Expected: 
+Output: ==================================================
+Task 43 - Line 5:
+Expected: ==================================================
+Output: Vertices:   
+Task 43 - Line 6:
+Expected: Vertices:   
+Output: V(A, in: 0, out: 2)
+Task 43 - Line 7:
+Expected: V(A, in: 0, out: 2)
+Output: V(B, in: 1, out: 0)
+Task 43 - Line 8:
+Expected: V(B, in: 1, out: 0)
+Output: V(C, in: 1, out: 0)
+Task 43 - Line 9:
+Expected: V(C, in: 1, out: 0)
+Output: V(D, in: 0, out: 0)
+Task 43 - Line 10:
+Expected: V(D, in: 0, out: 0)
+Output: ------------------------------
+Task 43 - Line 11:
+Expected: ------------------------------
+Output: Edges:      
+Task 43 - Line 12:
+Expected: Edges:      
+Output: E(A,B,5)
+Task 43 - Line 13:
+Expected: E(A,B,5)
+Output: E(A,C,1)
+Task 43 - Line 14:
+Expected: E(A,C,1)
+Output: ==================================================
+Task 43 - Line 15:
+Expected: ==================================================
+Output: Task 44 - Line 2:
+Expected: Error: Vertex (X): is not found
+Output: Error: @5
+Task 44 - Line 3:
+Expected: 
+Output: ==================================================
+Task 44 - Line 4:
+Expected: ==================================================
+Output: Vertices:   
+Task 44 - Line 5:
+Expected: Vertices:   
+Output: V(A, in: 0, out: 2)
+Task 44 - Line 6:
+Expected: V(A, in: 0, out: 2)
+Output: V(B, in: 1, out: 0)
+Task 44 - Line 7:
+Expected: V(B, in: 1, out: 0)
+Output: V(C, in: 1, out: 0)
+Task 44 - Line 8:
+Expected: V(C, in: 1, out: 0)
+Output: V(D, in: 0, out: 0)
+Task 44 - Line 9:
+Expected: V(D, in: 0, out: 0)
+Output: ------------------------------
+Task 44 - Line 10:
+Expected: ------------------------------
+Output: Edges:      
+Task 44 - Line 11:
+Expected: Edges:      
+Output: E(A,B,5)
+Task 44 - Line 12:
+Expected: E(A,B,5)
+Output: E(A,C,1)
+Task 44 - Line 13:
+Expected: E(A,C,1)
+Output: ==================================================
+Task 44 - Line 14:
+Expected: ==================================================
+Output: Task 45 - Line 2:
+Expected: Error: Vertex (X): is not found
+Output: Error: @5
+Task 45 - Line 3:
+Expected: 
+Output: ==================================================
+Task 45 - Line 4:
+Expected: ==================================================
+Output: Vertices:   
+Task 45 - Line 5:
+Expected: Vertices:   
+Output: V(A, in: 0, out: 2)
+Task 45 - Line 6:
+Expected: V(A, in: 0, out: 2)
+Output: V(B, in: 1, out: 0)
+Task 45 - Line 7:
+Expected: V(B, in: 1, out: 0)
+Output: V(C, in: 1, out: 0)
+Task 45 - Line 8:
+Expected: V(C, in: 1, out: 0)
+Output: V(D, in: 0, out: 0)
+Task 45 - Line 9:
+Expected: V(D, in: 0, out: 0)
+Output: ------------------------------
+Task 45 - Line 10:
+Expected: ------------------------------
+Output: Edges:      
+Task 45 - Line 11:
+Expected: Edges:      
+Output: E(A,B,5)
+Task 45 - Line 12:
+Expected: E(A,B,5)
+Output: E(A,C,1)
+Task 45 - Line 13:
+Expected: E(A,C,1)
+Output: ==================================================
+Task 45 - Line 14:
+Expected: ==================================================
+Output: Task 46 - Line 2:
+Expected: Error: Vertex (X): is not found
+Output: Error: @5
+Task 46 - Line 3:
+Expected: 
+Output: Error: @5
+Task 46 - Line 4:
+Expected: Error: Vertex (Y): is not found
+Output: ==================================================
+Task 46 - Line 5:
+Expected: 
+Output: Vertices:   
+Task 46 - Line 6:
+Expected: ==================================================
+Output: V(A, in: 1, out: 1)
+Task 46 - Line 7:
+Expected: Vertices:   
+Output: V(B, in: 1, out: 1)
+Task 46 - Line 8:
+Expected: V(A, in: 1, out: 1)
+Output: V(C, in: 0, out: 0)
+Task 46 - Line 9:
+Expected: V(B, in: 1, out: 1)
+Output: V(D, in: 0, out: 0)
+Task 46 - Line 10:
+Expected: V(C, in: 0, out: 0)
+Output: ------------------------------
+Task 46 - Line 11:
+Expected: V(D, in: 0, out: 0)
+Output: Edges:      
+Task 46 - Line 12:
+Expected: ------------------------------
+Output: E(A,B,5)
+Task 46 - Line 13:
+Expected: Edges:      
+Output: E(B,A,5)
+Task 46 - Line 14:
+Expected: E(A,B,5)
+Output: ==================================================
+Task 46 - Line 15:
+Expected: E(B,A,5)
+Output: Task 46 - Line 16:
+Expected: ==================================================
+Output: Task 47 - Line 1:
+Expected: Error: Vertex (X): is not found
+Output: Error: @5
+Task 47 - Line 2:
+Expected: 
+Output: Error: @5
+Task 47 - Line 3:
+Expected: Error: Vertex (Y): is not found
+Output: ==================================================
+Task 47 - Line 4:
+Expected: 
+Output: Vertices:   
+Task 47 - Line 5:
+Expected: ==================================================
+Output: V(A, in: 0, out: 1)
+Task 47 - Line 6:
+Expected: Vertices:   
+Output: V(B, in: 1, out: 0)
+Task 47 - Line 7:
+Expected: V(A, in: 0, out: 1)
+Output: V(C, in: 0, out: 0)
+Task 47 - Line 8:
+Expected: V(B, in: 1, out: 0)
+Output: V(D, in: 0, out: 0)
+Task 47 - Line 9:
+Expected: V(C, in: 0, out: 0)
+Output: ------------------------------
+Task 47 - Line 10:
+Expected: V(D, in: 0, out: 0)
+Output: Edges:      
+Task 47 - Line 11:
+Expected: ------------------------------
+Output: E(A,B,5)
+Task 47 - Line 12:
+Expected: Edges:      
+Output: ==================================================
+Task 47 - Line 13:
+Expected: E(A,B,5)
+Output: Task 47 - Line 14:
+Expected: ==================================================
+Output: Task 48 - Line 1:
+Expected: Error: Vertex (X): is not found
+Output: Error: @5
+Task 48 - Line 2:
+Expected: 
+Output: Error: @5
+Task 48 - Line 3:
+Expected: Error: Vertex (Y): is not found
+Output: ==================================================
+Task 48 - Line 4:
+Expected: 
+Output: Vertices:   
+Task 48 - Line 5:
+Expected: ==================================================
+Output: V(A, in: 1, out: 1)
+Task 48 - Line 6:
+Expected: Vertices:   
+Output: V(B, in: 1, out: 1)
+Task 48 - Line 7:
+Expected: V(A, in: 1, out: 1)
+Output: V(C, in: 0, out: 0)
+Task 48 - Line 8:
+Expected: V(B, in: 1, out: 1)
+Output: V(D, in: 0, out: 0)
+Task 48 - Line 9:
+Expected: V(C, in: 0, out: 0)
+Output: ------------------------------
+Task 48 - Line 10:
+Expected: V(D, in: 0, out: 0)
+Output: Edges:      
+Task 48 - Line 11:
+Expected: ------------------------------
+Output: E(A,B,5)
+Task 48 - Line 12:
+Expected: Edges:      
+Output: E(B,A,5)
+Task 48 - Line 13:
+Expected: E(A,B,5)
+Output: ==================================================
+Task 48 - Line 14:
+Expected: E(B,A,5)
+Output: Task 48 - Line 15:
+Expected: ==================================================
+Output: Task 49 - Line 1:
+Expected: Error: Vertex (X): is not found
+Output: Error: @5
+Task 49 - Line 2:
+Expected: 
+Output: Error: @5
+Task 49 - Line 3:
+Expected: Error: Vertex (Y): is not found
+Output: Error: @5
+Task 49 - Line 4:
+Expected: 
+Output: ==================================================
+Task 49 - Line 5:
+Expected: Error: Edge (E(A,B)): is not found
+Output: Vertices:   
+Task 49 - Line 6:
+Expected: 
+Output: V(A, in: 0, out: 0)
+Task 49 - Line 7:
+Expected: ==================================================
+Output: V(B, in: 0, out: 0)
+Task 49 - Line 8:
+Expected: Vertices:   
+Output: V(C, in: 0, out: 0)
+Task 49 - Line 9:
+Expected: V(A, in: 0, out: 0)
+Output: V(D, in: 0, out: 0)
+Task 49 - Line 10:
+Expected: V(B, in: 0, out: 0)
+Output: ------------------------------
+Task 49 - Line 11:
+Expected: V(C, in: 0, out: 0)
+Output: Edges:      
+Task 49 - Line 12:
+Expected: V(D, in: 0, out: 0)
+Output: ==================================================
+Task 49 - Line 13:
+Expected: ------------------------------
+Output: Task 49 - Line 14:
+Expected: Edges:      
+Output: Task 49 - Line 15:
+Expected: ==================================================
+Output: Task 50 - Line 1:
+Expected: Error: Vertex (X): is not found
+Output: Error: @5
+Task 50 - Line 2:
+Expected: 
+Output: Error: @5
+Task 50 - Line 3:
+Expected: Error: Vertex (Y): is not found
+Output: Error: @5
+Task 50 - Line 4:
+Expected: 
+Output: ==================================================
+Task 50 - Line 5:
+Expected: Error: Edge (E(A,B)): is not found
+Output: Vertices:   
+Task 50 - Line 6:
+Expected: 
+Output: V(A, in: 0, out: 0)
+Task 50 - Line 7:
+Expected: ==================================================
+Output: V(B, in: 0, out: 0)
+Task 50 - Line 8:
+Expected: Vertices:   
+Output: V(C, in: 0, out: 0)
+Task 50 - Line 9:
+Expected: V(A, in: 0, out: 0)
+Output: V(D, in: 0, out: 0)
+Task 50 - Line 10:
+Expected: V(B, in: 0, out: 0)
+Output: ------------------------------
+Task 50 - Line 11:
+Expected: V(C, in: 0, out: 0)
+Output: Edges:      
+Task 50 - Line 12:
+Expected: V(D, in: 0, out: 0)
+Output: ==================================================
+Task 50 - Line 13:
+Expected: ------------------------------
+Output: Task 50 - Line 14:
+Expected: Edges:      
+Output: Task 50 - Line 15:
+Expected: ==================================================
+Output: Task 51 - Line 1:
+Expected: Error: Vertex (X): is not found
+Output: Error: @5
+Task 51 - Line 2:
+Expected: 
+Output: ==================================================
+Task 51 - Line 3:
+Expected: ==================================================
+Output: Vertices:   
+Task 51 - Line 4:
+Expected: Vertices:   
+Output: V(C, in: 0, out: 0)
+Task 51 - Line 5:
+Expected: V(C, in: 0, out: 0)
+Output: V(D, in: 0, out: 0)
+Task 51 - Line 6:
+Expected: V(D, in: 0, out: 0)
+Output: ------------------------------
+Task 51 - Line 7:
+Expected: ------------------------------
+Output: Edges:      
+Task 51 - Line 8:
+Expected: Edges:      
+Output: ==================================================
+Task 51 - Line 9:
+Expected: ==================================================
+Output: Task 52 - Line 1:
+Expected: Error: Vertex (X): is not found
+Output: Error: @5
+Task 52 - Line 2:
+Expected: 
+Output: ==================================================
+Task 52 - Line 3:
+Expected: ==================================================
+Output: Vertices:   
+Task 52 - Line 4:
+Expected: Vertices:   
+Output: V(C, in: 0, out: 0)
+Task 52 - Line 5:
+Expected: V(C, in: 0, out: 0)
+Output: V(D, in: 0, out: 0)
+Task 52 - Line 6:
+Expected: V(D, in: 0, out: 0)
+Output: ------------------------------
+Task 52 - Line 7:
+Expected: ------------------------------
+Output: Edges:      
+Task 52 - Line 8:
+Expected: Edges:      
+Output: ==================================================
+Task 52 - Line 9:
+Expected: ==================================================
+Output: Task 53 - Line 0:
+Expected: Output: Task 53---------------------------------------------------
+Task 53 - Line 1:
+Expected: Output: 0 A B C D 1
+Task 54 - Line 0:
+Expected: Output: Task 54---------------------------------------------------
+Task 54 - Line 1:
+Expected: Output: C 0 C D B A A 1
+Task 55 - Line 0:
+Expected: Output: Task 55---------------------------------------------------
+Task 55 - Line 1:
+Expected: Output: DFS Topological Sort: 1->4->3->5->2->6->8->7->NULL
+Task 56 - Line 0:
+Expected: Output: Task 56---------------------------------------------------
+Task 56 - Line 1:
+Expected: Output: BFS Topological Sort: 1->4->8->3->7->5->6->2->NULL
+Task 57 - Line 0:
+Expected: Output: Task 57---------------------------------------------------
+Task 57 - Line 1:
+Expected: Output: [0, 1, 2, 3, 3, 8, 9]
+Task 57 - Line 2:
+Expected: Output: duyet nguoc : [9, 8, 3, 3, 2, 1, 0]
+Task 58 - Line 0:
+Expected: Output: Task 58---------------------------------------------------
+Task 58 - Line 1:
+Expected: Output: [9, 8, 3, 3, 2, 1, 0]
+Task 58 - Line 2:
+Expected: Output: duyet nguoc : [0, 1, 2, 3, 3, 8, 9]
+Task 59 - Line 0:
+Expected: Output: Task 59---------------------------------------------------
+Task 59 - Line 1:
+Expected: Output: BFS Topological Sort: A->B->C->D->E->NULL
+Task 60 - Line 0:
+Expected: Output: Task 60---------------------------------------------------
+Task 60 - Line 1:
+Expected: Output: DFS Topological Sort: A->B->C->D->E->NULL
+Task 61 - Line 0:
+Expected: Output: Task 61---------------------------------------------------
+Task 61 - Line 1:
+Expected: Output: BFS Topological Sort: A->B->C->D->E->G->F->NULL
+Task 62 - Line 0:
+Expected: Output: Task 62---------------------------------------------------
+Task 62 - Line 1:
+Expected: Output: DFS Topological Sort: A->B->D->E->C->G->F->NULL
+Task 63 - Line 0:
+Expected: Output: Task 63---------------------------------------------------
+Task 63 - Line 1:
+Expected: Output: BFS Topological Sort: A->B->C->D->E->G->X->F->Y->V->NULL
+Task 64 - Line 0:
+Expected: Output: Task 64---------------------------------------------------
+Task 64 - Line 1:
+Expected: Output: DFS Topological Sort: A->B->E->D->X->C->G->F->Y->V->NULL
+Task 65 - Line 0:
+Expected: Output: Task 65---------------------------------------------------
+Task 65 - Line 1:
+Expected: Output: DFS Topological Sort: A->B->C->G->D->X->E->F->Y->V->NULL
+Task 66 - Line 0:
+Expected: Output: Task 66---------------------------------------------------
+Task 66 - Line 1:
+Expected: Output: BFS Topological Sort: C->D->E->A->G->X->B->F->Y->V->NULL
+Task 67 - Line 0:
+Expected: Output: Task 67---------------------------------------------------
+Task 67 - Line 1:
+Expected: Output: DFS Topological Sort: A->B->C->D->X->E->F->Y->V->G->NULL
+Task 68 - Line 0:
+Expected: Output: Task 68---------------------------------------------------
+Task 68 - Line 1:
+Expected: Output: DFS Topological Sort: D->A->B->C->NULL
+Task 69 - Line 0:
+Expected: Output: Task 69---------------------------------------------------
+Task 69 - Line 1:
+Expected: Output: BFS Topological Sort: A->B->C->D->NULL
+Task 70 - Line 0:
+Expected: Output: Task 70---------------------------------------------------
+Task 70 - Line 1:
+Expected: Output: BFS Topological Sort: NULL
+Task 71 - Line 0:
+Expected: Output: Task 71---------------------------------------------------
+Task 71 - Line 1:
+Expected: Output: DFS Topological Sort: NULL
+Task 72 - Line 0:
+Expected: Output: Task 72---------------------------------------------------
+Task 72 - Line 1:
+Expected: Output: DFS Topological Sort: 1->2->3->4->5->6->7->8->NULL
+Task 73 - Line 0:
+Expected: Output: Task 73---------------------------------------------------
+Task 73 - Line 1:
+Expected: Output: DFS Topological Sort: 3->6->0->5->1->9->4->8->2->7->NULL
+Task 74 - Line 0:
+Expected: Output: Task 74---------------------------------------------------
+Task 74 - Line 1:
+Expected: Output: BFS Topological Sort: 1->2->3->4->5->6->7->8->NULL
+Task 75 - Line 0:
+Expected: Output: Task 75---------------------------------------------------
+Task 75 - Line 1:
+Expected: Output: DFS Topological Sort: 1->2->3->4->5->6->7->8->NULL
+Task 76 - Line 0:
+Expected: Output: Task 76---------------------------------------------------
+Task 76 - Line 1:
+Expected: Output: DFS Topological Sort: 1->2->3->4->5->6->7->8->NULL
+Task 77 - Line 0:
+Expected: Output: Task 77---------------------------------------------------
+Task 77 - Line 1:
+Expected: Output: BFS Topological Sort: 1->2->3->4->5->6->7->8->NULL
