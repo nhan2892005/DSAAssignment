@@ -68,8 +68,15 @@ public:
         Queue<T> zeroInDegreeQueue;
         xMap<T, int> inDegreeMap(*hash_code);
 
+        DLinkedList<T> vertices = graph->vertices();
+        if (sorted) {
+            DLinkedListSE<T> sortedList(vertices);
+            sortedList.sort();
+            vertices = sortedList;
+        }
+
         // Initialize in-degree map
-        for (auto vertex : graph->vertices()) {
+        for (auto vertex : vertices) {
             inDegreeMap.put(vertex, graph->inDegree(vertex));
             if (graph->inDegree(vertex) == 0) {
                 zeroInDegreeQueue.push(vertex);
@@ -81,7 +88,14 @@ public:
             T vertex = zeroInDegreeQueue.pop();
             result.add(vertex);
 
-            for (auto neighbor : graph->getOutwardEdges(vertex)) {
+            DLinkedList<T> neighbors = graph->getOutwardEdges(vertex);
+            if (sorted) {
+                DLinkedListSE<T> neighborsSorted(neighbors);
+                neighborsSorted.sort();
+                neighbors = neighborsSorted;
+            }
+
+            for (auto neighbor : neighbors) {
                 int inDegree = inDegreeMap.get(neighbor) - 1;
                 inDegreeMap.put(neighbor, inDegree);
                 if (inDegree == 0) {
@@ -98,7 +112,7 @@ public:
     ? Functionality: 
         * Sorts the vertices of the graph in topological order using DFS.
     ? Parameters:
-        * sorted: true if the input graph is already sorted
+        * sorted: true -> need to sort vertices before Topo sort
         * Default: true
     ? Return:
         * A list of vertices in topological order.
@@ -106,16 +120,50 @@ public:
     DLinkedList<T> dfsSort(bool sorted=true){
         DLinkedList<T> result;
         xMap<T, bool> visited(*hash_code);
+        xMap<T, int> outDegrees = vertex2outDegree(hash_code);
+
+        // Get vertices and sort them if needed
+        DLinkedList<T> vertices = graph->vertices();
+        if (sorted) {
+            DLinkedListSE<T> sortedList(vertices);
+            sortedList.sort();
+            vertices = sortedList;
+        }
 
         // Initialize visited map
-        for (auto vertex : graph->vertices()) {
+        for (auto vertex : vertices) {
             visited.put(vertex, false);
         }
 
-        // Visit all vertices
-        for (auto vertex : graph->vertices()) {
-            if (!visited.get(vertex)) {
-                dfsVisit(vertex, visited, result);
+        DLinkedList<T> zeroInDegreeVertices = listOfZeroInDegrees();
+        Stack<T> Storage;
+
+        for (auto vertex : zeroInDegreeVertices) {
+            Storage.push(vertex);
+            while (!Storage.empty()) {
+                T curr_vertex = Storage.peek();
+
+                DLinkedList<T> neighbors = graph->getOutwardEdges(curr_vertex);
+                if (sorted) {
+                    DLinkedListSE<T> neighborsSorted(neighbors);
+                    neighborsSorted.sort();
+                    neighbors = neighborsSorted;
+                }
+
+                for (auto neighbor : neighbors) {
+                    if (!visited.get(neighbor)) {
+                        visited.put(neighbor, true);
+                        Storage.push(neighbor);
+                        if (outDegrees.get(neighbor) == 0) {
+                            continue;
+                        }
+                        break;
+                    }
+                }
+                if (curr_vertex == Storage.peek()) {
+                    Storage.pop();
+                    result.add(0, curr_vertex);
+                }
             }
         }
 
@@ -124,18 +172,31 @@ public:
 
 protected:
 
-    //Helper functions
-    xMap<T, int> vertex2inDegree(int (*hash)(T&, int));
-    xMap<T, int> vertex2outDegree(int (*hash)(T&, int));
-    DLinkedList<T> listOfZeroInDegrees();
-    void dfsVisit(T vertex, xMap<T, bool>& visited, DLinkedList<T>& result) {
-        visited.put(vertex, true);
-        for (auto neighbor : graph->getOutwardEdges(vertex)) {
-            if (!visited.get(neighbor)) {
-                dfsVisit(neighbor, visited, result);
+    xMap<T, int> vertex2inDegree(int (*hash)(T&, int)){
+        xMap<T, int> inDegrees(*hash);
+        DLinkedList<T> vertices = graph->vertices();
+        for (auto vertex : vertices) {
+            inDegrees.put(vertex, graph->inDegree(vertex));
+        }
+        return inDegrees;
+    }
+    xMap<T, int> vertex2outDegree(int (*hash)(T&, int)){
+        xMap<T, int> outDegrees(*hash);
+        DLinkedList<T> vertices = graph->vertices();
+        for (auto vertex : vertices) {
+            outDegrees.put(vertex, graph->outDegree(vertex));
+        }
+        return outDegrees;
+    }
+    DLinkedList<T> listOfZeroInDegrees() {
+        DLinkedList<T> result;
+        xMap<T, int> inDegrees = vertex2inDegree(hash_code);
+        for (auto vertex : inDegrees.keys()) {
+            if (inDegrees.get(vertex) == 0) {
+                result.add(0, vertex);
             }
         }
-        result.add(0, vertex); // Add to the front of the list to maintain topological order
+        return result;
     }
 
 }; //TopoSorter

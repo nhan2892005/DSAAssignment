@@ -17,7 +17,7 @@ using namespace std;
 
 using namespace std;
 namespace fs = std::filesystem;
-int num_task = 18;
+int num_task = 19;
 
 
 vector<vector<string>> expected_task (num_task, vector<string>(1000, ""));
@@ -789,6 +789,58 @@ void testTopo1() {
     cout << left << setw(15) << "Topo-order (DFS): " << dfs.toString() << endl;
 }
 
+void testTopo2() {
+//     Edges:
+// E(0,1,0)
+// E(0,5,0)
+// E(1,7,0)
+// E(3,2,0)
+// E(3,4,0)
+// E(3,7,0)
+// E(3,8,0)
+// E(4,8,0)
+// E(6,0,0)
+// E(6,1,0)
+// E(6,2,0)
+// E(8,2,0)
+// E(8,7,0)
+// E(9,4,0)
+    char vertices[] = {'4', '5', '0', '1', '2', '7', '8', '9', '3', '6'};
+
+    // Định nghĩa các cạnh
+    Edge<char> edges[14] = {
+        Edge<char>('3', '4', 0),
+        Edge<char>('3', '7', 0),
+        Edge<char>('3', '8', 0),
+        Edge<char>('4', '8', 0),
+        Edge<char>('6', '0', 0),
+        Edge<char>('0', '1', 0),
+        Edge<char>('0', '5', 0),
+        Edge<char>('1', '7', 0),
+        Edge<char>('3', '2', 0),
+        Edge<char>('6', '1', 0),
+        Edge<char>('6', '2', 0),
+        Edge<char>('8', '2', 0),
+        Edge<char>('8', '7', 0),
+        Edge<char>('9', '4', 0)
+    };
+    DGraphModel<char> model(&charComparator, &vertex2str);
+    for(int idx=0; idx<10; idx++){
+        model.add(vertices[idx]);
+    }
+    for(int idx=0; idx<14; idx++){
+        model.connect(edges[idx].from, edges[idx].to, edges[idx].weight);
+    }
+    model.println();
+    
+    TopoSorter<char> sorter(&model, &charNumericHash);
+    DLinkedList<char> bfs = sorter.sort(TopoSorter<char>::BFS);
+    cout << left << setw(15) << "Topo-order (BFS): " << bfs.toString() << endl;
+    
+    DLinkedList<char> dfs = sorter.sort(TopoSorter<char>::DFS);
+    cout << left << setw(15) << "Topo-order (DFS): " << dfs.toString() << endl;
+}
+
 void runDemo() {
     std::cout << "Direct Graph Demo 1" << std::endl;
     DGraphDemo1();
@@ -796,8 +848,8 @@ void runDemo() {
     DGraphDemo2();
     std::cout << "Direct Graph Demo 3" << std::endl;
     DGraphDemo3();
-    std::cout << "Dijkstra Demo" << std::endl;
-    dijkstraDemo();
+    // std::cout << "Dijkstra Demo" << std::endl;
+    // dijkstraDemo();
 
     std::cout << "Undirect Graph Demo 1" << std::endl;
     ugraphDemo1();
@@ -810,7 +862,7 @@ void runDemo() {
 // pointer function to store 15 test
 void (*testFuncs[])() = {
     test1, test2, test03, test04, test05, test06, test07, test08, test09, test10, test11, test12, test13, test14, test15,
-    test16, test17, testTopo1
+    test16, test17, testTopo1, testTopo2
 };
 
 int main(int argc, char* argv[]) {

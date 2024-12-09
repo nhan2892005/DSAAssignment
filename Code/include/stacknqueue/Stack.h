@@ -32,7 +32,7 @@ public:
         * void
     */
     void push(T item){
-        list.add(item, 0);
+        list.add(0, item);
     }
 
     /*
@@ -110,7 +110,7 @@ public:
         * bool - True if the item is removed successfully, False otherwise
     */
     bool remove(T item){
-        return list.remove(item);
+        return list.removeItem(item);
     }
 
     /*

@@ -24,8 +24,7 @@ public:
             void (*removeData)(DLinkedList<T>*)=0, 
             bool (*itemEQ)(T&, T&)=0 ) : 
             DLinkedList<T>(removeData, itemEQ){
-        
-    };
+    }
     
     DLinkedListSE(const DLinkedList<T>& list){
         this->copyFrom(list);

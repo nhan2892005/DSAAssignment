@@ -98,40 +98,40 @@ void DGraphDemo3(){
     cout << left << setw(15) << "Topo-order (DFS): " << dfs.toString() << endl;
 }
 
-void dijkstraDemo(){
-    DGraphModel<char> model(&charComparator, &vertex2str);
-    model.add('0');
-    model.add('1');
-    model.add('2');
-    model.add('3');
-    model.add('4');
-    model.connect('0', '1', 5);
-    model.connect('0', '2', 3);
-    model.connect('0', '4', 2);
+// void dijkstraDemo(){
+//     DGraphModel<char> model(&charComparator, &vertex2str);
+//     model.add('0');
+//     model.add('1');
+//     model.add('2');
+//     model.add('3');
+//     model.add('4');
+//     model.connect('0', '1', 5);
+//     model.connect('0', '2', 3);
+//     model.connect('0', '4', 2);
 
-    model.connect('1', '2', 2);
-    model.connect('1', '3', 6);
+//     model.connect('1', '2', 2);
+//     model.connect('1', '3', 6);
 
-    model.connect('2', '1', 1);
-    model.connect('2', '3', 2);
+//     model.connect('2', '1', 1);
+//     model.connect('2', '3', 2);
 
-    model.connect('4', '1', 6);
-    model.connect('4', '2', 10);
-    model.connect('4', '3', 4);
-    model.println();
+//     model.connect('4', '1', 6);
+//     model.connect('4', '2', 10);
+//     model.connect('4', '3', 4);
+//     model.println();
  
 
-    DGraphAlgorithm<char> finder;
-    DLinkedList<Path<char>*> list = finder.dijkstra(&model, '0');
-    cout << "Dijkstra output:" << endl;
-    for(DLinkedList<Path<char>*>::Iterator it= list.begin(); it != list.end(); it++){
-        Path<char>* path = *it;
+//     DGraphAlgorithm<char> finder;
+//     DLinkedList<Path<char>*> list = finder.dijkstra(&model, '0');
+//     cout << "Dijkstra output:" << endl;
+//     for(DLinkedList<Path<char>*>::Iterator it= list.begin(); it != list.end(); it++){
+//         Path<char>* path = *it;
         
-        cout << left << setw(8) << "path: ";
-        cout << path->toString() << endl;
-    }
-    cout << endl;
-}
+//         cout << left << setw(8) << "path: ";
+//         cout << path->toString() << endl;
+//     }
+//     cout << endl;
+// }
 
 
 #endif /* DGRAPHDEMO_H */
