@@ -17,7 +17,7 @@ using namespace std;
 
 using namespace std;
 namespace fs = std::filesystem;
-int num_task = 19;
+int num_task = 52;
 
 
 vector<vector<string>> expected_task (num_task, vector<string>(1000, ""));
@@ -453,7 +453,6 @@ void test11()
 {
     string name = "graph11";
     stringstream output;
-    //! data ------------------------------------
     char vertices[] = {'A', 'B', 'C', 'D'};
 
     // Định nghĩa các cạnh
@@ -790,21 +789,6 @@ void testTopo1() {
 }
 
 void testTopo2() {
-//     Edges:
-// E(0,1,0)
-// E(0,5,0)
-// E(1,7,0)
-// E(3,2,0)
-// E(3,4,0)
-// E(3,7,0)
-// E(3,8,0)
-// E(4,8,0)
-// E(6,0,0)
-// E(6,1,0)
-// E(6,2,0)
-// E(8,2,0)
-// E(8,7,0)
-// E(9,4,0)
     char vertices[] = {'4', '5', '0', '1', '2', '7', '8', '9', '3', '6'};
 
     // Định nghĩa các cạnh
@@ -841,6 +825,966 @@ void testTopo2() {
     cout << left << setw(15) << "Topo-order (DFS): " << dfs.toString() << endl;
 }
 
+void new_testgraph01() {
+    string name = "graph01";
+    DGraphModel<char> model(&charComparator, &vertex2str);
+    char vertices[] = {'A', 'B', 'C', 'D'};
+    for (int idx = 0; idx < 4; idx++) {
+      model.add(vertices[idx]);
+    }
+    model.connect('A', 'B');
+    model.connect('A', 'B', 5);
+    model.connect('B', 'D');
+    model.connect('C', 'B');
+    model.connect('C', 'D');
+
+    cout << model.toString();
+
+    model.clear();
+}
+
+
+
+void new_testgraph02() {
+    string name = "graph02";
+    UGraphModel<char> model(&charComparator, &vertex2str);
+    char vertices[] = {'A', 'B', 'C', 'D'};
+    for (int idx = 0; idx < 4; idx++) {
+      model.add(vertices[idx]);
+    }
+    model.connect('A', 'B');
+    model.connect('A', 'B', 5);
+    model.connect('B', 'D');
+    model.connect('C', 'B');
+    model.connect('C', 'D');
+
+    cout << model.toString();
+
+    model.clear();
+}
+
+
+
+void new_testgraph03() {
+    string name = "graph03";
+    stringstream output;
+    DGraphModel<char> model(&charComparator, &vertex2str);
+    char vertices[] = {'A', 'B', 'C', 'D', 'E'};
+    for (int idx = 0; idx < 5; idx++) {
+      model.add(vertices[idx]);
+    }
+    model.connect('A', 'B', 8);
+    model.connect('B', 'D', 6);
+    model.connect('C', 'B', 1);
+    model.connect('C', 'D', 2);
+    model.connect('E', 'A', 3);
+    model.connect('E', 'B', 4);
+    model.connect('E', 'C', 5);
+    DLinkedList<char> out = model.getOutwardEdges('E');
+    DLinkedList<char> in = model.getInwardEdges('B');
+    cout << "getOutwardEdges : E: ";
+    for (auto it = out.begin(); it != out.end(); it++) {
+      cout << *it << "-> ";
+    }
+    cout << "NULL\n";
+
+    cout << "getInwardEdges : B: ";
+    for (auto it = in.begin(); it != in.end(); it++) {
+      cout << *it << "-> ";
+    }
+    cout << "NULL\n";
+
+    cout << model.toString();
+
+    model.clear();
+}
+
+
+void new_testgraph04() {
+    string name = "graph04";
+    stringstream output;
+    UGraphModel<char> model(&charComparator, &vertex2str);
+    char vertices[] = {'A', 'B', 'C', 'D', 'E'};
+    for (int idx = 0; idx < 5; idx++) {
+      model.add(vertices[idx]);
+    }
+    model.connect('A', 'B', 8);
+    model.connect('B', 'D', 6);
+    model.connect('C', 'B', 1);
+    model.connect('C', 'D', 2);
+    model.connect('E', 'A', 3);
+    model.connect('E', 'B', 4);
+    model.connect('E', 'C', 5);
+    model.connect('E', 'E', 5);
+    DLinkedList<char> out = model.getOutwardEdges('E');
+    DLinkedList<char> in = model.getInwardEdges('B');
+    cout << "getOutwardEdges : E: ";
+    for (auto it = out.begin(); it != out.end(); it++) {
+      cout << *it << "-> ";
+    }
+    cout << "NULL\n";
+
+    cout << "getInwardEdges : B: ";
+    for (auto it = in.begin(); it != in.end(); it++) {
+      cout << *it << "-> ";
+    }
+    cout << "NULL\n";
+
+    cout << model.toString();
+
+    model.clear();
+}
+
+
+void new_testgraph05() {
+    string name = "graph05";
+    stringstream output;
+    char vertices[] = {'A', 'B', 'C', 'D'};
+
+    // Định nghĩa các cạnh
+    Edge<char> edges[3] = {Edge<char>('A', 'B', 1.5), Edge<char>('B', 'C', 2.0),
+                          Edge<char>('C', 'D', 3.2)};
+    DGraphModel<char> *model = DGraphModel<char>::create(
+        vertices, 4, edges, 3, &charComparator, &vertex2str);
+
+    try {
+      // Gọi một phương thức có thể ném ngoại lệ
+      DLinkedList<char> out = model->getOutwardEdges('E');
+    } catch (const VertexNotFoundException &e) {
+      // Xử lý ngoại lệ nếu đỉnh không tìm thấy
+      cout << "Error: " << "getOutwardEdges :E khong ton tai"
+            << endl;  // In ra thông báo lỗi
+    }
+    DLinkedList<char> in = model->getInwardEdges('B');
+
+    cout << "getInwardEdges : B: ";
+    for (auto it = in.begin(); it != in.end(); it++) {
+      cout << *it << "-> ";
+    }
+    cout << "NULL\n";
+  
+    cout << model->toString();
+
+    model->clear();
+    delete model;
+}
+
+
+void new_testgraph06() {
+    string name = "graph06";
+    stringstream output;
+    char vertices[] = {'A', 'B', 'C', 'D'};
+
+    // Định nghĩa các cạnh
+    Edge<char> edges[3] = {Edge<char>('A', 'B', 1.5), Edge<char>('B', 'C', 2.0),
+                          Edge<char>('C', 'D', 3.2)};
+    UGraphModel<char> *model = UGraphModel<char>::create(
+        vertices, 4, edges, 3, &charComparator, &vertex2str);
+
+    try {
+      // Gọi một phương thức có thể ném ngoại lệ
+      DLinkedList<char> out = model->getOutwardEdges('E');
+    } catch (const VertexNotFoundException &e) {
+      // Xử lý ngoại lệ nếu đỉnh không tìm thấy
+      cout << "Error: " << "getOutwardEdges :E khong ton tai"
+            << endl;  // In ra thông báo lỗi
+    }
+    DLinkedList<char> in = model->getInwardEdges('B');
+
+    cout << "getInwardEdges : B: ";
+    for (auto it = in.begin(); it != in.end(); it++) {
+      cout << *it << "-> ";
+    }
+    cout << "NULL\n";
+  
+    cout << model->toString();
+
+    model->clear();
+    delete model;
+}
+
+
+void new_testgraph07() {
+    string name = "graph07";
+    stringstream output;
+    char vertices[] = {'A', 'B', 'C', 'D'};
+
+    // Định nghĩa các cạnh
+    Edge<char> edges[4] = {Edge<char>('A', 'B', 1.5), Edge<char>('B', 'C', 2.0),
+                          Edge<char>('C', 'D', 3.2), Edge<char>('D', 'D', 3.2)};
+    UGraphModel<char> *model = UGraphModel<char>::create(
+        vertices, 4, edges, 4, &charComparator, &vertex2str);
+
+    try {
+      // Gọi một phương thức có thể ném ngoại lệ
+      model->weight('A', 'D');
+    } catch (const EdgeNotFoundException &e) {
+      // Xử lý ngoại lệ nếu đỉnh không tìm thấy
+      cout << "Error: " << "AB khong ton tai" << endl;  // In ra thông báo lỗi
+    }
+    try {
+      // Gọi một phương thức có thể ném ngoại lệ
+      model->weight('E', 'D');
+    } catch (const VertexNotFoundException &e) {
+      // Xử lý ngoại lệ nếu đỉnh không tìm thấy
+      cout << "Error: " << "E khong ton tai" << endl;  // In ra thông báo lỗi
+    }
+
+    try {
+      // Gọi một phương thức có thể ném ngoại lệ
+      model->weight('D', 'F');
+    } catch (const VertexNotFoundException &e) {
+      // Xử lý ngoại lệ nếu đỉnh không tìm thấy
+      cout << "Error: " << "F khong ton tai" << endl;  // In ra thông báo lỗi
+    }
+    cout << "AB : " << model->weight('A', 'B') << endl;
+    cout << "CD : " << model->weight('C', 'D') << endl;
+
+    DLinkedList<char> in = model->getInwardEdges('D');
+
+    cout << "getInwardEdges : D: ";
+    for (auto it = in.begin(); it != in.end(); it++) {
+      cout << *it << "-> ";
+    }
+    cout << "NULL\n";
+  
+    cout << model->toString();
+
+    model->clear();
+    delete model;
+}
+
+
+void new_testgraph08() {
+    string name = "graph08";
+    stringstream output;
+    char vertices[] = {'A', 'B', 'C', 'D'};
+
+    // Định nghĩa các cạnh
+    Edge<char> edges[5] = {Edge<char>('A', 'B', 1.5), Edge<char>('A', 'A', 10),
+                          Edge<char>('B', 'C', 2.0), Edge<char>('C', 'D', 3.2),
+                          Edge<char>('D', 'D', 3.2)};
+    DGraphModel<char> *model = DGraphModel<char>::create(
+        vertices, 4, edges, 5, &charComparator, &vertex2str);
+
+    try {
+      // Gọi một phương thức có thể ném ngoại lệ
+      model->weight('A', 'D');
+    } catch (const EdgeNotFoundException &e) {
+      // Xử lý ngoại lệ nếu đỉnh không tìm thấy
+      cout << "Error: " << "AB khong ton tai" << endl;  // In ra thông báo lỗi
+    }
+    try {
+      // Gọi một phương thức có thể ném ngoại lệ
+      model->weight('E', 'D');
+    } catch (const VertexNotFoundException &e) {
+      // Xử lý ngoại lệ nếu đỉnh không tìm thấy
+      cout << "Error: " << "E khong ton tai" << endl;  // In ra thông báo lỗi
+    }
+
+    try {
+      // Gọi một phương thức có thể ném ngoại lệ
+      model->weight('D', 'F');
+    } catch (const VertexNotFoundException &e) {
+      // Xử lý ngoại lệ nếu đỉnh không tìm thấy
+      cout << "Error: " << "F khong ton tai" << endl;  // In ra thông báo lỗi
+    }
+    cout << "AA : " << model->weight('A', 'A') << endl;
+    cout << "CD : " << model->weight('C', 'D') << endl;
+
+    DLinkedList<char> in = model->getInwardEdges('D');
+
+    cout << "getInwardEdges : D: ";
+    for (auto it = in.begin(); it != in.end(); it++) {
+      cout << *it << "-> ";
+    }
+    cout << "NULL\n";
+
+    cout << model->toString();
+
+    model->clear();
+    delete model;
+}
+
+void new_testgraph09() {
+    string name = "graph09";
+    stringstream output;
+    char vertices[] = {'A', 'B', 'C', 'D'};
+
+    // Định nghĩa các cạnh
+    Edge<char> edges[5] = {Edge<char>('A', 'B', 1.5), Edge<char>('A', 'A', 10),
+                          Edge<char>('B', 'C', 2.0), Edge<char>('C', 'D', 3.2),
+                          Edge<char>('D', 'D', 3.2)};
+    DGraphModel<char> *model = DGraphModel<char>::create(
+        vertices, 4, edges, 5, &charComparator, &vertex2str);
+    model->remove('A');
+    model->remove('B');
+    DLinkedList<char> in = model->getInwardEdges('D');
+
+    cout << "getInwardEdges : D: ";
+    for (auto it = in.begin(); it != in.end(); it++) {
+      cout << *it << "-> ";
+    }
+    cout << "NULL\n";
+  
+    cout << model->toString();
+
+    model->clear();
+    delete model;
+}
+
+
+void new_testgraph10() {
+    string name = "graph10";
+    stringstream output;
+    char vertices[] = {'A', 'B', 'C', 'D'};
+
+    // Định nghĩa các cạnh
+    Edge<char> edges[5] = {Edge<char>('A', 'B', 1.5), Edge<char>('A', 'A', 10),
+                          Edge<char>('B', 'C', 2.0), Edge<char>('C', 'D', 3.2),
+                          Edge<char>('D', 'D', 3.2)};
+    UGraphModel<char> *model = UGraphModel<char>::create(
+        vertices, 4, edges, 5, &charComparator, &vertex2str);
+    model->remove('B');
+    model->remove('D');
+  
+    cout << model->toString();
+
+    model->clear();
+    delete model;
+}
+
+
+void new_testgraph11() {
+    string name = "graph11";
+    stringstream output;
+    char vertices[] = {'A', 'B', 'C', 'D'};
+
+    // Định nghĩa các cạnh
+    Edge<char> edges[5] = {Edge<char>('A', 'B', 1.5), Edge<char>('A', 'A', 10),
+                          Edge<char>('B', 'C', 2.0), Edge<char>('C', 'D', 3.2),
+                          Edge<char>('D', 'D', 3.2)};
+    UGraphModel<char> *model = UGraphModel<char>::create(
+        vertices, 4, edges, 5, &charComparator, &vertex2str);
+    cout << "Size: " << model->size() << endl;
+    cout << "Indegree: " << model->inDegree('A') << endl;
+    cout << "Outdegree: " << model->outDegree('A') << endl;
+    model->remove('A');
+    model->remove('B');
+    model->remove('C');
+    model->remove('D');
+    cout << "Size: " << model->size() << endl;
+    try {
+      model->inDegree('F');
+    } catch (const VertexNotFoundException &e) {
+      cout << "Error: " << "F khong ton tai" << endl;
+    }
+    try {
+      model->outDegree('F');
+    } catch (const VertexNotFoundException &e) {
+      cout << "Error: " << "F khong ton tai" << endl;
+    }
+  
+    cout << model->toString();
+
+    model->clear();
+    delete model;
+}
+
+
+void new_testgraph12() {
+    string name = "graph12";
+    stringstream output;
+    char vertices[] = {'A', 'B', 'C', 'D'};
+
+    // Định nghĩa các cạnh
+    Edge<char> edges[5] = {Edge<char>('A', 'B', 1.5), Edge<char>('A', 'A', 10),
+                          Edge<char>('B', 'C', 2.0), Edge<char>('C', 'D', 3.2),
+                          Edge<char>('D', 'D', 3.2)};
+    DGraphModel<char> *model = DGraphModel<char>::create(
+        vertices, 4, edges, 5, &charComparator, &vertex2str);
+    cout << "Size: " << model->size() << endl;
+    cout << "vertices: ";
+    DLinkedList<char> a = model->vertices();
+    for (auto it = a.begin(); it != a.end(); ++it) {
+      cout << *it << " ";
+    }
+    cout << "\n";
+    cout << "Indegree: " << model->inDegree('A') << endl;
+    cout << "Outdegree: " << model->outDegree('A') << endl;
+    model->remove('A');
+    model->remove('B');
+    model->remove('C');
+    model->remove('D');
+    cout << "Size: " << model->size() << endl;
+    try {
+      model->inDegree('F');
+    } catch (const VertexNotFoundException &e) {
+      cout << "Error: " << "F khong ton tai" << endl;
+    }
+    try {
+      model->outDegree('F');
+    } catch (const VertexNotFoundException &e) {
+      cout << "Error: " << "F khong ton tai" << endl;
+    }
+
+    cout << model->toString();
+
+    model->clear();
+    delete model;
+}
+
+void new_testgraph13() {
+    string name = "graph13";
+    stringstream output;
+    char vertices[] = {'A', 'B', 'C', 'D', 'E', 'F', 'H', 'G'};
+
+    // Định nghĩa các cạnh
+    Edge<char> edges[6] = {Edge<char>('A', 'B', 1.5), Edge<char>('A', 'A', 10),
+                          Edge<char>('B', 'C', 2.0), Edge<char>('B', 'B', 2.0),
+                          Edge<char>('C', 'D', 3.2), Edge<char>('D', 'D', 3.2)};
+    DGraphModel<char> *model = DGraphModel<char>::create(
+        vertices, 8, edges, 6, &charComparator, &vertex2str);
+    cout << "Size: " << model->size() << endl;
+    cout << "vertices: ";
+    DLinkedList<char> a = model->vertices();
+    for (auto it = a.begin(); it != a.end(); ++it) {
+      cout << *it << " ";
+    }
+    cout << "\n";
+    cout << "Indegree H: " << model->inDegree('H') << endl;
+    cout << "Outdegree C: " << model->outDegree('C') << endl;
+    model->remove('F');
+    model->remove('B');
+    model->remove('H');
+    model->remove('G');
+    cout << "Size: " << model->size() << endl;
+  
+    cout << model->toString();
+
+    model->clear();
+    delete model;
+}
+
+
+void new_testgraph14() {
+    string name = "graph14";
+    stringstream output;
+    char vertices[] = {'A', 'B', 'C', 'D', 'E', 'F', 'H', 'G'};
+
+    // Định nghĩa các cạnh
+    Edge<char> edges[6] = {Edge<char>('A', 'B', 1.5), Edge<char>('A', 'A', 10),
+                          Edge<char>('B', 'C', 2.0), Edge<char>('B', 'B', 2.0),
+                          Edge<char>('C', 'D', 3.2), Edge<char>('D', 'D', 3.2)};
+    UGraphModel<char> *model = UGraphModel<char>::create(
+        vertices, 8, edges, 6, &charComparator, &vertex2str);
+    cout << "Size: " << model->size() << endl;
+    cout << "vertices: ";
+    DLinkedList<char> a = model->vertices();
+    for (auto it = a.begin(); it != a.end(); ++it) {
+      cout << *it << " ";
+    }
+    cout << "\n";
+    cout << "Indegree H: " << model->inDegree('H') << endl;
+    cout << "Outdegree C: " << model->outDegree('C') << endl;
+    cout << "connected AA : " << model->connected('A', 'A') << endl;
+    cout << "connected AH : " << model->connected('A', 'H') << endl;
+    try {
+      // Gọi một phương thức có thể ném ngoại lệ
+      model->connected('A', 'X');
+    } catch (const VertexNotFoundException &e) {
+      // Xử lý ngoại lệ nếu đỉnh không tìm thấy
+      cout << "Error: " << "X khong ton tai" << endl;  // In ra thông báo lỗi
+    }
+    try {
+      // Gọi một phương thức có thể ném ngoại lệ
+      model->connected('V', 'Q');
+    } catch (const VertexNotFoundException &e) {
+      // Xử lý ngoại lệ nếu đỉnh không tìm thấy
+      cout << "Error: " << "V khong ton tai" << endl;  // In ra thông báo lỗi
+    }
+    cout << "Size: " << model->size() << endl;
+
+    cout << model->toString();
+
+    model->clear();
+    delete model;
+}
+
+void new_testgraph15() {
+    string name = "graph15";
+    stringstream output;
+    char vertices[] = {'A', 'B', 'C', 'D', 'E', 'F', 'H', 'G'};
+
+    // Định nghĩa các cạnh
+    Edge<char> edges[6] = {Edge<char>('A', 'B', 1.5), Edge<char>('A', 'A', 10),
+                          Edge<char>('B', 'C', 2.0), Edge<char>('B', 'B', 2.0),
+                          Edge<char>('C', 'D', 3.2), Edge<char>('D', 'D', 3.2)};
+    UGraphModel<char> *model = UGraphModel<char>::create(
+        vertices, 8, edges, 6, &charComparator, &vertex2str);
+    cout << "Size: " << model->size() << endl;
+    cout << "Indegree H: " << model->inDegree('H') << endl;
+    cout << "Outdegree C: " << model->outDegree('C') << endl;
+    cout << "contains C : " << model->contains('C') << endl;
+    cout << "contains J : " << model->contains('J') << endl;
+    cout << "Size: " << model->size() << endl;
+
+    
+    cout << model->toString();
+    model->clear();
+    cout << model->toString();
+
+    model->clear();
+    delete model;
+}
+
+void new_testgraph16() {
+    string name = "graph16";
+    DGraphModel<char> model(&charComparator, &vertex2str);
+
+    cout << model.toString();
+
+    model.clear();
+}
+
+
+void new_testgraph18() {
+    string name = "graph18";
+    UGraphModel<char> model(&charComparator, &vertex2str);
+    char vertices[] = {'A', 'B', 'C', 'D'};
+    for (int idx = 0; idx < 4; idx++) {
+      model.add(vertices[idx]);
+    }
+    model.connect('A', 'B');
+    model.connect('B', 'A');
+
+    cout << model.inDegree('A') << " " << model.outDegree('A') << endl;
+    cout << model.toString();
+
+    model.clear();
+}
+
+
+void new_testgraph19() {
+    string name = "graph19";
+    UGraphModel<char> model(&charComparator, &vertex2str);
+    char vertices[] = {'A', 'B', 'C', 'D'};
+    for (int idx = 0; idx < 4; idx++) {
+      model.add(vertices[idx]);
+    }
+    model.connect('A', 'B');
+    model.disconnect('A', 'B');
+
+    cout << model.inDegree('A') << " " << model.outDegree('A') << endl;
+    cout << model.toString();
+
+    model.clear();
+}
+
+
+void new_testgraph20() {
+    string name = "graph20";
+    UGraphModel<char> model(&charComparator, &vertex2str);
+    char vertices[] = {'A', 'B', 'C', 'D'};
+    for (int idx = 0; idx < 4; idx++) {
+      model.add(vertices[idx]);
+    }
+    model.connect('A', 'B');
+    model.disconnect('A', 'B');
+    model.connect('A', 'B');
+    model.disconnect('A', 'B');
+    model.connect('A', 'B');
+    model.disconnect('A', 'B');
+
+    cout << model.toString();
+
+    model.clear();
+}
+
+
+void new_testgraph21() {
+    string name = "graph21";
+    UGraphModel<char> model(&charComparator, &vertex2str);
+    char vertices[] = {'A', 'B', 'C', 'D'};
+    for (int idx = 0; idx < 4; idx++) {
+      model.add(vertices[idx]);
+    }
+    model.connect('A', 'B');
+    model.add('A');
+    model.add('B');
+
+    cout << model.toString();
+
+    model.clear();
+}
+
+
+void new_testgraph22() {
+    string name = "graph22";
+    UGraphModel<char> model(&charComparator, &vertex2str);
+    char vertices[] = {'A', 'B', 'C', 'D'};
+    for (int idx = 0; idx < 4; idx++) {
+      model.add(vertices[idx]);
+    }
+    cout << model.contains('A') << " ";
+    cout << model.contains('E') << endl;
+    cout << model.toString();
+
+    model.clear();
+}
+
+
+void new_testgraph23() {
+    string name = "graph23";
+    UGraphModel<char> model(&charComparator, &vertex2str);
+    char vertices[] = {'A', 'B', 'C', 'D'};
+    for (int idx = 0; idx < 4; idx++) {
+      model.add(vertices[idx]);
+    }
+    model.connect('A', 'B', 5);
+
+    cout << model.weight('A', 'B') << endl;
+
+    try {
+      model.weight('A', 'X');
+    } catch (const exception& e) {
+      cout << "Error: " << string(e.what()) << endl;
+    }
+
+    try {
+      model.weight('Y', 'A');
+    } catch (const exception& e) {
+      cout << "Error: " << string(e.what()) << endl;
+    }
+
+    try {
+      model.weight('A', 'C');
+    } catch (const exception& e) {
+      cout << "Error: " << string(e.what()) << endl;
+    }
+
+    cout << model.toString();
+
+    model.clear();
+}
+
+
+void new_testgraph24() {
+    string name = "graph24";
+    DGraphModel<char> model(&charComparator, &vertex2str);
+    char vertices[] = {'A', 'B', 'C', 'D'};
+    for (int idx = 0; idx < 4; idx++) {
+      model.add(vertices[idx]);
+    }
+    model.connect('A', 'B', 5);
+    model.connect('A', 'C', 1);
+    DLinkedList<char> outwardEdgesA = model.getOutwardEdges('A');
+    DLinkedList<char> outwardEdgesB = model.getOutwardEdges('B');
+    cout << "outwardEdgesA: ";
+    for (auto v : outwardEdgesA) {
+      cout << v << " ";
+    }
+    cout << endl;
+
+    cout << "outwardEdgesB: ";
+    for (auto v : outwardEdgesB) {
+      cout << v << " ";
+    }
+    cout << endl;
+
+    try {
+      DLinkedList<char> outwardEdgesX = model.getOutwardEdges('X');
+    } catch (const exception& e) {
+      cout << "Error: " << string(e.what()) << endl;
+    }
+
+    cout << model.toString();
+
+    model.clear();
+}
+
+
+void new_testgraph25() {
+    string name = "graph25";
+    DGraphModel<char> model(&charComparator, &vertex2str);
+    char vertices[] = {'A', 'B', 'C', 'D'};
+    for (int idx = 0; idx < 4; idx++) {
+      model.add(vertices[idx]);
+    }
+    model.connect('A', 'B', 5);
+    model.connect('A', 'C', 1);
+    DLinkedList<char> outwardEdgesA = model.getInwardEdges('A');
+    DLinkedList<char> outwardEdgesB = model.getInwardEdges('B');
+
+    cout << "getInwardEdgesA: ";
+    for (auto v : outwardEdgesA) {
+      cout << v << " ";
+    }
+    cout << endl;
+
+    cout << "getInwardEdgesB: ";
+    for (auto v : outwardEdgesB) {
+      cout << v << " ";
+    }
+    cout << endl;
+
+    try {
+      DLinkedList<char> outwardEdgesX = model.getInwardEdges('X');
+    } catch (const exception& e) {
+      cout << "Error: " << string(e.what()) << endl;
+    }
+
+    cout << model.toString();
+
+    model.clear();
+}
+
+
+void new_testgraph26() {
+    string name = "graph26";
+    DGraphModel<char> model(&charComparator, &vertex2str);
+    char vertices[] = {'A', 'B', 'C', 'D'};
+    for (int idx = 0; idx < 4; idx++) {
+      model.add(vertices[idx]);
+    }
+    model.connect('A', 'B', 5);
+    model.connect('A', 'C', 1);
+    cout << model.inDegree('A') << " " << model.inDegree('B') << endl;
+    try {
+      model.inDegree('X');
+    } catch (const exception& e) {
+      cout << "Error: " << string(e.what()) << endl;
+    }
+
+    cout << model.toString();
+
+    model.clear();
+}
+
+
+void new_testgraph27() {
+    string name = "graph27";
+    
+    DGraphModel<char> model(&charComparator, &vertex2str);
+    char vertices[] = {'A', 'B', 'C', 'D'};
+    for (int idx = 0; idx < 4; idx++) {
+      model.add(vertices[idx]);
+    }
+    model.connect('A', 'B', 5);
+    model.connect('A', 'C', 1);
+
+    cout << model.outDegree('A') << " " << model.outDegree('B') << endl;
+    try {
+      model.outDegree('X');
+    } catch (const exception& e) {
+      cout << "Error: " << string(e.what()) << endl;
+    }
+
+    cout << model.toString();
+
+    model.clear();
+}
+
+
+void new_testgraph28() {
+    string name = "graph28";
+    UGraphModel<char> model(&charComparator, &vertex2str);
+    char vertices[] = {'A', 'B', 'C', 'D'};
+    for (int idx = 0; idx < 4; idx++) {
+      model.add(vertices[idx]);
+    }
+    model.connect('A', 'B', 5);
+    cout << model.connected('A', 'B') << " " << model.connected('A', 'C')
+          << endl;
+
+    try {
+      model.connected('A', 'X');
+    } catch (const exception& e) {
+      cout << "Error: " << string(e.what()) << endl;
+    }
+
+    try {
+      model.connected('Y', 'A');
+    } catch (const exception& e) {
+      cout << "Error: " << string(e.what()) << endl;
+    }
+
+    cout << model.toString();
+
+    model.clear();
+}
+
+
+void new_testgraph29() {
+    string name = "graph29";
+    DGraphModel<char> model(&charComparator, &vertex2str);
+    char vertices[] = {'A', 'B', 'C', 'D'};
+    for (int idx = 0; idx < 4; idx++) {
+      model.add(vertices[idx]);
+    }
+    model.connect('A', 'B');
+    model.connect('A', 'B', 5);
+
+    try {
+      model.connect('A', 'X');
+    } catch (const exception& e) {
+      cout << "Error: " << string(e.what()) << endl;
+    }
+
+    try {
+      model.connect('Y', 'A');
+    } catch (const exception& e) {
+      cout << "Error: " << string(e.what()) << endl;
+    }
+
+    cout << model.toString();
+
+    model.clear();
+}
+
+
+void new_testgraph30() {
+    string name = "graph30";
+    UGraphModel<char> model(&charComparator, &vertex2str);
+    char vertices[] = {'A', 'B', 'C', 'D'};
+    for (int idx = 0; idx < 4; idx++) {
+      model.add(vertices[idx]);
+    }
+    model.connect('A', 'B');
+    model.connect('A', 'B', 5);
+    try {
+      model.connect('A', 'X');
+    } catch (const exception& e) {
+      cout << "Error: " << string(e.what()) << endl;
+    }
+
+    try {
+      model.connect('Y', 'A');
+    } catch (const exception& e) {
+      cout << "Error: " << string(e.what()) << endl;
+    }
+
+    cout << model.toString();
+
+    model.clear();
+}
+
+
+void new_testgraph31() {
+    string name = "graph31";
+    DGraphModel<char> model(&charComparator, &vertex2str);
+    char vertices[] = {'A', 'B', 'C', 'D'};
+    for (int idx = 0; idx < 4; idx++) {
+      model.add(vertices[idx]);
+    }
+    model.connect('A', 'B', 5);
+    model.disconnect('A', 'B');
+    try {
+      model.disconnect('A', 'X');
+    } catch (const exception& e) {
+      cout << "Error: " << string(e.what()) << endl;
+    }
+
+    try {
+      model.disconnect('Y', 'A');
+    } catch (const exception& e) {
+      cout << "Error: " << string(e.what()) << endl;
+    }
+
+    try {
+      model.disconnect('A', 'B');
+    } catch (const exception& e) {
+      cout << "Error: " << string(e.what()) << endl;
+    }
+
+    cout << model.toString();
+
+    model.clear();
+}
+
+
+void new_testgraph32() {
+    string name = "graph32";
+    UGraphModel<char> model(&charComparator, &vertex2str);
+    char vertices[] = {'A', 'B', 'C', 'D'};
+    for (int idx = 0; idx < 4; idx++) {
+      model.add(vertices[idx]);
+    }
+    model.connect('A', 'B', 5);
+    model.disconnect('A', 'B');
+    try {
+      model.disconnect('A', 'X');
+    } catch (const exception& e) {
+      cout << "Error: " << string(e.what()) << endl;
+    }
+
+    try {
+      model.disconnect('Y', 'A');
+    } catch (const exception& e) {
+      cout << "Error: " << string(e.what()) << endl;
+    }
+
+    try {
+      model.disconnect('A', 'B');
+    } catch (const exception& e) {
+      cout << "Error: " << string(e.what()) << endl;
+    }
+
+    cout << model.toString();
+
+    model.clear();
+}
+
+
+void new_testgraph33() {
+    string name = "graph33";
+    UGraphModel<char> model(&charComparator, &vertex2str);
+    char vertices[] = {'A', 'B', 'C', 'D'};
+    for (int idx = 0; idx < 4; idx++) {
+      model.add(vertices[idx]);
+    }
+    model.connect('A', 'B');
+    model.connect('A', 'C');
+    model.connect('A', 'D');
+    model.remove('B');
+    model.remove('A');
+    try {
+      model.remove('X');
+    } catch (const exception& e) {
+      cout << "Error: " << string(e.what()) << endl;
+    }
+
+    cout << model.toString();
+
+    model.clear();
+}
+
+
+void new_testgraph34() {
+    string name = "graph34";
+    DGraphModel<char> model(&charComparator, &vertex2str);
+    char vertices[] = {'A', 'B', 'C', 'D'};
+    for (int idx = 0; idx < 4; idx++) {
+      model.add(vertices[idx]);
+    }
+    model.connect('A', 'B');
+    model.connect('A', 'C');
+    model.connect('A', 'D');
+    model.remove('B');
+    model.remove('A');
+
+    try {
+      model.remove('X');
+    } catch (const exception& e) {
+      cout << "Error: " << string(e.what()) << endl;
+    }
+
+    cout << model.toString();
+
+    model.clear();
+}
+
+
 void runDemo() {
     std::cout << "Direct Graph Demo 1" << std::endl;
     DGraphDemo1();
@@ -862,7 +1806,41 @@ void runDemo() {
 // pointer function to store 15 test
 void (*testFuncs[])() = {
     test1, test2, test03, test04, test05, test06, test07, test08, test09, test10, test11, test12, test13, test14, test15,
-    test16, test17, testTopo1, testTopo2
+    test16, test17, testTopo1, testTopo2,
+    new_testgraph01,
+    new_testgraph02,
+    new_testgraph03,
+    new_testgraph04,
+    new_testgraph05,
+    new_testgraph06,
+    new_testgraph07,
+    new_testgraph08,
+    new_testgraph09,
+    new_testgraph10,
+    new_testgraph11,
+    new_testgraph12,
+    new_testgraph13,
+    new_testgraph14,
+    new_testgraph15,
+    new_testgraph16,
+    // new_testgraph17,
+    new_testgraph18,
+    new_testgraph19,
+    new_testgraph20,
+    new_testgraph21,
+    new_testgraph22,
+    new_testgraph23,
+    new_testgraph24,
+    new_testgraph25,
+    new_testgraph26,
+    new_testgraph27,
+    new_testgraph28,
+    new_testgraph29,
+    new_testgraph30,
+    new_testgraph31,
+    new_testgraph32,
+    new_testgraph33,
+    new_testgraph34,
 };
 
 int main(int argc, char* argv[]) {
