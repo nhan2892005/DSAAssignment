@@ -2441,7 +2441,6 @@ void sort_topo25() {
   }
   cout << "NULL";
 
-
   model.clear();cout << endl;
 }
 

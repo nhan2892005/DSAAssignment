@@ -126,7 +126,7 @@ public:
         DLinkedList<T> vertices = graph->vertices();
         if (sorted) {
             DLinkedListSE<T> sortedList(vertices);
-            sortedList.sort();
+            sortedList.sort(SortSimpleOrder<T>::compare4Desending);
             vertices = sortedList;
         }
 
@@ -135,35 +135,10 @@ public:
             visited.put(vertex, false);
         }
 
-        DLinkedList<T> zeroInDegreeVertices = listOfZeroInDegrees();
-        Stack<T> Storage;
-
-        for (auto vertex : zeroInDegreeVertices) {
-            Storage.push(vertex);
-            while (!Storage.empty()) {
-                T curr_vertex = Storage.peek();
-
-                DLinkedList<T> neighbors = graph->getOutwardEdges(curr_vertex);
-                if (sorted) {
-                    DLinkedListSE<T> neighborsSorted(neighbors);
-                    neighborsSorted.sort();
-                    neighbors = neighborsSorted;
-                }
-
-                for (auto neighbor : neighbors) {
-                    if (!visited.get(neighbor)) {
-                        visited.put(neighbor, true);
-                        Storage.push(neighbor);
-                        if (outDegrees.get(neighbor) == 0) {
-                            continue;
-                        }
-                        break;
-                    }
-                }
-                if (curr_vertex == Storage.peek()) {
-                    Storage.pop();
-                    result.add(0, curr_vertex);
-                }
+        // Visit each vertex in order
+        for (auto vertex : vertices) {
+            if (!visited.get(vertex)) {
+                dfsVisit(vertex, visited, result);
             }
         }
 
@@ -171,6 +146,25 @@ public:
     }
 
 protected:
+    void dfsVisit(T vertex, xMap<T, bool>& visited, DLinkedList<T>& result) {
+        visited.put(vertex, true);
+        
+        // Get and sort outward edges
+        DLinkedList<T> neighbors = graph->getOutwardEdges(vertex);
+        DLinkedListSE<T> sortedNeighbors(neighbors);
+        sortedNeighbors.sort(SortSimpleOrder<T>::compare4Desending);
+        
+        // Visit unvisited neighbors in sorted order
+        for (auto neighbor : sortedNeighbors) {
+            if (!visited.get(neighbor)) {
+                dfsVisit(neighbor, visited, result);
+            }
+        }
+        
+        // Add current vertex to beginning of result
+        // This ensures topological order
+        result.add(0, vertex);
+    }
 
     xMap<T, int> vertex2inDegree(int (*hash)(T&, int)){
         xMap<T, int> inDegrees(*hash);
