@@ -120,10 +120,9 @@ public:
     DLinkedList<T> dfsSort(bool sorted=true){
         DLinkedList<T> result;
         xMap<T, bool> visited(*hash_code);
-        xMap<T, int> outDegrees = vertex2outDegree(hash_code);
 
         // Get vertices and sort them if needed
-        DLinkedList<T> vertices = graph->vertices();
+        DLinkedList<T> vertices = listOfZeroInDegrees();
         if (sorted) {
             DLinkedListSE<T> sortedList(vertices);
             sortedList.sort(SortSimpleOrder<T>::compare4Desending);
@@ -131,14 +130,14 @@ public:
         }
 
         // Initialize visited map
-        for (auto vertex : vertices) {
+        for (auto vertex : graph->vertices()) {
             visited.put(vertex, false);
         }
 
         // Visit each vertex in order
         for (auto vertex : vertices) {
             if (!visited.get(vertex)) {
-                dfsVisit(vertex, visited, result);
+                dfsVisit(vertex, visited, result, sorted);
             }
         }
 
@@ -146,18 +145,21 @@ public:
     }
 
 protected:
-    void dfsVisit(T vertex, xMap<T, bool>& visited, DLinkedList<T>& result) {
+    void dfsVisit(T vertex, xMap<T, bool>& visited, DLinkedList<T>& result, bool sorted) {
         visited.put(vertex, true);
         
         // Get and sort outward edges
         DLinkedList<T> neighbors = graph->getOutwardEdges(vertex);
-        DLinkedListSE<T> sortedNeighbors(neighbors);
-        sortedNeighbors.sort(SortSimpleOrder<T>::compare4Desending);
+        if (sorted) {
+            DLinkedListSE<T> sortedNeighbors(neighbors);
+            sortedNeighbors.sort(SortSimpleOrder<T>::compare4Desending);
+            neighbors = sortedNeighbors;
+        }
         
         // Visit unvisited neighbors in sorted order
-        for (auto neighbor : sortedNeighbors) {
+        for (auto neighbor : neighbors) {
             if (!visited.get(neighbor)) {
-                dfsVisit(neighbor, visited, result);
+                dfsVisit(neighbor, visited, result, sorted);
             }
         }
         
