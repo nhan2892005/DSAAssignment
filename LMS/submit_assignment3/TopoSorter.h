@@ -69,11 +69,6 @@ public:
         xMap<T, int> inDegreeMap(*hash_code);
 
         DLinkedList<T> vertices = graph->vertices();
-        if (sorted) {
-            DLinkedListSE<T> sortedList(vertices);
-            sortedList.sort();
-            vertices = sortedList;
-        }
 
         // Initialize in-degree map
         for (auto vertex : vertices) {
@@ -89,11 +84,6 @@ public:
             result.add(vertex);
 
             DLinkedList<T> neighbors = graph->getOutwardEdges(vertex);
-            if (sorted) {
-                DLinkedListSE<T> neighborsSorted(neighbors);
-                neighborsSorted.sort();
-                neighbors = neighborsSorted;
-            }
 
             for (auto neighbor : neighbors) {
                 int inDegree = inDegreeMap.get(neighbor) - 1;
@@ -120,15 +110,9 @@ public:
     DLinkedList<T> dfsSort(bool sorted=true){
         DLinkedList<T> result;
         xMap<T, bool> visited(*hash_code);
-        xMap<T, int> outDegrees = vertex2outDegree(hash_code);
 
         // Get vertices and sort them if needed
         DLinkedList<T> vertices = graph->vertices();
-        if (sorted) {
-            DLinkedListSE<T> sortedList(vertices);
-            sortedList.sort(SortSimpleOrder<T>::compare4Desending);
-            vertices = sortedList;
-        }
 
         // Initialize visited map
         for (auto vertex : vertices) {
@@ -138,7 +122,7 @@ public:
         // Visit each vertex in order
         for (auto vertex : vertices) {
             if (!visited.get(vertex)) {
-                dfsVisit(vertex, visited, result);
+                dfsVisit(vertex, visited, result, sorted);
             }
         }
 
@@ -146,18 +130,16 @@ public:
     }
 
 protected:
-    void dfsVisit(T vertex, xMap<T, bool>& visited, DLinkedList<T>& result) {
+    void dfsVisit(T vertex, xMap<T, bool>& visited, DLinkedList<T>& result, bool sorted) {
         visited.put(vertex, true);
         
         // Get and sort outward edges
         DLinkedList<T> neighbors = graph->getOutwardEdges(vertex);
-        DLinkedListSE<T> sortedNeighbors(neighbors);
-        sortedNeighbors.sort(SortSimpleOrder<T>::compare4Desending);
         
         // Visit unvisited neighbors in sorted order
-        for (auto neighbor : sortedNeighbors) {
+        for (auto neighbor : neighbors) {
             if (!visited.get(neighbor)) {
-                dfsVisit(neighbor, visited, result);
+                dfsVisit(neighbor, visited, result, sorted);
             }
         }
         

@@ -45,6 +45,7 @@ public:
         * T: the front item
     */
     T pop(){
+        if(list.empty()) throw Underflow("Queue");
         return list.removeAt(0);
     }
 
@@ -56,6 +57,7 @@ public:
         * T: the front item
     */
     T& peek(){
+        if(list.empty()) throw Underflow("Queue");
         return list.get(0);
     }
 

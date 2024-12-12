@@ -45,6 +45,7 @@ public:
         * T - The top item
     */
     T pop(){
+        if(list.empty()) throw Underflow("Stack");
         return list.removeAt(0);
     }
 
@@ -58,6 +59,7 @@ public:
         * T - The top item
     */
     T& peek(){
+        if(list.empty()) throw Underflow("Stack");
         return list.get(0);
     }    
 
