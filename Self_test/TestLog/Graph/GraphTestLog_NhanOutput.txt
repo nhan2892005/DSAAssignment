@@ -954,17 +954,17 @@ DFS Topological Sort: A->B->C->D->E->NULL
 Task 61---------------------------------------------------
 BFS Topological Sort: A->B->C->D->E->G->F->NULL
 Task 62---------------------------------------------------
-DFS Topological Sort: A->B->C->D->E->G->F->NULL
+DFS Topological Sort: A->B->C->G->D->E->F->NULL
 Task 63---------------------------------------------------
 BFS Topological Sort: A->B->C->D->E->G->X->F->Y->V->NULL
 Task 64---------------------------------------------------
-DFS Topological Sort: A->B->C->D->E->G->F->X->Y->V->NULL
+DFS Topological Sort: A->B->C->G->D->X->E->F->Y->V->NULL
 Task 65---------------------------------------------------
-DFS Topological Sort: A->B->C->D->E->G->F->X->Y->V->NULL
+DFS Topological Sort: A->B->C->G->D->X->E->F->Y->V->NULL
 Task 66---------------------------------------------------
 BFS Topological Sort: C->D->E->A->G->X->B->F->Y->V->NULL
 Task 67---------------------------------------------------
-DFS Topological Sort: A->E->D->X->C->B->G->F->Y->V->NULL
+DFS Topological Sort: F->G->B->C->D->X->Y->V->E->A->NULL
 Task 68---------------------------------------------------
 DFS Topological Sort: A->B->C->D->NULL
 Task 69---------------------------------------------------

@@ -69,11 +69,6 @@ public:
         xMap<T, int> inDegreeMap(*hash_code);
 
         DLinkedList<T> vertices = graph->vertices();
-        if (sorted) {
-            DLinkedListSE<T> sortedList(vertices);
-            sortedList.sort();
-            vertices = sortedList;
-        }
 
         // Initialize in-degree map
         for (auto vertex : vertices) {
@@ -89,11 +84,6 @@ public:
             result.add(vertex);
 
             DLinkedList<T> neighbors = graph->getOutwardEdges(vertex);
-            if (sorted) {
-                DLinkedListSE<T> neighborsSorted(neighbors);
-                neighborsSorted.sort();
-                neighbors = neighborsSorted;
-            }
 
             for (auto neighbor : neighbors) {
                 int inDegree = inDegreeMap.get(neighbor) - 1;
@@ -122,15 +112,10 @@ public:
         xMap<T, bool> visited(*hash_code);
 
         // Get vertices and sort them if needed
-        DLinkedList<T> vertices = listOfZeroInDegrees();
-        if (sorted) {
-            DLinkedListSE<T> sortedList(vertices);
-            sortedList.sort(SortSimpleOrder<T>::compare4Desending);
-            vertices = sortedList;
-        }
+        DLinkedList<T> vertices = graph->vertices();
 
         // Initialize visited map
-        for (auto vertex : graph->vertices()) {
+        for (auto vertex : vertices) {
             visited.put(vertex, false);
         }
 
@@ -150,11 +135,6 @@ protected:
         
         // Get and sort outward edges
         DLinkedList<T> neighbors = graph->getOutwardEdges(vertex);
-        if (sorted) {
-            DLinkedListSE<T> sortedNeighbors(neighbors);
-            sortedNeighbors.sort(SortSimpleOrder<T>::compare4Desending);
-            neighbors = sortedNeighbors;
-        }
         
         // Visit unvisited neighbors in sorted order
         for (auto neighbor : neighbors) {
