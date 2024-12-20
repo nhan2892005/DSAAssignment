@@ -5,7 +5,7 @@
             "includePath": [
                 "${workspaceFolder}/**",
                 "${workspaceFolder}/Code",
-                "${workspaceFolder}/Self_test",
+                "${workspaceFolder}/test",
                 "${workspaceFolder}/Code/include/",
                 "${workspaceFolder}/Code/src/",
                 "${workspaceFolder}/Code/demo/",

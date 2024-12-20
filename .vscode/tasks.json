@@ -53,7 +53,7 @@
             "command": "make",
             "args": [
               "build_unit_test",
-              "file=${workspaceFolder}/Self_test/${fileBasename}"
+              "file=${workspaceFolder}/test/${fileBasename}"
             ],
             "group": {
               "kind": "build",
@@ -68,7 +68,7 @@
             "command": "make",
             "args": [
               "build_loaddata_test",
-              "file=${workspaceFolder}/Self_test/${fileBasename}"
+              "file=${workspaceFolder}/test/${fileBasename}"
             ],
             "group": {
               "kind": "build",
@@ -83,7 +83,7 @@
             "command": "make",
             "args": [
               "build_ann_test_layer",
-              "file=${workspaceFolder}/Self_test/${fileBasename}"
+              "file=${workspaceFolder}/test/${fileBasename}"
             ],
             "group": {
               "kind": "build",
