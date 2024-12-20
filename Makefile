@@ -14,7 +14,7 @@ LAYER_SRC := $(wildcard $(LAYERS_DIR)/*.cpp)
 xt_lib := $(SRC)/tensor/xtensor_lib.cpp
 
 # Define the build directory
-OBJ_DIR := Cache_Build
+OBJ_DIR := build
 MKDIR := mkdir -p
 RM := rm -rf
 
@@ -27,13 +27,12 @@ XT_LIB_OBJ := $(OBJ_DIR)/$(SRC)/tensor/xtensor_lib.o
 
 # Compiler and flags
 CXX := g++ -std=c++17
-CPPFLAGS := -ICode/include -ICode/include/ann -ICode/include/tensor -ICode/include/sformat -ICode/demo -ICode/src -ISelf_test -g
+CPPFLAGS := -ICode/include -ICode/include/ann -ICode/include/tensor -ICode/include/sformat -ICode/demo -ICode/src -Itest -g
 CFLAGS := -pthread #-Wall
 LDLIBS := -lm -lpthread
 
 # Unit test source
-TEST_DIR := Self_test
-LMS_DIR := Self_LMS_sample_test
+TEST_DIR := test
 UNIT_TEST_SOURCE := $(file)
 UNIT_TEST_OBJ := $(OBJ_DIR)/$(TEST_DIR)/$(basename $(notdir $(UNIT_TEST_SOURCE))).o
 
